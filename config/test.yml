@@ -1,0 +1,3 @@
+# NODE_ENV=test is used during `npm test`.
+# This file exists to keep the `config` module happy.
+# Ref: https://github.com/lorenwest/node-config/wiki/Strict-Mode

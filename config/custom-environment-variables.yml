@@ -1,0 +1,8 @@
+# Names of env variables which may override specific config flags.
+
+port: PORT
+
+statsd_host: STATSD_PORT_8125_UDP_ADDR
+statsd_port: STATSD_PORT_8125_UDP_PORT
+
+sentry_dsn: SENTRY_DSN

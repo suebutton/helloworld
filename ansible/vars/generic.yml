@@ -1,0 +1,4 @@
+---
+service_name: ""
+elb_port: 9032
+container_port: 9059

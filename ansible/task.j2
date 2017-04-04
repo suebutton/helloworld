@@ -1,0 +1,45 @@
+{
+    "family": "{{ aws_task_name }}",
+    "containerDefinitions": [
+        {
+            "name": "{{ service_name }}",
+            "image": "{{ docker_registry_host }}/{{ service_name }}:{{ version }}",
+            "cpu": 0,
+            "memory": 1024,
+            "portMappings": [
+                {
+                    "containerPort": {{ container_port }},
+                    "hostPort": {{ elb_port }},
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "mountPoints": [],
+            "environment": [
+                {
+                    "name": "PORT",
+                    "value": "{{ container_port }}"
+                }, {
+                    "name": "NODE_ENV",
+                    "value": "{{ service_env }}"
+                }, {
+                    "name": "LOGGLY_TOKEN",
+                    "value": "{{ loggly_token }}"
+                }, {
+                    "name": "LOGGLY_TAGS",
+                    "value": "app-{{ service_name }},env-{{ service_env }}"
+                }, {
+                    "name": "STATSD_PORT_8125_UDP_ADDR",
+                    "value": "{{ statsd_host }}"
+                }, {
+                    "name": "STATSD_PORT_8125_UDP_PORT",
+                    "value": "{{ statsd_udp_port }}"
+                }, {
+                    "name": "SENTRY_DSN",
+                    "value": "{{ sentry_dsn }}"
+                }
+            ]
+        }
+    ],
+    "volumes": []
+}
