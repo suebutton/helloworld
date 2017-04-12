@@ -1,7 +1,7 @@
 {
   "name": "kokiri",
   "version": "1.0.0",
-  "description": "Where links come from",
+  "description": "Where links come from.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
