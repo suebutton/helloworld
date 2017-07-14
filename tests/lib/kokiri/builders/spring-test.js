@@ -1,0 +1,175 @@
+const assert = require('assert');
+
+const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
+
+describe('lib/kokiri/builders/spring', function() {
+  beforeEach(function() {
+    const approvals = [
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: 'org-5f8137923a8ee6e3',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], [], approvals);
+
+    this.builder = this.config.createBuilder('org-XXX', 'org-5f8137923a8ee6e3');
+  });
+
+  describe('#appAction', function() {
+    it('returns an app action', function() {
+      assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'com.shopspring.spring://?hide_education=true&autologin=true&ref=button&btn_ref=srctok-XXX',
+        browser_link: 'https://www.shopspring.com?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns an app action for product', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/products/53497978',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'com.shopspring.spring://products/53497978?hide_education=true&autologin=true&ref=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.shopspring.com/products/53497978?btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: 'products/53497978',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'com.shopspring.spring://products/53497978?hide_education=true&autologin=true&ref=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.shopspring.com/products/53497978?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for brand', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/brands/3047',
+            query: {
+              utm_campaign: 'BEST OIL',
+            },
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'com.shopspring.spring://brands/3047?utm_campaign=BEST%20OIL&hide_education=true&autologin=true&ref=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.shopspring.com/brands/3047?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns null for non-ios platforms', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/brands/3047',
+            query: {
+              utm_campaign: 'BEST OIL',
+            },
+            hash: null,
+          },
+          'pavelOs',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.shopspring.com/brands/3047?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
+  describe('#universalLink', function() {
+    it('returns a universal link', function() {
+      assert.deepEqual(
+        this.builder.universalLink({}, 'srctok-XXX'),
+        'https://track.bttn.io/shopspring?btn_ref=srctok-XXX'
+      );
+    });
+
+    it('returns a universal link for static affiliation', function() {
+      assert.deepEqual(
+        this.builder.universalLink({}),
+        'https://track.bttn.io/shopspring?btn_ref=org-XXX'
+      );
+    });
+
+    it('returns a universal link for product', function() {
+      assert.deepEqual(
+        this.builder.universalLink(
+          {
+            pathname: '/products/53497978',
+            query: {},
+            hash: null,
+          },
+          'srctok-XXX'
+        ),
+        'https://track.bttn.io/shopspring/products/53497978?btn_ref=srctok-XXX'
+      );
+    });
+
+    it('returns a universal link for brand', function() {
+      assert.deepEqual(
+        this.builder.universalLink(
+          {
+            pathname: '/brands/3047',
+            query: {
+              utm_campaign: 'BEST OIL',
+            },
+            hash: null,
+          },
+          'srctok-XXX'
+        ),
+        'https://track.bttn.io/shopspring/brands/3047?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX'
+      );
+    });
+  });
+
+  it('returns a destination from a url', function() {
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://www.shopspring.com/brands/3047?utm_campaign=BEST%20OIL'
+      ),
+      {
+        pathname: '/brands/3047',
+        query: { utm_campaign: 'BEST OIL' },
+        hash: null,
+      }
+    );
+
+    assert.deepEqual(this.builder.destinationFromUrl(''), {
+      pathname: null,
+      query: {},
+      hash: null,
+    });
+  });
+});

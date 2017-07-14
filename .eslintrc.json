@@ -1,3 +1,7 @@
 {
-    "extends": "button-platform"
+  "extends": "button-platform",
+  "rules": {
+    "space-before-function-paren": "off",
+    "max-len": "off"
+  }
 }

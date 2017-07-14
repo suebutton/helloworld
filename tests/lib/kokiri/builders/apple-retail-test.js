@@ -1,0 +1,187 @@
+const assert = require('assert');
+
+const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
+
+describe('lib/kokiri/builders/apple-retail', function() {
+  beforeEach(function() {
+    const approvals = [
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: 'org-6970ba034d932903',
+      },
+      {
+        status: 'approved',
+        audience: 'org-2d432a88b9bb8bda',
+        organization: 'org-6970ba034d932903',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], [], approvals);
+
+    this.builder = this.config.createBuilder('org-XXX', 'org-6970ba034d932903');
+  });
+
+  describe('#appAction', function() {
+    it('returns an app action', function() {
+      assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com?btn_ref=srctok-XXX',
+        browser_link:
+          'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a publisher-specific app action', function() {
+      const builder = this.config.createBuilder(
+        'org-2d432a88b9bb8bda',
+        'org-6970ba034d932903'
+      );
+
+      assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'http://aos.prf.hn/click/camref:1101ly5X/pubref:srctok-XXX/destination:http://www.apple.com?btn_ref=srctok-XXX',
+        browser_link:
+          'http://aos.prf.hn/click/camref:1101ly5X/pubref:srctok-XXX/destination:http://www.apple.com?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns an app action for beats', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/shop/accessories/all-accessories/beats',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/xc/beats//?btn_ref=srctok-XXX',
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/shop/accessories/all-accessories/beats?btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/shop/accessories/all-accessories/beats/1/2',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/xc/beats//?btn_ref=srctok-XXX',
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/shop/accessories/all-accessories/beats/1/2?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for mac', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/mac',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/xc/mac//?btn_ref=srctok-XXX',
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/mac?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for ipad', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/ipad',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/xc/ipad//?btn_ref=srctok-XXX',
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/ipad?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for iphone', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/iphone',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/xc/iphone//?btn_ref=srctok-XXX',
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/iphone?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for watch', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/watch',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/xc/watch//?btn_ref=srctok-XXX',
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/watch?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for unsupported paths', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/bloop',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/bloop?btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
+  it('returns a destination from a url', function() {
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://www.apple.com/shop/accessories/all-accessories/beats?q=2#anchor'
+      ),
+      {
+        pathname: '/shop/accessories/all-accessories/beats',
+      }
+    );
+
+    assert.deepEqual(this.builder.destinationFromUrl(''), {
+      pathname: null,
+    });
+  });
+});

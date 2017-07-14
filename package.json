@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "Where links come from.",
   "main": "index.js",
+  "engines": {
+    "node": ">=7"
+  },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha --require intelli-espower-loader --recursive tests/"
+    "precommit": "lint-staged",
+    "lint": "eslint --ext .js .",
+    "unit": "mocha --require intelli-espower-loader --recursive tests/",
+    "test": "npm run unit && npm run lint",
+    "format": "prettier --single-quote --trailing-comma es5 --write \"**/*.js\"",
+    "coverage": "nyc npm run unit"
   },
   "private": true,
   "repository": {
@@ -15,10 +23,14 @@
   "author": "will@usebutton.com",
   "license": "UNLICENSED",
   "dependencies": {
-    "baseweb": "https://button-archive.s3.amazonaws.com/npm/baseweb-2.1.1.tgz",
-    "config": "^1.24.0",
-    "js-yaml": "^3.6.1",
-    "libbtn": "https://button-archive.s3.amazonaws.com/npm/libbtn-1.34.0.tgz"
+    "baseweb": "https://button-archive.s3.amazonaws.com/npm/baseweb-2.3.0.tgz",
+    "comstore-client": "https://button-archive.s3.amazonaws.com/npm/comstore-client-1.25.0.tgz",
+    "koa-bodyparser": "^4.2.0",
+    "koa-static": "^4.0.1",
+    "libbtn": "https://button-archive.s3.amazonaws.com/npm/libbtn-1.43.2.tgz",
+    "lodash": "^4.17.4",
+    "redis": "^2.7.1",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "eslint": "^3.18.0",
@@ -26,18 +38,26 @@
     "eslint-config-button-platform": "^1.0.4",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-mocha": "^4.9.0",
+    "husky": "^0.14.3",
     "intelli-espower-loader": "^1.0.1",
-    "jshint": "^2.9.2",
+    "lint-staged": "^4.0.1",
     "mocha": "^2.5.3",
     "mocha-eslint": "^3.0.1",
-    "mocha-generators": "^1.2.0",
     "nock": "^8.0.0",
+    "nyc": "^11.0.3",
     "power-assert": "^1.4.2",
-    "sinon": "^1.17.4",
+    "prettier": "^1.5.2",
+    "sinon": "^2.3.8",
     "supertest": "^3.0.0",
     "supertest-koa-agent": "^0.3.0"
   },
   "directories": {
     "test": "tests/"
+  },
+  "lint-staged": {
+    "*.js": [
+      "format",
+      "git add"
+    ]
   }
 }

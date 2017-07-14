@@ -3,6 +3,9 @@
 Kokiri is available by making HTTP requests to supported endpoints. All
 endpoints expect request payloads to be `application/json`.
 
+If you are a service who has access to the request Id authored by DLCFE, please
+pass it along to Kokiri as the `X-Button-Request` HTTP header.
+
 ## Responses
 
 Successful responses will be signaled with a `<400` HTTP Status Code. `data`
@@ -35,7 +38,12 @@ standard baseweb-formatted errors:
 }
 ```
 
-## Endpoints
+## Standard Baseweb Endpoints
+
+* `GET /ping`
+* `GET /health`
+
+## App Endpoints
 
 All `/v1/link/*` endpoints support bulk requests.
 
@@ -81,9 +89,14 @@ payload.
     "objects": [
       {
         "merchant_id": "org-YYY",
-        "affiliate": null,
+        "affiliate": {
+          "display_name": "AffiliateNetwork",
+          "hostname": "click.affiliateworld.biz",
+        },
         "approved": false,
-        "redirected": false
+        "redirect": false,
+        "has_ios_deeplink": false,
+        "has_android_deeplink": true
       }
     ],
     "warnings": [
@@ -106,6 +119,7 @@ be `null`.
   {
     "publisher_id": "org-XXX",
     "url": "https://groupon.com",
+    "platform": "ios",
     "attribution_token": "srctok-XXX"
   }
 ]
@@ -122,9 +136,8 @@ be `null`.
     "objects": [
       {
         "merchant_id": "org-YYY",
-        "affiliate": null,
         "approved": true,
-        "redirected": false,
+        "redirect": true,
         "app_action": {
           "app_link": "groupon:///dispatch/us?btn_ref=srctok-XXX",
           "browser_link": "https://tracking.groupon.com?btn_ref=srctok-XXX"
@@ -142,7 +155,8 @@ be `null`.
 
 Fetch a universal link for a link.  Accepts an array of links or individual link
 payload.  If a link couldn't be enhanced, the corresponding response entry will
-be `null`.
+be `null`.  If `attribution_token` isn't provided, the link will statically
+affiliate.
 
 ###### Request Payload
 
@@ -168,9 +182,8 @@ be `null`.
     "objects": [
       {
         "merchant_id": "org-YYY",
-        "affiliate": null,
         "approved": true,
-        "redirected": false,
+        "redirect": false,
         "universal_link": "https://track.bttn.io/groupon-tracking?btn_fallback_exp=web&btn_ref=org-XXX"
       }
     ],

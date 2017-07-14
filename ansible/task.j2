@@ -23,20 +23,26 @@
                     "name": "NODE_ENV",
                     "value": "{{ service_env }}"
                 }, {
-                    "name": "LOGGLY_TOKEN",
-                    "value": "{{ loggly_token }}"
-                }, {
-                    "name": "LOGGLY_TAGS",
-                    "value": "app-{{ service_name }},env-{{ service_env }}"
-                }, {
                     "name": "STATSD_PORT_8125_UDP_ADDR",
                     "value": "{{ statsd_host }}"
                 }, {
                     "name": "STATSD_PORT_8125_UDP_PORT",
                     "value": "{{ statsd_udp_port }}"
                 }, {
+                    "name": "BIGQUERY_PRIVATE_KEY",
+                    "value": "{{ bigquery_private_key }}"
+                }, {
+                    "name": "BIGQUERY_CLIENT_EMAIL",
+                    "value": "{{ bigquery_client_email }}"
+                }, {
                     "name": "SENTRY_DSN",
                     "value": "{{ sentry_dsn }}"
+                }, {
+                    "name": "REDIS_HOSTNAME",
+                    "value": "{{ redis_hostname }}"
+                }, {
+                    "name": "REDIS_PORT",
+                    "value": "{{ redis_port }}"
                 }
             ]
         }

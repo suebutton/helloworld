@@ -1,4 +1,5 @@
-FROM docker.button-internal.com/node-baseimage:git-a60ac2c
+FROM docker.button-internal.com/node-baseimage:git-d673b9b
+MAINTAINER Will Myers <will@usebutton.com>
 
 RUN mkdir /app
 WORKDIR /app
@@ -8,6 +9,6 @@ RUN yarn install --pure-lockfile
 
 ADD . /app/
 
-EXPOSE 9059
+EXPOSE 3000
 
-CMD /bin/bash -c 'npm start 2>&1 | ./bin/shiplogs'
+CMD /bin/sh -c 'npm start 2>&1 | ./bin/shiplogs'

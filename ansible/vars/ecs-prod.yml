@@ -1,2 +1,4 @@
 ---
 num_tasks: 3
+redis_hostname: kokiri-prod.qhrppu.ng.0001.usw2.cache.amazonaws.com
+redis_port: 6379

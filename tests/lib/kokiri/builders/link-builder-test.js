@@ -1,0 +1,146 @@
+const assert = require('assert');
+
+const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
+const LinkBuilder = require('../../../../lib/kokiri/builders/link-builder');
+
+describe('lib/kokiri/builders/link-builder', function() {
+  beforeEach(function() {
+    const supportedAffiliates = [
+      {
+        hostname: 'linksynergy.com',
+        query_url_keys: [{ key: 'url' }],
+        query_ids: [{ key: 'id' }],
+      },
+    ];
+
+    const webToAppMappings = [
+      {
+        organization: 'org-5d63b849c1d24db2',
+        subdomain_name: 'bloop',
+        external_host: 'https://bloop.com',
+      },
+    ];
+
+    const approvals = [
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: 'org-5d63b849c1d24db2',
+      },
+    ];
+
+    const config = new KokiriConfig(
+      [],
+      [],
+      [],
+      supportedAffiliates,
+      webToAppMappings,
+      approvals
+    );
+
+    this.builder = config.createBuilder('org-XXX', 'org-5d63b849c1d24db2');
+
+    this.baseBuilder = new LinkBuilder({}, 'org-XXX', 'org-YYY');
+  });
+
+  describe('#destinationFromUrl', function() {
+    it('returns a destination from a url', function() {
+      assert.deepEqual(this.builder.destinationFromUrl('https://bloop.net'), {
+        pathname: '/',
+        query: {},
+        hash: null,
+      });
+
+      assert.deepEqual(this.builder.destinationFromUrl(''), {
+        pathname: null,
+        query: {},
+        hash: null,
+      });
+
+      assert.deepEqual(
+        this.builder.destinationFromUrl('https://bloop.net/1/2?q=2#anchor'),
+        {
+          pathname: '/1/2',
+          query: { q: '2' },
+          hash: '#anchor',
+        }
+      );
+    });
+
+    it('returns a destination from a bttnio url', function() {
+      assert.deepEqual(
+        this.builder.destinationFromUrl('https://bloop.bttn.io/1/2?q=2#anchor'),
+        {
+          pathname: '/1/2',
+          query: { q: '2' },
+          hash: '#anchor',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.destinationFromUrl(
+          'https://track.bttn.io/bloop/1/2?q=2#anchor'
+        ),
+        {
+          pathname: '/1/2',
+          query: { q: '2' },
+          hash: '#anchor',
+        }
+      );
+    });
+
+    it('returns a destination from an affiliate url', function() {
+      assert.deepEqual(
+        this.builder.destinationFromUrl(
+          'https://linksynergy.com?url=https%3A%2F%2Fbloop.net%2F1%2F2%3Fq%3D2%23anchor'
+        ),
+        {
+          pathname: '/1/2',
+          query: { q: '2' },
+          hash: '#anchor',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.destinationFromUrl(
+          'https://linksynergy.com/1/2/3?id=1234'
+        ),
+        {
+          pathname: null,
+          query: {},
+          hash: null,
+        }
+      );
+
+      assert.deepEqual(this.builder.destinationFromUrl(''), {
+        pathname: null,
+        query: {},
+        hash: null,
+      });
+    });
+  });
+
+  describe('#getDestinationFromUrl', function() {
+    it('defines a basic implementation of mapping a url to a destination', function() {
+      assert.deepEqual(
+        this.baseBuilder.getDestinationFromUrl(
+          'https://www.pavel.net/1/2?q=a#hash'
+        ),
+        {
+          pathname: '/1/2',
+          query: { q: 'a' },
+          hash: '#hash',
+        }
+      );
+    });
+  });
+
+  describe('#getUniversalLinkDestination', function() {
+    it('injects a btn_ref by defaut', function() {
+      assert.deepEqual(
+        this.baseBuilder.getUniversalLinkDestination({ query: { a: 1 } }),
+        { query: { a: 1 } }
+      );
+    });
+  });
+});
