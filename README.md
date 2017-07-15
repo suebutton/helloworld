@@ -20,7 +20,7 @@ the basics:
 If you have a Button Request Id handy, please pass it as the `X-Button-Request`
 HTTP header.
 
-## Depedencies
+## Dependencies
 
 1. A redis cache.  Currently, this cache is used for mapping urls to their
    redirect location.
