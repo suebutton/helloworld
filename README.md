@@ -6,6 +6,9 @@ attributed app and web links.
 * **[Prod](http://kokiri-ecs-prod.button-internal.com)**
 * **[Staging](http://kokiri-ecs-staging.button-internal.com)**
 
+Requests for links are Approval sensitive (will return `null` if no Approval
+is set).
+
 ## Protocol
 
 For a full description of the protocol, consult `docs/protocol.md`.  Here are
