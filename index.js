@@ -28,7 +28,7 @@ const bigqueryLogger =
     3000
   );
 
-const redis = new RedisClient({
+const redis = new RedisClient(metrics, {
   host: config.redis.hostname,
   port: config.redis.port,
 });
