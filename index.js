@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 const { get } = require('lodash');
+const nodeRedis = require('redis');
 const StatsdClient = require('libbtn/logging/statsd-client');
 const Metrics = require('libbtn/util/metrics');
 const ErrorLogger = require('libbtn/logging/error-logger');
@@ -28,10 +29,13 @@ const bigqueryLogger =
     3000
   );
 
-const redis = new RedisClient(metrics, {
-  host: config.redis.hostname,
-  port: config.redis.port,
-});
+const redis = new RedisClient(
+  nodeRedis.createClient({
+    host: config.redis.hostname,
+    port: config.redis.port,
+  }),
+  metrics
+);
 
 const comstore = new Comstore(
   config.comstore.url,

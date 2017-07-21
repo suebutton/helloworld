@@ -13,7 +13,7 @@
     "unit": "mocha --require intelli-espower-loader --recursive tests/",
     "test": "npm run unit && npm run lint",
     "format": "prettier --single-quote --trailing-comma es5 --write \"**/*.js\"",
-    "coverage": "nyc npm run unit"
+    "coverage": "nyc npm run unit && nyc report --reporter=lcov && open coverage/lcov-report/index.html"
   },
   "private": true,
   "repository": {
@@ -58,6 +58,11 @@
     "*.js": [
       "format",
       "git add"
+    ]
+  },
+  "nyc": {
+    "exclude": [
+      "tests"
     ]
   }
 }

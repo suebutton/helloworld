@@ -1,6 +1,7 @@
 const Application = require('baseweb/app');
 
 const { bulk } = require('../../lib/bulk');
+const { redirectFailedError } = require('../../lib/errors');
 
 const {
   validateAttributes,
@@ -33,22 +34,24 @@ module.exports = (redis, kokiriAdapter) => {
       affiliate,
     } = await kokiriAdapter.maybeRedirect(redis, url);
 
-    const { merchantId, approved } = kokiriAdapter.linkAttributes(
-      targetUrl,
-      publisherId
-    );
+    if (targetUrl === null) {
+      throw redirectFailedError(url);
+    }
 
-    const [iosAppAction, androidAppAction] = ['ios', 'android'].map(p =>
-      kokiriAdapter.appAction(targetUrl, publisherId, p, 'srctok-XXX', ctx)
-    );
+    const {
+      merchantId,
+      approved,
+      hasIosDeeplink,
+      hasAndroidDeeplink,
+    } = kokiriAdapter.linkAttributes(targetUrl, publisherId);
 
     return viewAttributes(
       merchantId,
       approved,
       shouldRedirect,
       affiliate,
-      iosAppAction,
-      androidAppAction
+      hasIosDeeplink,
+      hasAndroidDeeplink
     );
   });
 
@@ -66,6 +69,10 @@ module.exports = (redis, kokiriAdapter) => {
       redis,
       url
     );
+
+    if (targetUrl === null) {
+      throw redirectFailedError(url);
+    }
 
     const { merchantId, approved } = kokiriAdapter.linkAttributes(
       targetUrl,
@@ -103,6 +110,10 @@ module.exports = (redis, kokiriAdapter) => {
       redis,
       url
     );
+
+    if (targetUrl === null) {
+      throw redirectFailedError(url);
+    }
 
     const { merchantId, approved } = kokiriAdapter.linkAttributes(
       targetUrl,

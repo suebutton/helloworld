@@ -10,6 +10,7 @@ const {
   normalizeHostname,
   attributeQuery,
   attributeLink,
+  urlCacheKey,
 } = require('../../../lib/kokiri/lib');
 
 describe('lib/kokiri/lib', function() {
@@ -291,6 +292,22 @@ describe('lib/kokiri/lib', function() {
         attributeLink('https://pavel.net/?a=1#anchor', 'srctok-XXX', 'pavel'),
         'https://pavel.net?a=1&pavel=srctok-XXX&btn_refkey=pavel#anchor'
       );
+    });
+  });
+
+  describe('#urlCacheKey', function() {
+    it('returns a reasonable default cache key for a url', function() {
+      assert.deepEqual(urlCacheKey('http://pup.com'), 'pup.com/');
+      assert.deepEqual(urlCacheKey('https://pup.com'), 'pup.com/');
+      assert.deepEqual(urlCacheKey('http://pup.com/1/2'), 'pup.com/1/2');
+      assert.deepEqual(urlCacheKey('http://pup.com/1/2#anchor'), 'pup.com/1/2');
+      assert.deepEqual(
+        urlCacheKey('http://pup.com/1/2?q=1#anchor'),
+        'pup.com/1/2'
+      );
+      assert.deepEqual(urlCacheKey('httppup.com'), 'httppup.com');
+      assert.deepEqual(urlCacheKey(''), '');
+      assert.deepEqual(urlCacheKey(null), null);
     });
   });
 });

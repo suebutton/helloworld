@@ -1,4 +1,5 @@
 const assert = require('assert');
+const crypto = require('crypto');
 
 const KokiriConfig = require('../../../lib/kokiri/kokiri-config');
 
@@ -1459,6 +1460,71 @@ describe('lib/kokiri/kokiri-config', function() {
             this.config.shouldRedirectByUrl(
               'http://bloopon.com/visit/123/456/blop'
             )
+          );
+        });
+      });
+
+      describe('#redirectCacheKey', function() {
+        beforeEach(function() {
+          this.supportedAffiliatePathnameIds = [
+            {
+              hostname: 'groupon.com',
+              regex: String.raw`(?:^|\/)redirect\/(\d{1,})(?:$|\/.*)`,
+              redirect: true,
+              matches: [
+                {
+                  values: ['123'],
+                  organization_id: null,
+                  url: null,
+                },
+              ],
+            },
+            {
+              hostname: 'bloopon.com',
+              regex: String.raw`(?:^|\/)visit\/(\d{1,})\/(\d{1,})(?:$|\/.*)`,
+              redirect: true,
+              getCacheKey: url =>
+                crypto.createHash('sha1').update(url).digest('hex'),
+              matches: [
+                {
+                  values: ['123', '456'],
+                  organization_id: null,
+                  url: null,
+                },
+              ],
+            },
+          ];
+
+          this.supportedAffiliates = [
+            {
+              hostname: 'groupon.com',
+              query_url_keys: [],
+            },
+            {
+              hostname: 'bloopon.com',
+              query_url_keys: [],
+            },
+          ];
+
+          this.config = createConfig(
+            [],
+            [],
+            this.supportedAffiliatePathnameIds,
+            this.supportedAffiliates
+          );
+        });
+
+        it('returns a default cache key', function() {
+          assert.deepEqual(
+            this.config.redirectCacheKey('http://groupon.com/redirect/123'),
+            'groupon.com/redirect/123'
+          );
+        });
+
+        it('returns a specialized cache key', function() {
+          assert.deepEqual(
+            this.config.redirectCacheKey('http://bloopon.com/visit/123/456'),
+            'bd54d774036c7c69e2fb0bbc2abec1b4df525f10'
           );
         });
       });

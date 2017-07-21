@@ -1,4 +1,4 @@
-const { get, isPlainObject } = require('lodash');
+const { isPlainObject } = require('lodash');
 
 /**
  * @param  {string} merchantId
@@ -7,12 +7,8 @@ const { get, isPlainObject } = require('lodash');
  * @param  {?Object} affiliate
  * @param  {string} affiliate.hostname
  * @param  {string} affiliate.display_name
- * @param  {?Object} iosAppAction
- * @param  {string} iosAppAction.app_link
- * @param  {string} iosAppAction.browser_link
- * @param  {?Object} androidAppAction
- * @param  {string} iosAppAction.app_link
- * @param  {string} iosAppAction.browser_link
+ * @param  {boolean} hasIosDeeplink
+ * @param  {boolean} hasAndroidDeeplink
  * @return {Object}
  */
 function viewAttributes(
@@ -20,12 +16,9 @@ function viewAttributes(
   approved,
   shouldRedirect,
   affiliate,
-  iosAppAction,
-  androidAppAction
+  hasIosDeeplink,
+  hasAndroidDeeplink
 ) {
-  const hasIosDeeplink = !!get(iosAppAction, 'app_link');
-  const hasAndroidDeeplink = !!get(androidAppAction, 'app_link');
-
   return {
     merchant_id: merchantId,
     affiliate: viewAffiliate(affiliate),

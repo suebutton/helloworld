@@ -2,6 +2,8 @@ const assert = require('assert');
 
 const sinon = require('sinon');
 
+const { mochaAsync } = require('../helpers');
+
 const KokiriAdapter = require('../../lib/kokiri-adapter');
 
 describe('/lib/kokiri/kokiri-adapter', function() {
@@ -64,8 +66,107 @@ describe('/lib/kokiri/kokiri-adapter', function() {
     );
   });
 
+  describe('#maybeRedirect', function() {
+    beforeEach(function() {
+      this.redis = {
+        getSet: sinon.spy(() => Promise.resolve('http://redirect.biz')),
+      };
+    });
+
+    it(
+      'returns information when no redirect is needed',
+      mochaAsync(async function() {
+        const result = await this.kokiriAdapter.maybeRedirect(
+          this.redis,
+          'http://groupon.com/bloop'
+        );
+
+        // TODO(will): this `affiliate` match is wrong
+        assert.deepEqual(result, {
+          affiliate: {
+            display_name: 'Groupon',
+            hostname: 'groupon.com',
+            query_url_keys: [],
+          },
+          shouldRedirect: false,
+          targetUrl: 'http://groupon.com/bloop',
+        });
+      })
+    );
+
+    it(
+      'redirects and returns information when needed',
+      mochaAsync(async function() {
+        const result = await this.kokiriAdapter.maybeRedirect(
+          this.redis,
+          'http://groupon.com/coupons/click/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+        );
+
+        assert.deepEqual(result, {
+          affiliate: {
+            display_name: 'Groupon',
+            hostname: 'groupon.com',
+            query_url_keys: [],
+          },
+          shouldRedirect: true,
+          targetUrl: 'http://redirect.biz',
+        });
+      })
+    );
+
+    it(
+      'handles failed redirects',
+      mochaAsync(async function() {
+        this.redis.getSet = async () => Promise.reject('blork');
+        const result = await this.kokiriAdapter.maybeRedirect(
+          this.redis,
+          'http://groupon.com/coupons/click/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+        );
+
+        assert.deepEqual(result, {
+          affiliate: {
+            display_name: 'Groupon',
+            hostname: 'groupon.com',
+            query_url_keys: [],
+          },
+          shouldRedirect: true,
+          targetUrl: null,
+        });
+      })
+    );
+  });
+
+  describe('#cleanExperience', function() {
+    it('cleans an experience object without mutating', function() {
+      assert.deepEqual(this.kokiriAdapter.cleanExperience(), {});
+      assert.deepEqual(this.kokiriAdapter.cleanExperience({}), {});
+      assert.deepEqual(this.kokiriAdapter.cleanExperience({ bloop: true }), {});
+      assert.deepEqual(
+        this.kokiriAdapter.cleanExperience({
+          btn_fallback_exp: 'web',
+          bloop: true,
+        }),
+        { btn_fallback_exp: 'web' }
+      );
+      assert.deepEqual(
+        this.kokiriAdapter.cleanExperience({
+          btn_fallback_exp: 'web',
+          btn_desktop_url: '',
+          btn_mobile_url: '',
+        }),
+        { btn_fallback_exp: 'web', btn_desktop_url: '', btn_mobile_url: '' }
+      );
+
+      const experience = { btn_fallback_exp: 'web', bloop: true };
+      assert.deepEqual(this.kokiriAdapter.cleanExperience(experience), {
+        btn_fallback_exp: 'web',
+      });
+      assert.deepEqual(experience, { btn_fallback_exp: 'web', bloop: true });
+    });
+  });
+
   describe('#redirectAttributes', function() {
-    it('', function() {
+    it('returns redirect information about a link', function() {
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
           'https://click.linksynergy.com?murl=https%3A%2F%2Fhotels.com/1/2',
@@ -94,6 +195,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-3573c6b896624279',
           approved: true,
+          hasAndroidDeeplink: false,
+          hasIosDeeplink: false,
         }
       );
 
@@ -105,6 +208,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: null,
           approved: false,
+          hasAndroidDeeplink: false,
+          hasIosDeeplink: false,
         }
       );
     });
@@ -115,6 +220,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-3573c6b896624279',
           approved: true,
+          hasAndroidDeeplink: false,
+          hasIosDeeplink: false,
         }
       );
 
@@ -123,6 +230,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: null,
           approved: false,
+          hasAndroidDeeplink: false,
+          hasIosDeeplink: false,
         }
       );
 
@@ -131,6 +240,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-681847bf6cc4d57c',
           approved: false,
+          hasAndroidDeeplink: false,
+          hasIosDeeplink: false,
         }
       );
     });
@@ -144,6 +255,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-3573c6b896624279',
           approved: true,
+          hasAndroidDeeplink: false,
+          hasIosDeeplink: false,
         }
       );
     });
@@ -152,6 +265,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.deepEqual(this.kokiriAdapter.linkAttributes(null, 'org-XXX'), {
         merchantId: null,
         approved: false,
+        hasAndroidDeeplink: false,
+        hasIosDeeplink: false,
       });
     });
   });
@@ -277,7 +392,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.deepEqual(this.metrics.increment.args[0][0], 'kokiri.success');
     });
 
-    it('returns null on error, logs the error, and increments metrics', function() {
+    it('returns null on error and increments metrics', function() {
       const ctx = {
         request: {
           url: 'https://api.usebutton.com/v1/session/get-links',
@@ -497,30 +612,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       );
 
       assert.deepEqual(universalLink, null);
-    });
-
-    it(`won't log to sentry if we dont want it to`, function() {
-      const ctx = {
-        request: {
-          url: 'https://api.usebutton.com/v1/links',
-          method: 'POST',
-        },
-        state: {
-          requestId: 1234,
-        },
-      };
-
-      const universalLink = this.kokiriAdapter.universalLink(
-        'https://hotels.com',
-        'org-YYY',
-        {},
-        'srctok-XXX',
-        ctx
-      );
-
-      assert.deepEqual(universalLink, null);
-      assert.equal(this.metrics.increment.callCount, 1);
-      assert.deepEqual(this.metrics.increment.args[0][0], 'kokiri.error');
     });
   });
 

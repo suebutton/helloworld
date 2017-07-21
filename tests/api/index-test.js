@@ -1,21 +1,22 @@
 const supertest = require('supertest-koa-agent');
-const App = require('../../app');
 
-describe('api', function() {
-  before('create the app', function() {
-    this.app = App({});
+const { app } = require('../helpers');
+
+describe('api/index', function() {
+  before(function() {
+    this.app = app();
     this.request = supertest(this.app.koa);
   });
 
-  it('GET /', function() {
-    this.request.get('/').expect(200);
+  it('GET /', function(done) {
+    this.request.get('/').expect(200).end(done);
   });
 
-  it('GET /health', function() {
-    this.request.get('/health').expect(200, 'OK');
+  it('GET /health', function(done) {
+    this.request.get('/health').expect(200, 'OK').end(done);
   });
 
-  it('GET /ping', function() {
-    this.request.get('/health').expect(200, 'OK');
+  it('GET /ping', function(done) {
+    this.request.get('/health').expect(200, 'OK').end(done);
   });
 });

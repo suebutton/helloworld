@@ -4,7 +4,7 @@ const serve = require('koa-static');
 const Application = require('baseweb/app');
 
 const formatMiddleware = require('../middleware/format');
-const requestIdMiddleware = require('../middleware/request_id');
+const requestIdMiddleware = require('../middleware/request-id');
 
 const LinkRouter = require('./link');
 const ConfigRouter = require('./config');
