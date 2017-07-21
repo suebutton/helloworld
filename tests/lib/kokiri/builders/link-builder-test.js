@@ -9,7 +9,15 @@ describe('lib/kokiri/builders/link-builder', function() {
       {
         hostname: 'linksynergy.com',
         query_url_keys: [{ key: 'url' }],
-        query_ids: [{ key: 'id' }],
+      },
+    ];
+
+    const supportedAffiliateQueryIds = [
+      {
+        hostname: 'linksynergy.com',
+        key: 'id',
+        value: 'bloop',
+        url: 'http://bloop.com/bleep',
       },
     ];
 
@@ -31,7 +39,7 @@ describe('lib/kokiri/builders/link-builder', function() {
 
     const config = new KokiriConfig(
       [],
-      [],
+      supportedAffiliateQueryIds,
       [],
       supportedAffiliates,
       webToAppMappings,
@@ -103,10 +111,10 @@ describe('lib/kokiri/builders/link-builder', function() {
 
       assert.deepEqual(
         this.builder.destinationFromUrl(
-          'https://linksynergy.com/1/2/3?id=1234'
+          'https://linksynergy.com/1/2/3?id=bloop'
         ),
         {
-          pathname: null,
+          pathname: '/bleep',
           query: {},
           hash: null,
         }
