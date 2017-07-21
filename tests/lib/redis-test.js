@@ -8,6 +8,7 @@ const RedisClient = require('../../lib/redis');
 describe('lib/redis', function() {
   beforeEach(function() {
     this.nodeRedis = {
+      connected: true,
       get: sinon.spy((a, callback) => {
         setTimeout(() => callback(null, 'ok'), 0);
       }),
@@ -133,16 +134,22 @@ describe('lib/redis', function() {
         );
       })
     );
-  });
 
-  describe('#on', function() {
     it(
-      'proxies calls',
+      'invokes work directly with no redis connection',
       mochaAsync(async function() {
-        const result = this.redisClient.on(1, 2, 3);
-        assert.deepEqual(result, 'ok');
-        assert.equal(this.nodeRedis.on.callCount, 1);
-        assert.deepEqual(this.nodeRedis.on.args[0], [1, 2, 3]);
+        this.nodeRedis.connected = false;
+        const work = sinon.spy(() => Promise.resolve('ok-no-cache'));
+        const result = await this.redisClient.getSet('bloop', 'bleep', work);
+        assert.deepEqual(result, 'ok-no-cache');
+        assert.equal(work.callCount, 1);
+        assert.equal(this.nodeRedis.get.callCount, 0);
+        assert.equal(this.nodeRedis.set.callCount, 0);
+        assert.equal(this.metrics.increment.callCount, 1);
+        assert.deepEqual(
+          this.metrics.increment.args[0][0],
+          'kokiri.redis.bloop.no-connection'
+        );
       })
     );
   });

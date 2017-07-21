@@ -33,6 +33,7 @@ const redis = new RedisClient(
   nodeRedis.createClient({
     host: config.redis.hostname,
     port: config.redis.port,
+    retry_strategy: () => 1000,
   }),
   metrics
 );
@@ -70,8 +71,5 @@ app.healthChecker.addCheck('client-store', () => {
   return clientStoreHealthy;
 });
 
-redis.on('error', e => console.log(e));
-redis.on('ready', () => {
-  app.serve();
-  console.log(`🔗  Kokiri listening on port ${config.port}`);
-});
+app.serve();
+console.log(`🔗  Kokiri listening on port ${config.port}`);
