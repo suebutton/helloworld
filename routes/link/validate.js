@@ -1,10 +1,6 @@
-const {
-  createValidate,
-  validUrl,
-  validPlatform,
-} = require('../../lib/validate');
+const { createValidate, validUrl } = require('../../lib/validate');
 
-const { invalidUrlError, invalidPlatformError } = require('../../lib/errors');
+const { invalidUrlError } = require('../../lib/errors');
 
 const validateAttributes = createValidate([
   { key: 'publisher_id' },
@@ -17,7 +13,6 @@ const validateAppAction = createValidate([
   { key: 'url' },
   { key: 'url', predicate: validUrl, getError: invalidUrlError },
   { key: 'platform' },
-  { key: 'platform', predicate: validPlatform, getError: invalidPlatformError },
   { key: 'attribution_token' },
 ]);
 

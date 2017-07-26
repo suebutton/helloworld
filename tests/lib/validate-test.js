@@ -1,11 +1,7 @@
 const assert = require('assert');
 const HTTP = require('baseweb/util/http');
 
-const {
-  createValidate,
-  validUrl,
-  validPlatform,
-} = require('../../lib/validate');
+const { createValidate, validUrl } = require('../../lib/validate');
 
 describe('lib/validate', function() {
   describe('#createValidate', function() {
@@ -60,14 +56,6 @@ describe('lib/validate', function() {
       assert(!validUrl('bloop.com'));
       assert(!validUrl('http:bloop.com'));
       assert(!validUrl('http:/bloop.com'));
-    });
-  });
-
-  describe('#validPlatform', function() {
-    it('returns true for ios and android', function() {
-      assert(validPlatform('android'));
-      assert(validPlatform('ios'));
-      assert(!validPlatform('pavel'));
     });
   });
 });

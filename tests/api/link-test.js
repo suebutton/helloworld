@@ -295,7 +295,7 @@ describe('api /v1/link', function() {
       this.request
         .post('/v1/link/app-action')
         .send({
-          url: 'http://bloop.com',
+          url: 'bloop.com',
           publisher_id: 'org-XXX',
           platform: 'pavel',
           attribution_token: 'srctok-XXX',
@@ -307,8 +307,7 @@ describe('api /v1/link', function() {
               status: 'error',
             },
             error: {
-              message:
-                'Invalid argument: platform (must be one of [ios, android])',
+              message: `Invalid argument: url (couldn't parse protocol and hostname)`,
               type: 'InvalidArgument',
             },
           })
