@@ -136,6 +136,34 @@ describe('lib/redis', function() {
     );
 
     it(
+      'allows for dynamic ttls',
+      mochaAsync(async function() {
+        this.nodeRedis.get = sinon.spy((a, callback) => {
+          setTimeout(() => callback(null, null), 0);
+        });
+
+        this.nodeRedis.set = sinon.spy((a, b, c, d, callback) => {
+          setTimeout(() => callback(null, 'ok'), 0);
+        });
+
+        const ttl = sinon.spy(() => 1989);
+        const work = sinon.spy(() => Promise.resolve('fetched-ok'));
+        const result = await this.redisClient.getSet(
+          'bloop',
+          'bleep',
+          work,
+          ttl
+        );
+
+        assert.deepEqual(result, 'fetched-ok');
+        assert.equal(this.nodeRedis.set.callCount, 1);
+        assert.deepEqual(this.nodeRedis.set.args[0][3], 1989);
+        assert.deepEqual(ttl.callCount, 1);
+        assert.deepEqual(ttl.args[0], ['fetched-ok']);
+      })
+    );
+
+    it(
       'invokes work directly with no redis connection',
       mochaAsync(async function() {
         this.nodeRedis.connected = false;
