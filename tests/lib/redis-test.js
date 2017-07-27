@@ -7,17 +7,23 @@ const RedisClient = require('../../lib/redis');
 
 describe('lib/redis', function() {
   beforeEach(function() {
+    this.batch = {
+      exec: sinon.spy(callback =>
+        setTimeout(() => callback(null, [null, 1989]), 0)
+      ),
+    };
     this.nodeRedis = {
       connected: true,
       get: sinon.spy((a, callback) => {
         setTimeout(() => callback(null, 'ok'), 0);
       }),
-      set: sinon.spy((a, callback) => {
+      set: sinon.spy((a, b, c, d, callback) => {
         setTimeout(() => callback(null, 'ok'), 0);
       }),
       on: sinon.spy(() => 'ok'),
+      batch: sinon.spy(() => this.batch),
     };
-    this.metrics = { increment: sinon.spy() };
+    this.metrics = { increment: sinon.spy(), gauge: sinon.spy() };
     this.redisClient = new RedisClient(this.nodeRedis, this.metrics);
   });
 
@@ -30,11 +36,11 @@ describe('lib/redis', function() {
     });
   });
 
-  describe('#promisify', function() {
+  describe('#invoke', function() {
     it(
       'invokes a node-style method and returns a promise',
       mochaAsync(async function() {
-        const result = await this.redisClient.promisify('get', 1);
+        const result = await this.redisClient.invoke('get', 1);
         assert.deepEqual(result, 'ok');
         assert.equal(this.nodeRedis.get.callCount, 1);
         assert.equal(this.nodeRedis.get.args[0][0], 1);
@@ -48,13 +54,50 @@ describe('lib/redis', function() {
       });
 
       this.redisClient
-        .promisify('bloop', 1)
+        .invoke('bloop', 1)
         .then(() => done('Should have rejected'))
         .catch(e => {
           assert(e instanceof Error);
           assert.equal(this.nodeRedis.bloop.callCount, 1);
           assert.equal(this.nodeRedis.bloop.args[0][0], 1);
           assert.equal(typeof this.nodeRedis.bloop.args[0][1], 'function');
+          done();
+        });
+    });
+  });
+
+  describe('#invokeBatch', function() {
+    it(
+      'invokes a node-style method and returns a promise',
+      mochaAsync(async function() {
+        const [get, size] = await this.redisClient.invokeBatch([
+          ['get', 'bloop'],
+          ['dbsize'],
+        ]);
+        assert.deepEqual(get, null);
+        assert.deepEqual(size, 1989);
+        assert.equal(this.batch.exec.callCount, 1);
+        assert.equal(this.nodeRedis.batch.callCount, 1);
+        assert.deepEqual(this.nodeRedis.batch.args[0][0], [
+          ['get', 'bloop'],
+          ['dbsize'],
+        ]);
+      })
+    );
+
+    it('handles errors', function(done) {
+      this.batch.exec = sinon.spy(callback =>
+        setTimeout(() => callback(new Error('bork'), null), 0)
+      );
+
+      this.redisClient
+        .invokeBatch([['get', 'bloop']])
+        .then(() => done('Should have rejected'))
+        .catch(e => {
+          assert(e instanceof Error);
+          assert.equal(this.batch.exec.callCount, 1);
+          assert.equal(this.nodeRedis.batch.callCount, 1);
+          assert.deepEqual(this.nodeRedis.batch.args[0][0], [['get', 'bloop']]);
           done();
         });
     });
@@ -77,6 +120,10 @@ describe('lib/redis', function() {
     it(
       'invokes set and returns a promise',
       mochaAsync(async function() {
+        this.nodeRedis.set = sinon.spy((a, callback) => {
+          setTimeout(() => callback(null, 'ok'), 0);
+        });
+
         const result = await this.redisClient.set(1);
         assert.deepEqual(result, 'ok');
         assert.equal(this.nodeRedis.set.callCount, 1);
@@ -86,31 +133,56 @@ describe('lib/redis', function() {
     );
   });
 
+  describe('#getValueAndDBSize', function() {
+    it(
+      'invokes a node-style method and returns a promise',
+      mochaAsync(async function() {
+        const [get, size] = await this.redisClient.getValueAndDBSize('bloop');
+        assert.deepEqual(get, null);
+        assert.deepEqual(size, 1989);
+        assert.equal(this.batch.exec.callCount, 1);
+        assert.equal(this.nodeRedis.batch.callCount, 1);
+        assert.deepEqual(this.nodeRedis.batch.args[0][0], [
+          ['get', 'bloop'],
+          ['dbsize'],
+        ]);
+      })
+    );
+  });
+
   describe('#getSet', function() {
     it(
       'returns a cached value',
       mochaAsync(async function() {
+        this.batch.exec = sinon.spy(callback =>
+          setTimeout(() => callback(null, ['ok', 1989]), 0)
+        );
+
         const work = sinon.spy();
         const result = await this.redisClient.getSet('bloop', 'bleep', work);
         assert.deepEqual(result, 'ok');
         assert.equal(work.callCount, 0);
-        assert.equal(this.nodeRedis.get.callCount, 1);
-        assert.equal(this.nodeRedis.get.args[0][0], 'bloop:bleep');
+        assert.equal(this.nodeRedis.batch.callCount, 1);
+        assert.deepEqual(this.nodeRedis.batch.args[0][0], [
+          ['get', 'bloop:bleep'],
+          ['dbsize'],
+        ]);
         assert.equal(this.metrics.increment.callCount, 1);
         assert.deepEqual(
           this.metrics.increment.args[0][0],
           'kokiri.redis.bloop.hit'
         );
+        assert.equal(this.metrics.gauge.callCount, 1);
+        assert.deepEqual(this.metrics.gauge.args[0], [
+          'kokiri.redis.dbsize',
+          1989,
+        ]);
       })
     );
 
     it(
       'returns a non-cached value',
       mochaAsync(async function() {
-        this.nodeRedis.get = sinon.spy((a, callback) => {
-          setTimeout(() => callback(null, null), 0);
-        });
-
         this.nodeRedis.set = sinon.spy((a, b, c, d, callback) => {
           setTimeout(() => callback(null, 'ok'), 0);
         });
@@ -120,8 +192,11 @@ describe('lib/redis', function() {
 
         assert.deepEqual(result, 'fetched-ok');
         assert.equal(work.callCount, 1);
-        assert.equal(this.nodeRedis.get.callCount, 1);
-        assert.equal(this.nodeRedis.get.args[0][0], 'bloop:bleep');
+        assert.equal(this.nodeRedis.batch.callCount, 1);
+        assert.deepEqual(this.nodeRedis.batch.args[0][0], [
+          ['get', 'bloop:bleep'],
+          ['dbsize'],
+        ]);
         assert.equal(this.nodeRedis.set.callCount, 1);
         assert.deepEqual(this.nodeRedis.set.args[0][0], 'bloop:bleep');
         assert.deepEqual(this.nodeRedis.set.args[0][1], 'fetched-ok');
@@ -132,20 +207,17 @@ describe('lib/redis', function() {
           this.metrics.increment.args[0][0],
           'kokiri.redis.bloop.miss'
         );
+        assert.equal(this.metrics.gauge.callCount, 1);
+        assert.deepEqual(this.metrics.gauge.args[0], [
+          'kokiri.redis.dbsize',
+          1989,
+        ]);
       })
     );
 
     it(
       'allows for dynamic ttls',
       mochaAsync(async function() {
-        this.nodeRedis.get = sinon.spy((a, callback) => {
-          setTimeout(() => callback(null, null), 0);
-        });
-
-        this.nodeRedis.set = sinon.spy((a, b, c, d, callback) => {
-          setTimeout(() => callback(null, 'ok'), 0);
-        });
-
         const ttl = sinon.spy(() => 1989);
         const work = sinon.spy(() => Promise.resolve('fetched-ok'));
         const result = await this.redisClient.getSet(
