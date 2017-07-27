@@ -4,7 +4,7 @@ const nock = require('nock');
 
 const { mochaAsync } = require('../helpers');
 
-const { redirect, FAILURE } = require('../../lib/redirect');
+const { redirect, FAILURE, cleanUrl } = require('../../lib/redirect');
 
 describe('lib/redirect', function() {
   describe('#redirect', function() {
@@ -45,6 +45,17 @@ describe('lib/redirect', function() {
     );
 
     it(
+      'cleans urls',
+      mochaAsync(async function() {
+        const initialCall = nock('http://bloop.com').get('/').reply(200);
+
+        await redirect(this.redis, 'bloop.com', 'http://bloop.com:0');
+
+        initialCall.done();
+      })
+    );
+
+    it(
       'caches failures',
       mochaAsync(async function() {
         const initialCall = nock('http://bloop.com').get('/').reply(404);
@@ -68,5 +79,30 @@ describe('lib/redirect', function() {
         initialCall.done();
       })
     );
+  });
+
+  describe('#cleanUrl', function() {
+    it('strips urls with port 0', function() {
+      assert.deepEqual(
+        cleanUrl('http://bloop.com/1/2?a=2#bleep'),
+        'http://bloop.com/1/2?a=2#bleep'
+      );
+      assert.deepEqual(
+        cleanUrl('https://bloop.com/1/2?a=2#bleep'),
+        'https://bloop.com/1/2?a=2#bleep'
+      );
+      assert.deepEqual(
+        cleanUrl('ftp://bloop.com/1/2?a=2#bleep'),
+        'ftp://bloop.com/1/2?a=2#bleep'
+      );
+      assert.deepEqual(
+        cleanUrl('http://bloop.com:0/1/2?a=2#bleep'),
+        'http://bloop.com/1/2?a=2#bleep'
+      );
+      assert.deepEqual(
+        cleanUrl('https://bloop.com:0/1/2?a=2#bleep'),
+        'https://bloop.com/1/2?a=2#bleep'
+      );
+    });
   });
 });
