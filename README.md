@@ -25,9 +25,11 @@ HTTP header.
 
 ## Dependencies
 
-1. A redis cache.  Currently, this cache is used for mapping urls to their
-   redirect location.
-2. Comstore (web-to-app-mappings and approvals)
+1. Comstore (web-to-app-mappings and approvals)
+2. A redis cache (_optional_).  This cache is used for mapping urls to their
+   redirect location.  Used only as a performance improvement.  The service
+   operates slowly without it.
+
 
 ## Local Setup
 
