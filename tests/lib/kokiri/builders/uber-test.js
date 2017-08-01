@@ -15,7 +15,7 @@ describe('lib/kokiri/builders/uber/', function() {
     const webToAppMappings = [
       {
         organization: 'org-3f6f45d041e575c0',
-        subdomain_name: 'uber',
+        subdomain_name: 'uberm',
         external_host: 'https://uber.com',
       },
     ];
@@ -66,14 +66,14 @@ describe('lib/kokiri/builders/uber/', function() {
     it('returns a univesal link', function() {
       assert.deepEqual(
         this.builder.universalLink({}, 'srctok-XXX'),
-        'https://track.bttn.io/uber?btn_ref=srctok-XXX'
+        'https://track.bttn.io/uberm?btn_fallback_exp=appstore&btn_ref=srctok-XXX'
       );
     });
 
     it('returns a univesal link for static affiliation', function() {
       assert.deepEqual(
         this.builder.universalLink({}),
-        'https://track.bttn.io/uber?btn_ref=org-XXX'
+        'https://track.bttn.io/uberm?btn_fallback_exp=appstore&btn_ref=org-XXX'
       );
     });
 
@@ -95,7 +95,7 @@ describe('lib/kokiri/builders/uber/', function() {
           },
           'srctok-XXX'
         ),
-        'https://track.bttn.io/uber?action=setPickup&pickup%5Blatitude%5D=40.7382752&pickup%5Blongitude%5D=-73.9822849&dropoff%5Blatitude%5D=40.7530763&dropoff%5Blongitude%5D=-74.0069671&pickup%5Bnickname%5D=start&dropoff%5Bnickname%5D=end&btn_ref=srctok-XXX'
+        'https://track.bttn.io/uberm?action=setPickup&pickup%5Blatitude%5D=40.7382752&pickup%5Blongitude%5D=-73.9822849&dropoff%5Blatitude%5D=40.7530763&dropoff%5Blongitude%5D=-74.0069671&pickup%5Bnickname%5D=start&dropoff%5Bnickname%5D=end&btn_fallback_exp=appstore&btn_ref=srctok-XXX'
       );
     });
   });

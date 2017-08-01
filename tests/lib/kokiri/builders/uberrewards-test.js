@@ -67,14 +67,14 @@ describe('lib/kokiri/builders/uberrewards', function() {
     it('returns a univesal link', function() {
       assert.deepEqual(
         this.builder.universalLink({}, 'srctok-XXX'),
-        'https://track.bttn.io/uberrewards?btn_ref=srctok-XXX'
+        'https://track.bttn.io/uberrewards?btn_fallback_exp=appstore&btn_ref=srctok-XXX'
       );
     });
 
     it('returns a univesal link for static affiliation', function() {
       assert.deepEqual(
         this.builder.universalLink({}),
-        'https://track.bttn.io/uberrewards?btn_ref=org-XXX'
+        'https://track.bttn.io/uberrewards?btn_fallback_exp=appstore&btn_ref=org-XXX'
       );
     });
 
@@ -96,7 +96,7 @@ describe('lib/kokiri/builders/uberrewards', function() {
           },
           'srctok-XXX'
         ),
-        'https://track.bttn.io/uberrewards?action=setPickup&pickup%5Blatitude%5D=40.7382752&pickup%5Blongitude%5D=-73.9822849&dropoff%5Blatitude%5D=40.7530763&dropoff%5Blongitude%5D=-74.0069671&pickup%5Bnickname%5D=start&dropoff%5Bnickname%5D=end&btn_ref=srctok-XXX'
+        'https://track.bttn.io/uberrewards?action=setPickup&pickup%5Blatitude%5D=40.7382752&pickup%5Blongitude%5D=-73.9822849&dropoff%5Blatitude%5D=40.7530763&dropoff%5Blongitude%5D=-74.0069671&pickup%5Bnickname%5D=start&dropoff%5Bnickname%5D=end&btn_fallback_exp=appstore&btn_ref=srctok-XXX'
       );
     });
   });
