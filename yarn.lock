@@ -887,9 +887,9 @@ eslint-config-airbnb-base@^11.1.1:
   version "11.2.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.2.0.tgz#19a9dc4481a26f70904545ec040116876018f853"
 
-eslint-config-button-platform@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-button-platform/-/eslint-config-button-platform-1.0.4.tgz#4f51a07efee33bfbaee32c9b46f3b4d1c1841f83"
+eslint-config-button-platform@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-button-platform/-/eslint-config-button-platform-1.2.0.tgz#8e9d7143e43225e136178050e3dd3e9a0e377585"
 
 eslint-import-resolver-node@^0.3.1:
   version "0.3.1"
@@ -2220,7 +2220,7 @@ minimatch@^3.0.0, minimatch@^3.0.3, minimatch@^3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@0.0.8:
+minimist@0.0.8, minimist@~0.0.1:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
@@ -2231,10 +2231,6 @@ minimist@^0.1.0:
 minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
-
-minimist@~0.0.1:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
 "minquery@https://s3-us-west-2.amazonaws.com/button-archive/npm/minquery-1.0.0.tgz":
   version "1.0.0"
