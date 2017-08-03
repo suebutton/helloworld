@@ -14,13 +14,14 @@ const {
   BIGQUERY_PRIVATE_KEY,
 } = process.env;
 
-let inDockerContainer = true;
-
-try {
-  fs.accessSync('/.dockerenv');
-} catch (e) {
-  inDockerContainer = false;
-}
+const inDockerContainer = (() => {
+  try {
+    fs.accessSync('/.dockerenv');
+    return true;
+  } catch (e) {
+    return false;
+  }
+})();
 
 const LOCALHOST = inDockerContainer ? 'docker.for.mac.localhost' : '127.0.0.1';
 

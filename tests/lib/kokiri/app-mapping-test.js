@@ -4,7 +4,6 @@ const assert = require('assert');
 
 const {
   mapWebToAppDestination,
-  isSupportedAppDestination,
   matchHomepage,
   matchPathname,
   matchAnchor,
@@ -177,131 +176,37 @@ describe('lib/kokiri/app-mapping', function() {
         query: { pavel: true },
       });
     });
-  });
 
-  describe('#isSupportedAppDestination', function() {
-    it('is true with a valid web destination to an app destination', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        this.knownMappings,
-        { pathname: '/bloop', query: { a: 1 } },
-        'ios'
+    it('matches a known not-existent destination and short-circuits', function() {
+      const knownMappings = [
+        {
+          match: destination => destination.pathname === '/bloop',
+          destination: null,
+        },
+        {
+          match: true,
+        },
+      ];
+
+      assert.deepEqual(
+        mapWebToAppDestination(
+          {},
+          knownMappings,
+          { pathname: '/bloop' },
+          'ios'
+        ),
+        null
       );
 
-      assert(isSupported);
-    });
-
-    it('is true while checking every potential match candidate', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        this.knownMappings,
-        { pathname: '', query: { bloop: '1989' } },
-        'ios'
+      assert.deepEqual(
+        mapWebToAppDestination(
+          {},
+          knownMappings,
+          { pathname: '/bleep' },
+          'ios'
+        ),
+        { pathname: '/bleep' }
       );
-
-      assert(isSupported);
-    });
-
-    it('is false with no mappings', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        null,
-        { pathname: '/bloop', query: { a: 1 } },
-        'ios'
-      );
-
-      assert(!isSupported);
-    });
-
-    it('is false for an unknown app destination', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        this.knownMappings,
-        { pathname: '/bleep', query: { a: 1 } },
-        'ios'
-      );
-
-      assert(!isSupported);
-    });
-
-    it('is true while matching by platform', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        this.knownMappings,
-        { pathname: '/blark', query: { a: 1 } },
-        'android'
-      );
-
-      assert(isSupported);
-    });
-
-    it('is true when match is any truthy value', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        this.knownMappings.concat({
-          match: { thing: 1 },
-          destination: { query: match => match },
-        }),
-        { pathname: '/nope', query: {} },
-        'ios'
-      );
-
-      assert(isSupported);
-    });
-
-    it('can be true if destination if not defined', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        this.knownMappings.concat({
-          match: { thing: 1 },
-        }),
-        { pathname: '/nope', query: {} },
-        'ios'
-      );
-
-      assert(isSupported);
-    });
-
-    it('can be true with destination values', function() {
-      const isSupported = isSupportedAppDestination(
-        {},
-        this.knownMappings.concat({
-          match: { thing: 1 },
-          destination: { pathname: '/1', query: { pavel: true } },
-        }),
-        { pathname: '/nope', query: {} },
-        'ios'
-      );
-
-      assert(isSupported);
-    });
-
-    it('forwards the context to the match function', function() {
-      let isSupported = isSupportedAppDestination(
-        { pavel: true },
-        this.knownMappings.concat({
-          match: function() {
-            return this.pavel === true;
-          },
-        }),
-        { pathname: '/nope', query: {} },
-        'ios'
-      );
-
-      assert(isSupported);
-
-      isSupported = isSupportedAppDestination(
-        { pavel: true },
-        this.knownMappings.concat({
-          match: function() {
-            return this.pavel !== true;
-          },
-        }),
-        { pathname: '/nope', query: {} },
-        'ios'
-      );
-
-      assert(!isSupported);
     });
   });
 
@@ -355,21 +260,21 @@ describe('lib/kokiri/app-mapping', function() {
 
   describe('#matchIOS', function() {
     it('returns an object with a match', function() {
-      assert.deepEqual(matchIOS({}, 'ios'), {});
+      assert.deepEqual(matchIOS({}, 'ios'), true);
     });
 
     it('returns null with no match', function() {
-      assert.deepEqual(matchIOS({}, 'pavel'), null);
+      assert.deepEqual(matchIOS({}, 'pavel'), false);
     });
   });
 
   describe('#matchAndroid', function() {
     it('returns an object with a match', function() {
-      assert.deepEqual(matchAndroid({}, 'android'), {});
+      assert.deepEqual(matchAndroid({}, 'android'), true);
     });
 
     it('returns null with no match', function() {
-      assert.deepEqual(matchAndroid({}, 'pavel'), null);
+      assert.deepEqual(matchAndroid({}, 'pavel'), false);
     });
   });
 
@@ -456,6 +361,11 @@ describe('lib/kokiri/app-mapping', function() {
           tres: '3',
         }
       );
+    });
+
+    it('supports matcher functions that return falsey values', function() {
+      const falsey = () => false;
+      assert.deepEqual(composeMatches(falsey)({}, 'ios'), null);
     });
   });
 });
