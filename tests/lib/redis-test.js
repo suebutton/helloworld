@@ -168,13 +168,15 @@ describe('lib/redis', function() {
           ['dbsize'],
         ]);
         assert.equal(this.metrics.increment.callCount, 1);
-        assert.deepEqual(
-          this.metrics.increment.args[0][0],
-          'kokiri.redis.bloop.hit'
-        );
+        assert.deepEqual(this.metrics.increment.args[0][0], {
+          name: 'kokiri_redis_event',
+          namespace: 'bloop',
+          event: 'hit',
+          statsdName: 'kokiri.redis.bloop.hit',
+        });
         assert.equal(this.metrics.gauge.callCount, 1);
         assert.deepEqual(this.metrics.gauge.args[0], [
-          'kokiri.redis.dbsize',
+          { name: 'kokiri_redis_dbsize', statsdName: 'kokiri.redis.dbsize' },
           1989,
         ]);
       })
@@ -203,13 +205,15 @@ describe('lib/redis', function() {
         assert.deepEqual(this.nodeRedis.set.args[0][2], 'EX');
         assert.deepEqual(this.nodeRedis.set.args[0][3], -1);
         assert.equal(this.metrics.increment.callCount, 1);
-        assert.deepEqual(
-          this.metrics.increment.args[0][0],
-          'kokiri.redis.bloop.miss'
-        );
+        assert.deepEqual(this.metrics.increment.args[0][0], {
+          name: 'kokiri_redis_event',
+          namespace: 'bloop',
+          event: 'miss',
+          statsdName: 'kokiri.redis.bloop.miss',
+        });
         assert.equal(this.metrics.gauge.callCount, 1);
         assert.deepEqual(this.metrics.gauge.args[0], [
-          'kokiri.redis.dbsize',
+          { name: 'kokiri_redis_dbsize', statsdName: 'kokiri.redis.dbsize' },
           1989,
         ]);
       })
@@ -246,10 +250,12 @@ describe('lib/redis', function() {
         assert.equal(this.nodeRedis.get.callCount, 0);
         assert.equal(this.nodeRedis.set.callCount, 0);
         assert.equal(this.metrics.increment.callCount, 1);
-        assert.deepEqual(
-          this.metrics.increment.args[0][0],
-          'kokiri.redis.bloop.no-connection'
-        );
+        assert.deepEqual(this.metrics.increment.args[0][0], {
+          name: 'kokiri_redis_event',
+          namespace: 'bloop',
+          event: 'no-connection',
+          statsdName: 'kokiri.redis.bloop.no-connection',
+        });
       })
     );
   });
