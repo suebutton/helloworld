@@ -10,11 +10,15 @@ describe('lib/kokiri/builders/ebay', function() {
         audience: 'org-XXX',
         organization: 'org-5d63b849c1d24db2',
       },
+      {
+        status: 'approved',
+        audience: 'org-030575eddb72b4df',
+        organization: 'org-5d63b849c1d24db2',
+      },
     ];
 
-    const config = new KokiriConfig([], [], [], [], [], approvals);
-
-    this.builder = config.createBuilder('org-XXX', 'org-5d63b849c1d24db2');
+    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.builder = this.config.createBuilder('org-XXX', 'org-5d63b849c1d24db2');
   });
 
   describe('#appAction', function() {
@@ -49,6 +53,19 @@ describe('lib/kokiri/builders/ebay', function() {
             'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
         }
       );
+    });
+
+    it('returns an app action with per-publisher tokens', function() {
+      const builder = this.config.createBuilder(
+        'org-030575eddb72b4df',
+        'org-5d63b849c1d24db2'
+      );
+      assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'ebay://rover.ebay.com/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575309782&campid=5338106664&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+        browser_link:
+          'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575309782&campid=5338106664&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+      });
     });
   });
 
