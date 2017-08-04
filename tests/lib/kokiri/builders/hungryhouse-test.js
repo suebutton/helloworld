@@ -47,21 +47,21 @@ describe('lib/kokiri/builders/hungryhouse', function() {
   });
 
   describe('#universalLink', function() {
-    it('returns a univesal link', function() {
+    it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/hungryhouse?btn_ref=srctok-XXX'
       );
     });
 
-    it('returns a univesal link for static affiliation', function() {
+    it('returns a universal link for static affiliation', function() {
       assert.deepEqual(
         this.builder.universalLink({}),
         'https://track.bttn.io/hungryhouse?btn_ref=org-XXX'
       );
     });
 
-    it('returns a univesal link for restaurant', function() {
+    it('returns a universal link for restaurant', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
@@ -69,6 +69,7 @@ describe('lib/kokiri/builders/hungryhouse', function() {
             query: {},
             hash: '#menu',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/hungryhouse/italian-pizza?btn_ref=srctok-XXX#menu'

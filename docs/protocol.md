@@ -165,6 +165,7 @@ affiliate.
   {
     "publisher_id": "org-XXX",
     "url": "https://groupon.com",
+    "platform": "android",
     "attribution_token": null,
     "experience": { "btn_fallback_exp": "web" }
   }

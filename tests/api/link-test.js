@@ -539,6 +539,7 @@ describe('api /v1/link', function() {
         .send({
           url: 'http://bloop.com',
           publisher_id: 'org-XXX',
+          platform: 'ios',
           experience: { btn_fallback_exp: 'web' },
           attribution_token: 'srctok-XXX',
         })
@@ -575,15 +576,16 @@ describe('api /v1/link', function() {
             'http://bleep.biz'
           );
           assert.equal(this.kokiriAdapter.universalLink.args[0][1], 'org-XXX');
-          assert.deepEqual(this.kokiriAdapter.universalLink.args[0][2], {
+          assert.equal(this.kokiriAdapter.universalLink.args[0][2], 'ios');
+          assert.deepEqual(this.kokiriAdapter.universalLink.args[0][3], {
             btn_fallback_exp: 'web',
           });
           assert.equal(
-            this.kokiriAdapter.universalLink.args[0][3],
+            this.kokiriAdapter.universalLink.args[0][4],
             'srctok-XXX'
           );
           assert.equal(
-            this.kokiriAdapter.universalLink.args[0][5],
+            this.kokiriAdapter.universalLink.args[0][6],
             'http://bloop.com'
           );
         })
@@ -623,6 +625,7 @@ describe('api /v1/link', function() {
         .send({
           url: 'http://bloop.com',
           publisher_id: 'org-XXX',
+          platform: 'ios',
           attribution_token: 'srctok-XXX',
         })
         .expect(400)
@@ -647,12 +650,14 @@ describe('api /v1/link', function() {
           {
             url: 'http://bloop.com',
             publisher_id: 'org-XXX',
+            platform: 'ios',
             experience: { btn_fallback_exp: 'web' },
             attribution_token: 'srctok-XXX',
           },
           {
             url: 'http://pup.com',
             publisher_id: 'org-XXX',
+            platform: 'ios',
             attribution_token: 'srctok-YYY',
           },
         ])
@@ -706,15 +711,16 @@ describe('api /v1/link', function() {
             'http://bleep.biz'
           );
           assert.equal(this.kokiriAdapter.universalLink.args[0][1], 'org-XXX');
-          assert.deepEqual(this.kokiriAdapter.universalLink.args[0][2], {
+          assert.equal(this.kokiriAdapter.universalLink.args[0][2], 'ios');
+          assert.deepEqual(this.kokiriAdapter.universalLink.args[0][3], {
             btn_fallback_exp: 'web',
           });
           assert.equal(
-            this.kokiriAdapter.universalLink.args[0][3],
+            this.kokiriAdapter.universalLink.args[0][4],
             'srctok-XXX'
           );
           assert.equal(
-            this.kokiriAdapter.universalLink.args[0][5],
+            this.kokiriAdapter.universalLink.args[0][6],
             'http://bloop.com'
           );
           assert.equal(
@@ -722,16 +728,17 @@ describe('api /v1/link', function() {
             'http://pup.biz'
           );
           assert.equal(this.kokiriAdapter.universalLink.args[1][1], 'org-XXX');
+          assert.equal(this.kokiriAdapter.universalLink.args[1][2], 'ios');
           assert.deepEqual(
-            this.kokiriAdapter.universalLink.args[1][2],
+            this.kokiriAdapter.universalLink.args[1][3],
             undefined
           );
           assert.equal(
-            this.kokiriAdapter.universalLink.args[1][3],
+            this.kokiriAdapter.universalLink.args[1][4],
             'srctok-YYY'
           );
           assert.equal(
-            this.kokiriAdapter.universalLink.args[1][5],
+            this.kokiriAdapter.universalLink.args[1][6],
             'http://pup.com'
           );
         })
@@ -745,12 +752,14 @@ describe('api /v1/link', function() {
           {
             url: 'http://bloop.com',
             publisher_id: 'org-XXX',
+            platform: 'ios',
             experience: { btn_fallback_exp: 'web' },
             attribution_token: 'srctok-XXX',
           },
           {
             url: 'pup.com',
             publisher_id: 'org-XXX',
+            platform: 'ios',
             attribution_token: 'srctok-YYY',
           },
         ])

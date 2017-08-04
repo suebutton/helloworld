@@ -335,7 +335,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/hotels?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX'
       );
     });
@@ -354,7 +354,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       );
 
       assert.deepEqual(
-        builder.universalLink({}, 'srctok-XXX'),
+        builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/hotels?rffrid=aff.hcom.US.049.000.00695.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX'
       );
     });
@@ -367,6 +367,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
             query: { a: true },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/hotels/bloop/2?a=true&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX#anchor'
@@ -379,6 +380,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
             query: { a: true },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/hotels/bloop/2?a=true&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX#anchor'
@@ -391,6 +393,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
           {
             query: { rffrid: 'pavel' },
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/hotels?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX'

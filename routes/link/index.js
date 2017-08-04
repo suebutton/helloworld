@@ -102,6 +102,7 @@ module.exports = (redis, kokiriAdapter) => {
     const {
       url,
       publisher_id: publisherId,
+      platform,
       attribution_token: attributionToken,
       experience,
     } = body;
@@ -123,6 +124,7 @@ module.exports = (redis, kokiriAdapter) => {
     const universalLink = kokiriAdapter.universalLink(
       targetUrl,
       publisherId,
+      platform,
       experience,
       attributionToken,
       ctx,

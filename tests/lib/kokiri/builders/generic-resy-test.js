@@ -56,7 +56,7 @@ describe('lib/kokiri/builders/rest-generic', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/resy?btn_ref=srctok-XXX'
       );
     });
@@ -76,6 +76,7 @@ describe('lib/kokiri/builders/rest-generic', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/resy/some/resy/action?btn_ref=srctok-XXX'

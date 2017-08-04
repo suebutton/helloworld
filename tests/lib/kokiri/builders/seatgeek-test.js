@@ -73,12 +73,12 @@ describe('lib/kokiri/builders/seatgeek', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/seatgeek?btn_ref=srctok-XXX'
       );
 
       assert.deepEqual(
-        this.builder.universalLink({ pathname: '/' }, 'srctok-XXX'),
+        this.builder.universalLink({ pathname: '/' }, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/seatgeek?btn_ref=srctok-XXX'
       );
     });
@@ -99,6 +99,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/seatgeek/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?btn_ref=srctok-XXX'
@@ -116,6 +117,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
             },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/seatgeek/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'

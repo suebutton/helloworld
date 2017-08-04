@@ -91,21 +91,21 @@ describe('lib/kokiri/builders/itunes', function() {
   });
 
   describe('#universalLink', function() {
-    it('returns a univesal link', function() {
+    it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/itunes?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX'
       );
     });
 
-    it('returns a univesal link for static affiliation', function() {
+    it('returns a universal link for static affiliation', function() {
       assert.deepEqual(
         this.builder.universalLink({}),
         'https://track.bttn.io/itunes?at=1000lquK&mt=1&app=itunes&ct=org-XXX&btn_refkey=ct&btn_ref=org-XXX'
       );
     });
 
-    it('returns a univesal link for a song', function() {
+    it('returns a universal link for a song', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
@@ -113,13 +113,14 @@ describe('lib/kokiri/builders/itunes', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/itunes/us/music-video/rolling-in-the-deep/id406215201?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX'
       );
     });
 
-    it('returns a univesal link for an album', function() {
+    it('returns a universal link for an album', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
@@ -129,6 +130,7 @@ describe('lib/kokiri/builders/itunes', function() {
             },
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/itunes/us/album/21/id420075073?utm_campaign=BEST%20OIL&at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX'

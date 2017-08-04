@@ -105,12 +105,12 @@ describe('lib/kokiri/builders/atom', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/atomtickets?btn_ref=srctok-XXX'
       );
 
       assert.deepEqual(
-        this.builder.universalLink({ pathname: '/' }, 'srctok-XXX'),
+        this.builder.universalLink({ pathname: '/' }, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/atomtickets?btn_ref=srctok-XXX'
       );
     });
@@ -130,6 +130,7 @@ describe('lib/kokiri/builders/atom', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/atomtickets/movies/the-fate-of-the-furious/209338?btn_ref=srctok-XXX'
@@ -146,6 +147,7 @@ describe('lib/kokiri/builders/atom', function() {
             },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/atomtickets/movies/the-fate-of-the-furious/209338?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'

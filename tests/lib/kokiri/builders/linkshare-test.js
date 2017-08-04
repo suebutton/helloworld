@@ -113,6 +113,7 @@ describe('lib/kokiri/builders/linkshare', function() {
           {
             url: 'https://www.techarmor.com/iphone-7',
           },
+          'ios',
           'srctok-XXX'
         ),
         null

@@ -3,7 +3,7 @@
 const assert = require('assert');
 
 const {
-  mapWebToAppDestination,
+  mapDestination,
   matchHomepage,
   matchPathname,
   matchAnchor,
@@ -42,9 +42,9 @@ describe('lib/kokiri/app-mapping', function() {
     ];
   });
 
-  describe('#mapWebToAppDestination', function() {
+  describe('#mapDestination', function() {
     it('maps a web destination to an app destination', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         this.knownMappings,
         { pathname: '/bloop', query: { a: 1 } },
@@ -58,7 +58,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('checks every potential match candidate', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         this.knownMappings,
         { pathname: '', query: { bloop: '1989' } },
@@ -72,7 +72,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('is the identity with no mappings', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         null,
         { pathname: '/bloop', query: { a: 1 } },
@@ -83,7 +83,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('returns null for an unknown app destination', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         this.knownMappings,
         { pathname: '/bleep', query: { a: 1 } },
@@ -94,7 +94,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('allows matching by platform', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         this.knownMappings,
         { pathname: '/blark', query: { a: 1 } },
@@ -108,7 +108,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('allows match to be any value', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         this.knownMappings.concat({
           match: { thing: 1 },
@@ -125,7 +125,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('matches and passes the old destination if not defined', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         this.knownMappings.concat({
           match: { thing: 1 },
@@ -138,7 +138,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('uses destination values directly if not functions', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         {},
         this.knownMappings.concat({
           match: { thing: 1 },
@@ -155,7 +155,7 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('forwards the context to match and destination functions', function() {
-      const appDestination = mapWebToAppDestination(
+      const appDestination = mapDestination(
         { pavel: true },
         this.knownMappings.concat({
           match: function() {
@@ -189,22 +189,12 @@ describe('lib/kokiri/app-mapping', function() {
       ];
 
       assert.deepEqual(
-        mapWebToAppDestination(
-          {},
-          knownMappings,
-          { pathname: '/bloop' },
-          'ios'
-        ),
+        mapDestination({}, knownMappings, { pathname: '/bloop' }, 'ios'),
         null
       );
 
       assert.deepEqual(
-        mapWebToAppDestination(
-          {},
-          knownMappings,
-          { pathname: '/bleep' },
-          'ios'
-        ),
+        mapDestination({}, knownMappings, { pathname: '/bleep' }, 'ios'),
         { pathname: '/bleep' }
       );
     });

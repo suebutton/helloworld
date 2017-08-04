@@ -111,7 +111,7 @@ describe('lib/kokiri/builders/spring', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/shopspring?btn_ref=srctok-XXX'
       );
     });
@@ -131,6 +131,7 @@ describe('lib/kokiri/builders/spring', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/shopspring/products/53497978?btn_ref=srctok-XXX'
@@ -147,6 +148,7 @@ describe('lib/kokiri/builders/spring', function() {
             },
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/shopspring/brands/3047?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX'

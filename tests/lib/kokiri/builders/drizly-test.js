@@ -123,12 +123,12 @@ describe('lib/kokiri/builders/drizly', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/drizly?btn_ref=srctok-XXX'
       );
 
       assert.deepEqual(
-        this.builder.universalLink({ pathname: '/' }, 'srctok-XXX'),
+        this.builder.universalLink({ pathname: '/' }, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/drizly?btn_ref=srctok-XXX'
       );
     });
@@ -148,6 +148,7 @@ describe('lib/kokiri/builders/drizly', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/drizly/kendall-jackson-chardonnay/p1297?btn_ref=srctok-XXX'
@@ -164,6 +165,7 @@ describe('lib/kokiri/builders/drizly', function() {
             },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/drizly/kendall-jackson-chardonnay/p1297?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'

@@ -469,6 +469,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       const universalLink = this.kokiriAdapter.universalLink(
         'https://hotels.com',
         'org-XXX',
+        'ios',
         {},
         'srctok-XXX',
         ctx
@@ -522,6 +523,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       const universalLink = this.kokiriAdapter.universalLink(
         'https://hotels.com',
         'org-XXX',
+        'ios',
         {},
         null,
         ctx
@@ -555,6 +557,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       const universalLink = this.kokiriAdapter.universalLink(
         'https://hotels.com?a=1',
         'org-XXX',
+        'ios',
         { btn_fallback_exp: 'appstore' },
         'srctok-XXX',
         ctx
@@ -588,6 +591,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       const universalLink = this.kokiriAdapter.universalLink(
         'https://pavel.com',
         'org-XXX',
+        'ios',
         {},
         'srctok-XXX',
         ctx
@@ -618,6 +622,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       const universalLink = this.kokiriAdapter.universalLink(
         'https://hotels.com',
         'org-YYY',
+        'ios',
         {},
         'srctok-XXX',
         ctx
@@ -648,6 +653,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       const universalLink = this.kokiriAdapter.universalLink(
         null,
         'org-XXX',
+        'ios',
         {},
         'srctok-XXX',
         ctx

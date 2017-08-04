@@ -92,12 +92,12 @@ describe('lib/kokiri/builders/cheapoair', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/cheapoair?FpAffiliate=Button&btn_ref=srctok-XXX'
       );
 
       assert.deepEqual(
-        this.builder.universalLink({ pathname: '/' }, 'srctok-XXX'),
+        this.builder.universalLink({ pathname: '/' }, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/cheapoair?FpAffiliate=Button&btn_ref=srctok-XXX'
       );
     });
@@ -117,6 +117,7 @@ describe('lib/kokiri/builders/cheapoair', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/cheapoair/flights?FpAffiliate=Button&btn_ref=srctok-XXX'
@@ -133,6 +134,7 @@ describe('lib/kokiri/builders/cheapoair', function() {
             },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/cheapoair/flights?utm_campaign=BEST%20OIL&FpAffiliate=Button&btn_ref=srctok-XXX#anchor'

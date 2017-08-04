@@ -28,7 +28,7 @@ describe('lib/kokiri/builders/delivery-dot-com', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/delivery?btn_ref=srctok-XXX'
       );
     });
@@ -48,6 +48,7 @@ describe('lib/kokiri/builders/delivery-dot-com', function() {
             query: { a: true },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/delivery/bloop/2?a=true&btn_ref=srctok-XXX#anchor'

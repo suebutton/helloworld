@@ -53,7 +53,7 @@ describe('lib/kokiri/builders/mr-and-mrs-smith', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/mrandmrssmith?btn_ref=srctok-XXX'
       );
     });
@@ -73,6 +73,7 @@ describe('lib/kokiri/builders/mr-and-mrs-smith', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/mrandmrssmith/bloop?btn_ref=srctok-XXX'

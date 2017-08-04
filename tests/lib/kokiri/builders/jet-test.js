@@ -206,7 +206,7 @@ describe('lib/kokiri/builders/jet', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/jet?btn_ref=srctok-XXX'
       );
     });
@@ -226,6 +226,7 @@ describe('lib/kokiri/builders/jet', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/jet/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX'
@@ -241,6 +242,7 @@ describe('lib/kokiri/builders/jet', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/jet/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX'
@@ -255,6 +257,7 @@ describe('lib/kokiri/builders/jet', function() {
             query: { term: 'adidas' },
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/jet/search?term=adidas&btn_ref=srctok-XXX'
@@ -271,6 +274,7 @@ describe('lib/kokiri/builders/jet', function() {
             },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/jet/product/0147dccdb5984ec5bbbcaa2cce33022e?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'

@@ -91,12 +91,12 @@ describe('lib/kokiri/builders/bloomthat', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/bloomthat?btn_ref=srctok-XXX'
       );
 
       assert.deepEqual(
-        this.builder.universalLink({ pathname: '/' }, 'srctok-XXX'),
+        this.builder.universalLink({ pathname: '/' }, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/bloomthat?btn_ref=srctok-XXX'
       );
     });
@@ -116,6 +116,7 @@ describe('lib/kokiri/builders/bloomthat', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/bloomthat/flowers/the-siena?btn_ref=srctok-XXX'
@@ -132,6 +133,7 @@ describe('lib/kokiri/builders/bloomthat', function() {
             },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/bloomthat/flowers/the-siena?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'

@@ -236,7 +236,7 @@ describe('lib/kokiri/builders/groupon', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/groupon-tracking/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX'
       );
     });
@@ -256,6 +256,7 @@ describe('lib/kokiri/builders/groupon', function() {
             query: { a: true },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/groupon-tracking/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%2F2%3Fa%3Dtrue%23anchor&btn_refkey=sid&btn_ref=srctok-XXX'
@@ -268,6 +269,7 @@ describe('lib/kokiri/builders/groupon', function() {
             query: { a: true },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/groupon-tracking/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%2F2%3Fa%3Dtrue%23anchor&btn_refkey=sid&btn_ref=srctok-XXX'
@@ -285,6 +287,7 @@ describe('lib/kokiri/builders/groupon', function() {
               sid: 'dabral',
             },
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/groupon-tracking/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX'
@@ -300,6 +303,7 @@ describe('lib/kokiri/builders/groupon', function() {
             hash: 'anchor',
             region: 'pavel',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/groupon-tracking/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%2F2%3Fa%3Dtrue%23anchor&btn_refkey=sid&btn_ref=srctok-XXX'
@@ -315,6 +319,7 @@ describe('lib/kokiri/builders/groupon', function() {
             hash: 'anchor',
             region: 'uk',
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/groupon-uk-tracking/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2Fbloop%2F2%3Fa%3Dtrue%23anchor&btn_refkey=sid&btn_ref=srctok-XXX'

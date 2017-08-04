@@ -51,7 +51,7 @@ describe('lib/kokiri/builders/booking', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/booking?aid=858965&label=srctok-XXX&btn_refkey=label&btn_ref=srctok-XXX'
       );
     });
@@ -71,6 +71,7 @@ describe('lib/kokiri/builders/booking', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/booking/hotel/us/tuscan-inn.html?aid=858965&label=srctok-XXX&btn_refkey=label&btn_ref=srctok-XXX'

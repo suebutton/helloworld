@@ -122,21 +122,21 @@ describe('lib/kokiri/builders/amazon', function() {
   });
 
   describe('#universalLink', function() {
-    it('returns a univesal link', function() {
+    it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
         'https://track.bttn.io/amazon?tag=button&ascsubtag=srctok-XXX&btn_refkey=ascsubtag&btn_ref=srctok-XXX'
       );
     });
 
-    it('returns a univesal link for static affiliation', function() {
+    it('returns a universal link for static affiliation', function() {
       assert.deepEqual(
         this.builder.universalLink({}),
         'https://track.bttn.io/amazon?tag=button&ascsubtag=org-XXX&btn_refkey=ascsubtag&btn_ref=org-XXX'
       );
     });
 
-    it('returns a univesal link for product', function() {
+    it('returns a universal link for product', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
@@ -145,13 +145,14 @@ describe('lib/kokiri/builders/amazon', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/amazon/Amazon-Echo-Dot-Portable-Bluetooth-Speaker-with-Alexa-Black/dp/B01DFKC2SO?tag=button&ascsubtag=srctok-XXX&btn_refkey=ascsubtag&btn_ref=srctok-XXX'
       );
     });
 
-    it('returns a univesal link for category', function() {
+    it('returns a universal link for category', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
@@ -163,6 +164,7 @@ describe('lib/kokiri/builders/amazon', function() {
             },
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
         'https://track.bttn.io/amazon/pet-shops-dogs-cats-hamsters-kittens/b/ref=nav_shopall_ps?ie=UTF8&node=2619533011&tag=button&ascsubtag=srctok-XXX&btn_refkey=ascsubtag&btn_ref=srctok-XXX'

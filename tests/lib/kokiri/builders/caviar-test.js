@@ -89,20 +89,20 @@ describe('lib/kokiri/builders/caviar', function() {
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
-        this.builder.universalLink({}, 'srctok-XXX'),
-        'https://track.bttn.io/caviar?btn_ref=srctok-XXX'
+        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
+        'https://track.bttn.io/caviar?btn_mobile_url=https%3A%2F%2Fwww.trycaviar.com%3Fbtn_ref%3Dsrctok-XXX&btn_ref=srctok-XXX'
       );
 
       assert.deepEqual(
-        this.builder.universalLink({ pathname: '/' }, 'srctok-XXX'),
-        'https://track.bttn.io/caviar?btn_ref=srctok-XXX'
+        this.builder.universalLink({ pathname: '/' }, 'ios', 'srctok-XXX'),
+        'https://track.bttn.io/caviar?btn_mobile_url=https%3A%2F%2Fwww.trycaviar.com%3Fbtn_ref%3Dsrctok-XXX&btn_ref=srctok-XXX'
       );
     });
 
     it('returns a universal link with static affiliation', function() {
       assert.deepEqual(
         this.builder.universalLink({}),
-        'https://track.bttn.io/caviar?btn_ref=org-XXX'
+        'https://track.bttn.io/caviar?btn_mobile_url=https%3A%2F%2Fwww.trycaviar.com%3Fbtn_ref%3Dorg-XXX&btn_ref=org-XXX'
       );
     });
 
@@ -114,9 +114,10 @@ describe('lib/kokiri/builders/caviar', function() {
             query: {},
             hash: null,
           },
+          'ios',
           'srctok-XXX'
         ),
-        'https://track.bttn.io/caviar/san-francisco/1428-haight-patio-cafe-and-creperie-2575?btn_ref=srctok-XXX'
+        'https://track.bttn.io/caviar/merchant/2575?btn_mobile_url=https%3A%2F%2Fwww.trycaviar.com%2Fsan-francisco%2F1428-haight-patio-cafe-and-creperie-2575%3Fbtn_ref%3Dsrctok-XXX&btn_ref=srctok-XXX'
       );
     });
 
@@ -130,9 +131,10 @@ describe('lib/kokiri/builders/caviar', function() {
             },
             hash: 'anchor',
           },
+          'ios',
           'srctok-XXX'
         ),
-        'https://track.bttn.io/caviar/san-francisco/1428-haight-patio-cafe-and-creperie-2575?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'
+        'https://track.bttn.io/caviar/merchant/2575?utm_campaign=BEST%20OIL&btn_mobile_url=https%3A%2F%2Fwww.trycaviar.com%2Fsan-francisco%2F1428-haight-patio-cafe-and-creperie-2575%3Futm_campaign%3DBEST%2520OIL%26btn_ref%3Dsrctok-XXX%23anchor&btn_ref=srctok-XXX#anchor'
       );
     });
   });
