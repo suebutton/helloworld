@@ -45,6 +45,36 @@ describe('lib/redirect', function() {
     );
 
     it(
+      'caches redirects which end in a non 2XX status code',
+      mochaAsync(async function() {
+        const initialCall = nock('http://bloop.com')
+          .get('/')
+          .reply(302, undefined, { Location: 'http://bleep.biz/tada' });
+
+        const redirectCall = nock('http://bleep.biz').get('/tada').reply(403);
+
+        const result = await redirect(
+          this.redis,
+          'bloop.com',
+          'http://bloop.com'
+        );
+
+        assert.deepEqual(result, 'http://bleep.biz/tada');
+
+        assert.equal(this.redis.getSet.callCount, 1);
+        assert.deepEqual(this.redis.getSet.args[0][0], 'urlredirect');
+        assert.deepEqual(this.redis.getSet.args[0][1], 'bloop.com');
+        assert.deepEqual(this.redis.getSet.args[0][3](), 345600);
+
+        const workResult = await this.redis.getSet.returnValues[0];
+        assert.deepEqual(workResult, 'http://bleep.biz/tada');
+
+        initialCall.done();
+        redirectCall.done();
+      })
+    );
+
+    it(
       'cleans urls',
       mochaAsync(async function() {
         const initialCall = nock('http://bloop.com').get('/').reply(200);
@@ -58,7 +88,9 @@ describe('lib/redirect', function() {
     it(
       'caches failures',
       mochaAsync(async function() {
-        const initialCall = nock('http://bloop.com').get('/').reply(404);
+        const initialCall = nock('http://bloop.com')
+          .get('/')
+          .replyWithError('bang');
 
         const result = await redirect(
           this.redis,

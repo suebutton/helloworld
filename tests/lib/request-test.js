@@ -49,23 +49,6 @@ describe('lib/request', function() {
       })
     );
 
-    it('handles HTTP failures', function(done) {
-      const scope = nock('http://bloop.biz:80')
-        .post('/bleep')
-        .reply(500, { ok: 'computer' });
-
-      promiseRequest({
-        method: 'POST',
-        url: 'http://bloop.biz/bleep',
-      })
-        .then(() => done('Should have rejected'))
-        .catch(e => {
-          assert(e instanceof Error);
-          scope.done();
-          done();
-        });
-    });
-
     it('handles request failures', function(done) {
       const scope = nock('http://bloop.biz:80')
         .post('/bleep')
