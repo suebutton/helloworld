@@ -134,6 +134,40 @@ describe('lib/kokiri/builders/groupon', function() {
             'https://tracking.groupon.com/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%2Fpavel-kitty-house%3Fcategory%3Dpersonal-services%26category2%3Dphotography&btn_ref=srctok-XXX',
         }
       );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/browse',
+            query: { category: 'personal-services' },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'groupon:///dispatch/us/search?category=personal-services&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%3Fcategory%3Dpersonal-services&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: 'browse/',
+            query: { category: 'personal-services', category2: 'photography' },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'groupon:///dispatch/us/search?category=personal-services&category2=photography&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%3Fcategory%3Dpersonal-services%26category2%3Dphotography&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns an app action overriding affiliation paremeters', function() {

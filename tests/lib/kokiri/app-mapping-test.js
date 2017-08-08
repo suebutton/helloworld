@@ -2,6 +2,8 @@
 
 const assert = require('assert');
 
+const { parseUrl } = require('../../../lib/kokiri/lib');
+
 const {
   mapDestination,
   matchHomepage,
@@ -270,7 +272,7 @@ describe('lib/kokiri/app-mapping', function() {
 
   describe('#matchQuery', function() {
     it('matches a query', function() {
-      assert.deepEqual(matchQuery({ bloop: /.*/ })({}), null);
+      assert.deepEqual(matchQuery({ bloop: /.*/ })({}), false);
       assert.deepEqual(
         matchQuery({ bloop: /.*/ })({ query: { a: '2' } }),
         false
@@ -285,8 +287,14 @@ describe('lib/kokiri/app-mapping', function() {
       );
     });
 
+    it('handles url query objects', function() {
+      const { query } = parseUrl('https://bloop.net?bloop=true', true);
+
+      assert.deepEqual(matchQuery({ bloop: /.*/ })({ query }), true);
+    });
+
     it('must match all query params', function() {
-      assert.deepEqual(matchQuery({ bloop: /.*/, bleep: /\d{2}/ })({}), null);
+      assert.deepEqual(matchQuery({ bloop: /.*/, bleep: /\d{2}/ })({}), false);
       assert.deepEqual(
         matchQuery({ bloop: /.*/, bleep: /\d{2}/ })({ query: { a: '2' } }),
         false
