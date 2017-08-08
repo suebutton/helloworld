@@ -23,7 +23,7 @@
   "author": "will@usebutton.com",
   "license": "UNLICENSED",
   "dependencies": {
-    "baseweb": "https://button-archive.s3.amazonaws.com/npm/baseweb-2.4.0.tgz",
+    "baseweb": "https://button-archive.s3.amazonaws.com/npm/baseweb-2.4.1.tgz",
     "comstore-client": "https://button-archive.s3.amazonaws.com/npm/comstore-client-1.25.0.tgz",
     "koa-bodyparser": "^4.2.0",
     "koa-static": "^4.0.1",
