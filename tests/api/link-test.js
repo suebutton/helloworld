@@ -106,21 +106,35 @@ describe('api /v1/link', function() {
       this.kokiriAdapter.maybeRedirect = async () =>
         Promise.resolve({ targetUrl: null });
 
+      this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
+        merchantId: null,
+        approved: false,
+        hasIosDeeplink: false,
+        hasAndroidDeeplink: false,
+      }));
+
       this.request
         .post('/v1/link/attributes')
         .send({ url: 'http://bloop.com', publisher_id: 'org-XXX' })
-        .expect(400)
-        .expect(res =>
+        .expect(200)
+        .expect(res => {
           assert.deepEqual(res.body, {
             meta: {
-              status: 'error',
+              status: 'ok',
             },
-            error: {
-              message: 'Failed to follow redirects for http://bloop.com',
-              type: 'RedirectFailed',
+            data: {
+              object: {
+                affiliate: null,
+                approved: false,
+                has_android_deeplink: false,
+                has_ios_deeplink: false,
+                merchant_id: null,
+              },
             },
-          })
-        )
+          });
+
+          assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0][0], null);
+        })
         .end(done);
     });
 
@@ -354,6 +368,13 @@ describe('api /v1/link', function() {
       this.kokiriAdapter.maybeRedirect = async () =>
         Promise.resolve({ targetUrl: null });
 
+      this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
+        merchantId: null,
+        approved: false,
+      }));
+
+      this.kokiriAdapter.appAction = sinon.spy(() => null);
+
       this.request
         .post('/v1/link/app-action')
         .send({
@@ -362,18 +383,24 @@ describe('api /v1/link', function() {
           platform: 'android',
           attribution_token: 'srctok-XXX',
         })
-        .expect(400)
-        .expect(res =>
+        .expect(200)
+        .expect(res => {
           assert.deepEqual(res.body, {
             meta: {
-              status: 'error',
+              status: 'ok',
             },
-            error: {
-              message: 'Failed to follow redirects for http://bloop.com',
-              type: 'RedirectFailed',
+            data: {
+              object: {
+                app_action: null,
+                approved: false,
+                merchant_id: null,
+              },
             },
-          })
-        )
+          });
+
+          assert.deepEqual(this.kokiriAdapter.appAction.args[0][0], null);
+          assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0][0], null);
+        })
         .end(done);
     });
 
@@ -620,6 +647,13 @@ describe('api /v1/link', function() {
       this.kokiriAdapter.maybeRedirect = async () =>
         Promise.resolve({ targetUrl: null });
 
+      this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
+        merchantId: null,
+        approved: false,
+      }));
+
+      this.kokiriAdapter.universalLink = sinon.spy(() => null);
+
       this.request
         .post('/v1/link/universal')
         .send({
@@ -628,18 +662,24 @@ describe('api /v1/link', function() {
           platform: 'ios',
           attribution_token: 'srctok-XXX',
         })
-        .expect(400)
-        .expect(res =>
+        .expect(200)
+        .expect(res => {
           assert.deepEqual(res.body, {
             meta: {
-              status: 'error',
+              status: 'ok',
             },
-            error: {
-              message: 'Failed to follow redirects for http://bloop.com',
-              type: 'RedirectFailed',
+            data: {
+              object: {
+                approved: false,
+                merchant_id: null,
+                universal_link: null,
+              },
             },
-          })
-        )
+          });
+
+          assert.deepEqual(this.kokiriAdapter.universalLink.args[0][0], null);
+          assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0][0], null);
+        })
         .end(done);
     });
 

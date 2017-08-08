@@ -1,7 +1,6 @@
 const Application = require('baseweb/app');
 
 const { bulk } = require('../../lib/bulk');
-const { redirectFailedError } = require('../../lib/errors');
 
 const {
   validateAttributes,
@@ -34,10 +33,6 @@ module.exports = (redis, kokiriAdapter) => {
       affiliate,
     } = await kokiriAdapter.maybeRedirect(redis, url);
 
-    if (targetUrl === null) {
-      throw redirectFailedError(url);
-    }
-
     const {
       merchantId,
       approved,
@@ -69,10 +64,6 @@ module.exports = (redis, kokiriAdapter) => {
       redis,
       url
     );
-
-    if (targetUrl === null) {
-      throw redirectFailedError(url);
-    }
 
     const { merchantId, approved } = kokiriAdapter.linkAttributes(
       targetUrl,
@@ -111,10 +102,6 @@ module.exports = (redis, kokiriAdapter) => {
       redis,
       url
     );
-
-    if (targetUrl === null) {
-      throw redirectFailedError(url);
-    }
 
     const { merchantId, approved } = kokiriAdapter.linkAttributes(
       targetUrl,
