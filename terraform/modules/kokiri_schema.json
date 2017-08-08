@@ -1,0 +1,68 @@
+[
+  {
+    "name": "reqid",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Request id"
+  },
+  {
+    "name": "date",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "Time of record"
+  },
+  {
+    "name": "http_method",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Request API endpoint http method"
+  },
+  {
+    "name": "path",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Request API endpoint pathname"
+  },
+  {
+    "name": "publisher_organization_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Organization ID requesting a link"
+  },
+  {
+    "name": "merchant_organization_id",
+    "type": "STRING",
+    "description": "Organization ID identified as the merchant"
+  },
+  {
+    "name": "is_approved",
+    "type": "BOOLEAN",
+    "description": "Approval state between the merchant and publisher"
+  },
+  {
+    "name": "is_supported",
+    "type": "BOOLEAN",
+    "description": "The url is supported"
+  },
+  {
+    "name": "experience",
+    "type": "STRING",
+    "description": "JSON-encoded experience parameter submitted"
+  },
+  {
+    "name": "url",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Canonical URL that this request corresponds to"
+  },
+  {
+    "name": "universal_link",
+    "type": "STRING",
+    "description": "Universal Link returned in response"
+  },
+  {
+    "name": "app_action",
+    "type": "STRING",
+    "description": "JSON-encoded App action returned in response"
+  }
+]
