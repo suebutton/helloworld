@@ -91,6 +91,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           shouldRedirect: false,
           targetUrl: 'http://groupon.com/bloop',
         });
+
+        assert.equal(this.metrics.increment.callCount, 0);
       })
     );
 
@@ -111,6 +113,14 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           shouldRedirect: true,
           targetUrl: 'http://redirect.biz',
         });
+
+        assert.equal(this.metrics.increment.callCount, 1);
+        assert.deepEqual(this.metrics.increment.args[0], [
+          {
+            name: 'kokiri_redirect',
+            status: 'success',
+          },
+        ]);
       })
     );
 
@@ -132,6 +142,14 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           shouldRedirect: true,
           targetUrl: null,
         });
+
+        assert.equal(this.metrics.increment.callCount, 1);
+        assert.deepEqual(this.metrics.increment.args[0], [
+          {
+            name: 'kokiri_redirect',
+            status: 'failure',
+          },
+        ]);
       })
     );
   });
@@ -391,6 +409,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.metrics.increment.callCount, 1);
       assert.deepEqual(this.metrics.increment.args[0][0], {
         name: 'kokiri_enhance_link',
+        type: 'app-action',
         status: 'success',
         publisher: 'org-XXX',
         merchant: 'org-3573c6b896624279',
@@ -441,6 +460,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.metrics.increment.callCount, 1);
       assert.deepEqual(this.metrics.increment.args[0][0], {
         name: 'kokiri_enhance_link',
+        type: 'app-action',
         status: 'error',
         publisher: 'org-YYY',
         merchant: null,
@@ -503,6 +523,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.metrics.increment.callCount, 1);
       assert.deepEqual(this.metrics.increment.args[0][0], {
         name: 'kokiri_enhance_link',
+        type: 'universal-link',
         status: 'success',
         publisher: 'org-XXX',
         merchant: 'org-3573c6b896624279',
@@ -537,6 +558,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.metrics.increment.callCount, 1);
       assert.deepEqual(this.metrics.increment.args[0][0], {
         name: 'kokiri_enhance_link',
+        type: 'universal-link',
         status: 'success',
         publisher: 'org-XXX',
         merchant: 'org-3573c6b896624279',
@@ -571,6 +593,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.metrics.increment.callCount, 1);
       assert.deepEqual(this.metrics.increment.args[0][0], {
         name: 'kokiri_enhance_link',
+        type: 'universal-link',
         status: 'success',
         publisher: 'org-XXX',
         merchant: 'org-3573c6b896624279',
@@ -602,6 +625,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.metrics.increment.callCount, 1);
       assert.deepEqual(this.metrics.increment.args[0][0], {
         name: 'kokiri_enhance_link',
+        type: 'universal-link',
         status: 'error',
         publisher: 'org-XXX',
         merchant: null,
@@ -633,6 +657,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.metrics.increment.callCount, 1);
       assert.deepEqual(this.metrics.increment.args[0][0], {
         name: 'kokiri_enhance_link',
+        type: 'universal-link',
         status: 'error',
         publisher: 'org-YYY',
         merchant: 'org-3573c6b896624279',

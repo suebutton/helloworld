@@ -23,7 +23,11 @@ describe('lib/redis', function() {
       on: sinon.spy(() => 'ok'),
       batch: sinon.spy(() => this.batch),
     };
-    this.metrics = { increment: sinon.spy(), gauge: sinon.spy() };
+    this.metrics = {
+      increment: sinon.spy(),
+      gauge: sinon.spy(),
+      timing: sinon.spy(),
+    };
     this.redisClient = new RedisClient(this.nodeRedis, this.metrics);
   });
 
@@ -160,6 +164,7 @@ describe('lib/redis', function() {
 
         const work = sinon.spy();
         const result = await this.redisClient.getSet('bloop', 'bleep', work);
+
         assert.deepEqual(result, 'ok');
         assert.equal(work.callCount, 0);
         assert.equal(this.nodeRedis.batch.callCount, 1);
@@ -167,6 +172,7 @@ describe('lib/redis', function() {
           ['get', 'bloop:bleep'],
           ['dbsize'],
         ]);
+
         assert.equal(this.metrics.increment.callCount, 1);
         assert.deepEqual(this.metrics.increment.args[0][0], {
           name: 'kokiri_redis_event',
@@ -174,11 +180,18 @@ describe('lib/redis', function() {
           event: 'hit',
           statsdName: 'kokiri.redis.bloop.hit',
         });
+
         assert.equal(this.metrics.gauge.callCount, 1);
         assert.deepEqual(this.metrics.gauge.args[0], [
           { name: 'kokiri_redis_dbsize', statsdName: 'kokiri.redis.dbsize' },
           1989,
         ]);
+
+        assert.equal(this.metrics.timing.callCount, 1);
+        assert.deepEqual(this.metrics.timing.args[0][0], {
+          name: 'kokiri_redis_timing',
+          event: 'get-set-hit',
+        });
       })
     );
 
@@ -204,6 +217,7 @@ describe('lib/redis', function() {
         assert.deepEqual(this.nodeRedis.set.args[0][1], 'fetched-ok');
         assert.deepEqual(this.nodeRedis.set.args[0][2], 'EX');
         assert.deepEqual(this.nodeRedis.set.args[0][3], -1);
+
         assert.equal(this.metrics.increment.callCount, 1);
         assert.deepEqual(this.metrics.increment.args[0][0], {
           name: 'kokiri_redis_event',
@@ -211,11 +225,18 @@ describe('lib/redis', function() {
           event: 'miss',
           statsdName: 'kokiri.redis.bloop.miss',
         });
+
         assert.equal(this.metrics.gauge.callCount, 1);
         assert.deepEqual(this.metrics.gauge.args[0], [
           { name: 'kokiri_redis_dbsize', statsdName: 'kokiri.redis.dbsize' },
           1989,
         ]);
+
+        assert.equal(this.metrics.timing.callCount, 1);
+        assert.deepEqual(this.metrics.timing.args[0][0], {
+          name: 'kokiri_redis_timing',
+          event: 'get-set-miss',
+        });
       })
     );
 
