@@ -18,18 +18,6 @@ describe('lib/kokiri/builders/linkshare', function() {
   });
 
   describe('#appAction', function() {
-    it('returns an app action with null values if no url is passed', function() {
-      assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: null,
-        browser_link: null,
-      });
-
-      assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: null,
-        browser_link: null,
-      });
-    });
-
     it('returns an app action with destination', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -92,6 +80,22 @@ describe('lib/kokiri/builders/linkshare', function() {
       );
     });
   });
+
+  describe('#universalLink', function() {
+    it('returns a universal link', function() {
+      assert.deepEqual(
+        this.builder.universalLink(
+          {
+            url: 'https://www.techarmor.com/iphone-7',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        'https://track.bttn.io/techarmor/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Fwww.techarmor.com%2Fiphone-7&u1=srctok-XXX&btn_refkey=u1&btn_ref=srctok-XXX'
+      );
+    });
+  });
+
   describe('#destinationFromUrl', function() {
     it('returns a destination from a url', function() {
       assert.deepEqual(
@@ -104,20 +108,6 @@ describe('lib/kokiri/builders/linkshare', function() {
       assert.deepEqual(this.builder.destinationFromUrl(''), {
         url: '',
       });
-    });
-  });
-  describe('#universalLink', function() {
-    it('universal link returns null', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            url: 'https://www.techarmor.com/iphone-7',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        null
-      );
     });
   });
 });
