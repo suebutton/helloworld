@@ -49,6 +49,40 @@ describe('lib/request', function() {
       })
     );
 
+    it(
+      'resolves HTTP 4XX failures',
+      mochaAsync(async function() {
+        const scope = nock('http://bloop.biz:80')
+          .post('/bleep')
+          .reply(403, { ok: 'computer' });
+
+        const result = await promiseRequest({
+          method: 'POST',
+          url: 'http://bloop.biz/bleep',
+        });
+
+        assert.deepEqual(JSON.parse(result.body), { ok: 'computer' });
+        scope.done();
+      })
+    );
+
+    it('handles HTTP 5XX failures', function(done) {
+      const scope = nock('http://bloop.biz:80')
+        .post('/bleep')
+        .reply(500, { ok: 'computer' });
+
+      promiseRequest({
+        method: 'POST',
+        url: 'http://bloop.biz/bleep',
+      })
+        .then(() => done('Should have rejected'))
+        .catch(e => {
+          assert(e instanceof Error);
+          scope.done();
+          done();
+        });
+    });
+
     it('handles request failures', function(done) {
       const scope = nock('http://bloop.biz:80')
         .post('/bleep')
