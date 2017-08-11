@@ -10,9 +10,7 @@ describe('lib/request', function() {
     it(
       'makes a network request and returns a promise',
       mochaAsync(async function() {
-        const scope = nock('http://bloop.biz:80', {
-          reqheaders: { 'User-Agent': 'ButtonBot/1.0' },
-        })
+        const scope = nock('http://bloop.biz:80')
           .post('/bleep')
           .reply(200, { ok: 'computer' });
 
@@ -27,11 +25,11 @@ describe('lib/request', function() {
     );
 
     it(
-      'merges request headers',
+      'uses request headers',
       mochaAsync(async function() {
         const scope = nock('http://bloop.biz:80', {
           reqheaders: {
-            'User-Agent': 'ButtonBot/1.0',
+            'User-Agent': 'BloopBot/1.0',
             'X-Bloop-Sequence': '1989',
           },
         })
