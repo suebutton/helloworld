@@ -19,9 +19,26 @@ describe('lib/kokiri/builders/delivery-dot-com', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://www.delivery.com?btn_ref=srctok-XXX',
+        app_link: 'deliverydotcom://?btn_ref=srctok-XXX',
         browser_link: 'https://www.delivery.com?btn_ref=srctok-XXX',
       });
+    });
+
+    it('returns an app action for android', function() {
+      assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
+        app_link: 'deliverydotcom://app?btn_ref=srctok-XXX',
+        browser_link: 'https://www.delivery.com?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns an app action with no app path', function() {
+      assert.deepEqual(
+        this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
+        {
+          app_link: null,
+          browser_link: 'https://www.delivery.com/bloop?btn_ref=srctok-XXX',
+        }
+      );
     });
   });
 
