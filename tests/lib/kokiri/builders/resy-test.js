@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
-describe('lib/kokiri/builders/rest-generic', function() {
+describe('lib/kokiri/builders/resy', function() {
   beforeEach(function() {
     const approvals = [
       {
@@ -12,15 +12,7 @@ describe('lib/kokiri/builders/rest-generic', function() {
       },
     ];
 
-    const webToAppMappings = [
-      {
-        organization: 'org-273ae234ce730ab5',
-        subdomain_name: 'resy',
-        external_host: 'https://resy.com',
-      },
-    ];
-
-    this.config = new KokiriConfig([], [], [], [], webToAppMappings, approvals);
+    this.config = new KokiriConfig([], [], [], [], [], approvals);
 
     this.builder = this.config.createBuilder('org-XXX', 'org-273ae234ce730ab5');
   });
@@ -28,26 +20,24 @@ describe('lib/kokiri/builders/rest-generic', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://www.resy.com?btn_ref=srctok-XXX',
+        app_link: 'resy://resy.com?btn_ref=srctok-XXX',
         browser_link: 'https://www.resy.com?btn_ref=srctok-XXX',
       });
     });
 
-    it('returns an universal link action', function() {
+    it('returns an app action for android', function() {
+      assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
+        app_link: 'resy://resy.com?btn_ref=srctok-XXX',
+        browser_link: 'https://www.resy.com?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns an app action for a non-supported app path', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            pathname: '/some/resy/action',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
+        this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
         {
-          app_link: 'https://www.resy.com/some/resy/action?btn_ref=srctok-XXX',
-          browser_link:
-            'https://www.resy.com/some/resy/action?btn_ref=srctok-XXX',
+          app_link: null,
+          browser_link: 'https://www.resy.com/bloop?btn_ref=srctok-XXX',
         }
       );
     });
@@ -61,25 +51,34 @@ describe('lib/kokiri/builders/rest-generic', function() {
       );
     });
 
-    it('returns a universal link for static affiliation', function() {
+    it('returns a universal link with static affiliation', function() {
       assert.deepEqual(
         this.builder.universalLink({}),
         'https://track.bttn.io/resy?btn_ref=org-XXX'
       );
     });
 
-    it('returns a universal link for a hotel', function() {
+    it('returns a universal link with destination', function() {
+      assert.deepEqual(
+        this.builder.universalLink({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
+        'https://track.bttn.io/resy/bloop?btn_ref=srctok-XXX'
+      );
+    });
+
+    it('returns a universal link with query parameters', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
-            pathname: '/some/resy/action',
-            query: {},
-            hash: null,
+            pathname: '/bloop',
+            query: {
+              utm_campaign: 'BEST OIL',
+            },
+            hash: 'anchor',
           },
           'ios',
           'srctok-XXX'
         ),
-        'https://track.bttn.io/resy/some/resy/action?btn_ref=srctok-XXX'
+        'https://track.bttn.io/resy/bloop?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'
       );
     });
   });
@@ -87,11 +86,13 @@ describe('lib/kokiri/builders/rest-generic', function() {
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(
-        'https://www.resy.com/some/resy/action?utm_campaign=BEST%20OIL'
+        'https://www.resy.com/bloop?utm_campaign=BEST%20OIL'
       ),
       {
-        pathname: '/some/resy/action',
-        query: { utm_campaign: 'BEST OIL' },
+        pathname: '/bloop',
+        query: {
+          utm_campaign: 'BEST OIL',
+        },
         hash: null,
       }
     );
