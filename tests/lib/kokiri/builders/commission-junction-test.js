@@ -10,6 +10,11 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         audience: 'org-XXX',
         organization: 'org-0b394cbf5a4d9aa8',
       },
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: 'org-319e4a77607c0ae6',
+      },
     ];
 
     this.config = new KokiriConfig([], [], [], [], [], approvals);
@@ -63,6 +68,24 @@ describe('lib/kokiri/builders/commission-junction,', function() {
           app_link: null,
           browser_link:
             'http://www.dpbolvw.net/click-8395017-12515534?sid=srctok-XXX&url=https%3A%2F%2Fdrizly.com%2Fa%2Fb%2Fc&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns app action with destination path when no url mapping', function() {
+      const b = this.config.createBuilder('org-XXX', 'org-319e4a77607c0ae6');
+      assert.deepEqual(
+        b.appAction(
+          {
+            url: 'https://gap.com/a/b/c',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.dpbolvw.net/click-8395017-10410849?sid=srctok-XXX&url=https%3A%2F%2Fgap.com%2Fa%2Fb%2Fc&btn_ref=srctok-XXX',
         }
       );
     });
