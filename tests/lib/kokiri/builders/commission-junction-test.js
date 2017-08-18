@@ -15,6 +15,11 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         audience: 'org-XXX',
         organization: 'org-319e4a77607c0ae6',
       },
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: 'org-33fbd5f8fc3214c4',
+      },
     ];
 
     this.config = new KokiriConfig([], [], [], [], [], approvals);
@@ -72,7 +77,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       );
     });
 
-    it('returns app action with destination path when no url mapping', function() {
+    it('returns app action with destination path for gap', function() {
       const b = this.config.createBuilder('org-XXX', 'org-319e4a77607c0ae6');
       assert.deepEqual(
         b.appAction(
@@ -89,7 +94,23 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         }
       );
     });
-
+    it('returns app action with destination path for stitch fix ', function() {
+      const b = this.config.createBuilder('org-XXX', 'org-33fbd5f8fc3214c4');
+      assert.deepEqual(
+        b.appAction(
+          {
+            url: 'https://www.stitchfix.com/a/b/c',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.dpbolvw.net/click-8395017-12922947?sid=srctok-XXX&url=https%3A%2F%2Fwww.stitchfix.com%2Fa%2Fb%2Fc&btn_ref=srctok-XXX',
+        }
+      );
+    });
     it('returns app action with null values if there is no org_id to mid mapping', function() {
       this.builder.merchantId = 'org-XXX';
       assert.deepEqual(
