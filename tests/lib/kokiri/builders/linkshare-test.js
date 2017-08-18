@@ -10,6 +10,11 @@ describe('lib/kokiri/builders/linkshare', function() {
         audience: 'org-XXX',
         organization: 'org-6ef589c578ab8ac6',
       },
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: 'org-139f1edad7388c6a',
+      },
     ];
 
     this.config = new KokiriConfig([], [], [], [], [], approvals);
@@ -18,6 +23,27 @@ describe('lib/kokiri/builders/linkshare', function() {
   });
 
   describe('#appAction', function() {
+    it('returns an app action for gamestop', function() {
+      const gamestopBuilder = this.config.createBuilder(
+        'org-XXX',
+        'org-139f1edad7388c6a'
+      );
+
+      assert.deepEqual(
+        gamestopBuilder.appAction(
+          {
+            url: 'http://www.gamestop.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
     it('returns an app action with destination', function() {
       assert.deepEqual(
         this.builder.appAction(
