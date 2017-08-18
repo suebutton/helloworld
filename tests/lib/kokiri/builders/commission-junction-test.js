@@ -139,12 +139,12 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
-            url: 'https://www.techarmor.com/iphone-7',
+            url: 'https://drizly_cj.com',
           },
           'ios',
           'srctok-XXX'
         ),
-        null
+        'https://track.bttn.io/drizly-cj/click-8395017-12515534?sid=srctok-XXX&url=https%3A%2F%2Fdrizly.com%2F&btn_refkey=sid&btn_ref=srctok-XXX'
       );
     });
   });
