@@ -8,23 +8,23 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-0b394cbf5a4d9aa8',
+        organization: 'org-3acb6dc42678c843', // express staging
       },
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-319e4a77607c0ae6',
+        organization: 'org-319e4a77607c0ae6', // gap staging
       },
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-33fbd5f8fc3214c4',
+        organization: 'org-33fbd5f8fc3214c4', // stitch fix staging
       },
     ];
 
     this.config = new KokiriConfig([], [], [], [], [], approvals);
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-0b394cbf5a4d9aa8');
+    this.builder = this.config.createBuilder('org-XXX', 'org-3acb6dc42678c843');
   });
 
   describe('#appAction', function() {
@@ -32,7 +32,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            url: 'https://drizly_cj.com',
+            url: 'https://www.express.com/',
           },
           'ios',
           'srctok-XXX'
@@ -40,14 +40,14 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-12515534?sid=srctok-XXX&url=https%3A%2F%2Fdrizly.com%2F&btn_ref=srctok-XXX',
+            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
         this.builder.appAction(
           {
-            url: 'https://drizly_cj.com',
+            url: 'https://www.express.com/',
           },
           'android',
           'srctok-XXX'
@@ -55,7 +55,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-12515534?sid=srctok-XXX&url=https%3A%2F%2Fdrizly.com%2F&btn_ref=srctok-XXX',
+            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_ref=srctok-XXX',
         }
       );
     });
@@ -64,7 +64,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            url: 'https://drizly_cj.com/a/b/c?foo=bar#123',
+            url: 'https://www.express.com/a/b/c?foo=bar#123',
           },
           'ios',
           'srctok-XXX'
@@ -72,7 +72,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-12515534?sid=srctok-XXX&url=https%3A%2F%2Fdrizly.com%2Fa%2Fb%2Fc&btn_ref=srctok-XXX',
+            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2Fa%2Fb%2Fc%3Ffoo%3Dbar%23123&btn_ref=srctok-XXX',
         }
       );
     });
@@ -160,12 +160,12 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       assert.deepEqual(
         this.builder.universalLink(
           {
-            url: 'https://drizly_cj.com',
+            url: 'https://www.express.com/',
           },
           'ios',
           'srctok-XXX'
         ),
-        'https://track.bttn.io/drizly-cj/click-8395017-12515534?sid=srctok-XXX&url=https%3A%2F%2Fdrizly.com%2F&btn_refkey=sid&btn_ref=srctok-XXX'
+        'https://track.bttn.io/express/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_refkey=sid&btn_ref=srctok-XXX'
       );
     });
   });
