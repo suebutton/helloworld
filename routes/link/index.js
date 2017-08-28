@@ -1,4 +1,4 @@
-const Application = require('baseweb/app');
+const Application = require('libbtn/web/app');
 
 const { bulk } = require('../../lib/bulk');
 

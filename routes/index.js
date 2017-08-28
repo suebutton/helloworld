@@ -1,7 +1,7 @@
 const bodyParser = require('koa-bodyparser');
 const serve = require('koa-static');
 
-const Application = require('baseweb/app');
+const Application = require('libbtn/web/app');
 
 const formatMiddleware = require('../middleware/format');
 const requestIdMiddleware = require('../middleware/request-id');

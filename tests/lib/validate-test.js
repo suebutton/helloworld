@@ -1,5 +1,5 @@
 const assert = require('assert');
-const HTTP = require('baseweb/util/http');
+const HTTP = require('libbtn/web/util/http');
 
 const { createValidate, validUrl } = require('../../lib/validate');
 

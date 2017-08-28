@@ -23,11 +23,10 @@
   "author": "will@usebutton.com",
   "license": "UNLICENSED",
   "dependencies": {
-    "baseweb": "https://button-archive.s3.amazonaws.com/npm/baseweb-2.4.1.tgz",
     "comstore-client": "https://button-archive.s3.amazonaws.com/npm/comstore-client-1.25.0.tgz",
     "koa-bodyparser": "^4.2.0",
     "koa-static": "^4.0.1",
-    "libbtn": "https://button-archive.s3.amazonaws.com/npm/libbtn-1.44.0.tgz",
+    "libbtn": "https://button-archive.s3.amazonaws.com/npm/libbtn-2.0.0.tgz",
     "lodash": "^4.17.4",
     "redis": "^2.7.1",
     "request": "^2.81.0"
