@@ -121,6 +121,47 @@ describe('lib/kokiri/builders/amazon', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://amazon.bttn.io?tag=button&ascsubtag=srctok-XXX&btn_refkey=ascsubtag&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.amazon.com?tag=button&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://amazon.bttn.io/bloop?a=2&tag=button&ascsubtag=srctok-XXX&btn_refkey=ascsubtag&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.amazon.com/bloop?a=2&tag=button&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with protected affiliation parameters', function() {
+      const query = {
+        tag: 'pavel',
+        ascsubtag: 'pavel',
+      };
+
+      assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://amazon.bttn.io?tag=button&ascsubtag=srctok-XXX&btn_refkey=ascsubtag&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.amazon.com?tag=button&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(

@@ -32,6 +32,10 @@ describe('api /v1/link', function() {
         app_link: 'bloop:///?btn_ref=srctok-XXX',
         browser_link: 'https://bloop.com?btn_ref=srctok-XXX',
       })),
+      webAction: sinon.spy(() => ({
+        app_link: 'https://bloop.bttn.io?btn_ref=srctok-XXX',
+        browser_link: 'https://bloop.com?btn_ref=srctok-XXX',
+      })),
       universalLink: sinon.spy(() => 'http://track.bttn.io/bloop'),
     };
     this.app = app({ kokiriAdapter: this.kokiriAdapter });
@@ -104,7 +108,7 @@ describe('api /v1/link', function() {
 
     it('handles redirect failures', function(done) {
       this.kokiriAdapter.maybeRedirect = async () =>
-        Promise.resolve({ targetUrl: null });
+        Promise.resolve({ targetUrl: null, shouldRedirect: false });
 
       this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
         merchantId: null,
@@ -129,6 +133,7 @@ describe('api /v1/link', function() {
                 has_android_deeplink: false,
                 has_ios_deeplink: false,
                 merchant_id: null,
+                redirect: false,
               },
             },
           });
@@ -366,7 +371,7 @@ describe('api /v1/link', function() {
 
     it('handles redirect failures', function(done) {
       this.kokiriAdapter.maybeRedirect = async () =>
-        Promise.resolve({ targetUrl: null });
+        Promise.resolve({ targetUrl: null, shouldRedirect: false });
 
       this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
         merchantId: null,
@@ -394,6 +399,7 @@ describe('api /v1/link', function() {
                 app_action: null,
                 approved: false,
                 merchant_id: null,
+                redirect: false,
               },
             },
           });
@@ -559,6 +565,320 @@ describe('api /v1/link', function() {
     });
   });
 
+  describe('GET /v1/link/web-action', function() {
+    it('returns a web action', function(done) {
+      this.request
+        .post('/v1/link/web-action')
+        .send({
+          url: 'http://bloop.com',
+          publisher_id: 'org-XXX',
+          platform: 'ios',
+          attribution_token: 'srctok-XXX',
+        })
+        .expect(200)
+        .expect(res =>
+          assert.deepEqual(res.body, {
+            meta: {
+              status: 'ok',
+            },
+            data: {
+              object: {
+                web_action: {
+                  app_link: 'https://bloop.bttn.io?btn_ref=srctok-XXX',
+                  browser_link: 'https://bloop.com?btn_ref=srctok-XXX',
+                },
+                approved: true,
+                merchant_id: 'org-YYY',
+                redirect: true,
+              },
+            },
+          })
+        )
+        .expect(() => {
+          assert.equal(this.kokiriAdapter.maybeRedirect.callCount, 1);
+          assert.deepEqual(
+            this.kokiriAdapter.maybeRedirect.args[0][1],
+            'http://bloop.com'
+          );
+          assert.equal(this.kokiriAdapter.linkAttributes.callCount, 1);
+          assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0], [
+            'http://bleep.biz',
+            'org-XXX',
+          ]);
+          assert.equal(this.kokiriAdapter.webAction.callCount, 1);
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[0][0],
+            'http://bleep.biz'
+          );
+          assert.deepEqual(this.kokiriAdapter.webAction.args[0][1], 'org-XXX');
+          assert.deepEqual(this.kokiriAdapter.webAction.args[0][2], 'ios');
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[0][3],
+            'srctok-XXX'
+          );
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[0][5],
+            'http://bloop.com'
+          );
+        })
+        .end(done);
+    });
+
+    it('returns a web action with errors', function(done) {
+      this.request
+        .post('/v1/link/web-action')
+        .send({
+          url: 'bloop.com',
+          publisher_id: 'org-XXX',
+          platform: 'pavel',
+          attribution_token: 'srctok-XXX',
+        })
+        .expect(400)
+        .expect(res =>
+          assert.deepEqual(res.body, {
+            meta: {
+              status: 'error',
+            },
+            error: {
+              message: `Invalid argument: url (couldn't parse protocol and hostname)`,
+              type: 'InvalidArgument',
+            },
+          })
+        )
+        .expect(() => {
+          assert.equal(this.kokiriAdapter.maybeRedirect.callCount, 0);
+          assert.equal(this.kokiriAdapter.linkAttributes.callCount, 0);
+          assert.equal(this.kokiriAdapter.webAction.callCount, 0);
+        })
+        .end(done);
+    });
+
+    it('handles null web actions', function(done) {
+      this.kokiriAdapter.webAction = async () => Promise.resolve(null);
+
+      this.request
+        .post('/v1/link/web-action')
+        .send({
+          url: 'http://bloop.com',
+          publisher_id: 'org-XXX',
+          platform: 'android',
+          attribution_token: 'srctok-XXX',
+        })
+        .expect(200)
+        .expect(res =>
+          assert.deepEqual(res.body, {
+            meta: {
+              status: 'ok',
+            },
+            data: {
+              object: {
+                web_action: null,
+                approved: true,
+                merchant_id: 'org-YYY',
+                redirect: true,
+              },
+            },
+          })
+        )
+        .end(done);
+    });
+
+    it('handles redirect failures', function(done) {
+      this.kokiriAdapter.maybeRedirect = async () =>
+        Promise.resolve({ targetUrl: null, shouldRedirect: false });
+
+      this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
+        merchantId: null,
+        approved: false,
+      }));
+
+      this.kokiriAdapter.webAction = sinon.spy(() => null);
+
+      this.request
+        .post('/v1/link/web-action')
+        .send({
+          url: 'http://bloop.com',
+          publisher_id: 'org-XXX',
+          platform: 'android',
+          attribution_token: 'srctok-XXX',
+        })
+        .expect(200)
+        .expect(res => {
+          assert.deepEqual(res.body, {
+            meta: {
+              status: 'ok',
+            },
+            data: {
+              object: {
+                web_action: null,
+                approved: false,
+                merchant_id: null,
+                redirect: false,
+              },
+            },
+          });
+
+          assert.deepEqual(this.kokiriAdapter.webAction.args[0][0], null);
+          assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0][0], null);
+        })
+        .end(done);
+    });
+
+    it('returns bulk web actions', function(done) {
+      this.request
+        .post('/v1/link/web-action')
+        .send([
+          {
+            url: 'http://bloop.com',
+            publisher_id: 'org-XXX',
+            platform: 'ios',
+            attribution_token: 'srctok-XXX',
+          },
+          {
+            url: 'http://pup.com',
+            publisher_id: 'org-XXX',
+            platform: 'android',
+            attribution_token: 'srctok-YYY',
+          },
+        ])
+        .expect(200)
+        .expect(res =>
+          assert.deepEqual(res.body, {
+            meta: {
+              status: 'ok',
+            },
+            data: {
+              objects: [
+                {
+                  web_action: {
+                    app_link: 'https://bloop.bttn.io?btn_ref=srctok-XXX',
+                    browser_link: 'https://bloop.com?btn_ref=srctok-XXX',
+                  },
+                  approved: true,
+                  merchant_id: 'org-YYY',
+                  redirect: true,
+                },
+                {
+                  web_action: {
+                    app_link: 'https://bloop.bttn.io?btn_ref=srctok-XXX',
+                    browser_link: 'https://bloop.com?btn_ref=srctok-XXX',
+                  },
+                  approved: true,
+                  merchant_id: 'org-YYY',
+                  redirect: false,
+                },
+              ],
+              warnings: [null, null],
+            },
+          })
+        )
+        .expect(() => {
+          assert.equal(this.kokiriAdapter.maybeRedirect.callCount, 2);
+          assert.deepEqual(
+            this.kokiriAdapter.maybeRedirect.args[0][1],
+            'http://bloop.com'
+          );
+          assert.deepEqual(
+            this.kokiriAdapter.maybeRedirect.args[1][1],
+            'http://pup.com'
+          );
+          assert.equal(this.kokiriAdapter.linkAttributes.callCount, 2);
+          assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0], [
+            'http://bleep.biz',
+            'org-XXX',
+          ]);
+          assert.deepEqual(this.kokiriAdapter.linkAttributes.args[1], [
+            'http://pup.biz',
+            'org-XXX',
+          ]);
+          assert.equal(this.kokiriAdapter.webAction.callCount, 2);
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[0][0],
+            'http://bleep.biz'
+          );
+          assert.deepEqual(this.kokiriAdapter.webAction.args[0][1], 'org-XXX');
+          assert.deepEqual(this.kokiriAdapter.webAction.args[0][2], 'ios');
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[0][3],
+            'srctok-XXX'
+          );
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[0][5],
+            'http://bloop.com'
+          );
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[1][0],
+            'http://pup.biz'
+          );
+          assert.deepEqual(this.kokiriAdapter.webAction.args[1][1], 'org-XXX');
+          assert.deepEqual(this.kokiriAdapter.webAction.args[1][2], 'android');
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[1][3],
+            'srctok-YYY'
+          );
+          assert.deepEqual(
+            this.kokiriAdapter.webAction.args[1][5],
+            'http://pup.com'
+          );
+        })
+        .end(done);
+    });
+
+    it('returns bulk web actions with errors', function(done) {
+      this.request
+        .post('/v1/link/web-action')
+        .send([
+          {
+            url: 'http://bloop.com',
+            publisher_id: 'org-XXX',
+            platform: 'ios',
+            attribution_token: 'srctok-XXX',
+          },
+          {
+            url: 'pup.com',
+            publisher_id: 'org-XXX',
+            platform: 'android',
+            attribution_token: 'srctok-YYY',
+          },
+        ])
+        .expect(200)
+        .expect(res =>
+          assert.deepEqual(res.body, {
+            meta: {
+              status: 'ok',
+            },
+            data: {
+              objects: [
+                {
+                  web_action: {
+                    app_link: 'https://bloop.bttn.io?btn_ref=srctok-XXX',
+                    browser_link: 'https://bloop.com?btn_ref=srctok-XXX',
+                  },
+                  approved: true,
+                  merchant_id: 'org-YYY',
+                  redirect: true,
+                },
+                null,
+              ],
+              warnings: [
+                null,
+                {
+                  message: `Invalid argument: url (couldn't parse protocol and hostname)`,
+                  type: 'InvalidArgument',
+                },
+              ],
+            },
+          })
+        )
+        .expect(() => {
+          assert.equal(this.kokiriAdapter.maybeRedirect.callCount, 1);
+          assert.equal(this.kokiriAdapter.linkAttributes.callCount, 1);
+          assert.equal(this.kokiriAdapter.webAction.callCount, 1);
+        })
+        .end(done);
+    });
+  });
+
   describe('GET /v1/link/universal', function() {
     it('returns a universal link', function(done) {
       this.request
@@ -645,7 +965,7 @@ describe('api /v1/link', function() {
 
     it('handles redirect failures', function(done) {
       this.kokiriAdapter.maybeRedirect = async () =>
-        Promise.resolve({ targetUrl: null });
+        Promise.resolve({ targetUrl: null, shouldRedirect: false });
 
       this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
         merchantId: null,
@@ -673,6 +993,7 @@ describe('api /v1/link', function() {
                 approved: false,
                 merchant_id: null,
                 universal_link: null,
+                redirect: false,
               },
             },
           });

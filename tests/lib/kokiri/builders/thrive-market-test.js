@@ -75,6 +75,51 @@ describe('lib/kokiri/builders/thrive-market', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://thrivemarket.bttn.io?ReferrerURL=aHR0cHM6Ly90aHJpdmVtYXJrZXQuY29tLz91dG1fbWVkaXVtPWFmZmlsaWF0ZSZ1dG1fc291cmNlPWJ1dHRvbiZ1dG1fY2FtcGFpZ249aWJvdHRhJnV0bV9jb250ZW50PWRlZmF1bHQmdXRtX3Rlcm09bmE%253D&utm_source=org-XXX&utm_campaign=button&btn_ref=srctok-XXX',
+        browser_link:
+          'https://thrivemarket.com?utm_medium=affiliate&utm_content=default&utm_term=na&utm_source=org-XXX&utm_campaign=button&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://thrivemarket.bttn.io/bloop?a=2&ReferrerURL=aHR0cHM6Ly90aHJpdmVtYXJrZXQuY29tLz91dG1fbWVkaXVtPWFmZmlsaWF0ZSZ1dG1fc291cmNlPWJ1dHRvbiZ1dG1fY2FtcGFpZ249aWJvdHRhJnV0bV9jb250ZW50PWRlZmF1bHQmdXRtX3Rlcm09bmE%253D&utm_source=org-XXX&utm_campaign=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://thrivemarket.com/bloop?a=2&utm_medium=affiliate&utm_content=default&utm_term=na&utm_source=org-XXX&utm_campaign=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action that protects affiliation parameters', function() {
+      const query = {
+        ReferrerURL: 'pavel',
+        utm_source: 'pavel',
+        utm_campaign: 'pavel',
+        utm_medium: 'pavel',
+        utm_content: 'pavel',
+        utm_term: 'pavel',
+      };
+
+      assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://thrivemarket.bttn.io?ReferrerURL=aHR0cHM6Ly90aHJpdmVtYXJrZXQuY29tLz91dG1fbWVkaXVtPWFmZmlsaWF0ZSZ1dG1fc291cmNlPWJ1dHRvbiZ1dG1fY2FtcGFpZ249aWJvdHRhJnV0bV9jb250ZW50PWRlZmF1bHQmdXRtX3Rlcm09bmE%253D&utm_source=org-XXX&utm_campaign=button&utm_medium=pavel&utm_content=pavel&utm_term=pavel&btn_ref=srctok-XXX',
+        browser_link:
+          'https://thrivemarket.com?ReferrerURL=pavel&utm_source=org-XXX&utm_campaign=button&utm_medium=affiliate&utm_content=default&utm_term=na&btn_ref=srctok-XXX',
+      });
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(

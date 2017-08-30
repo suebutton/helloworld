@@ -5,3 +5,4 @@ baseweb-*.tgz
 .idea
 .nyc_output
 coverage
+.terraform

@@ -69,6 +69,50 @@ describe('lib/kokiri/builders/ebay', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://ebay.bttn.io/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_refkey=customid&btn_ref=srctok-XXX',
+        browser_link:
+          'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://ebay.bttn.io/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fbloop%3Fa%3D2&btn_refkey=customid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fbloop%3Fa%3D2&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with affiliation parameters protected', function() {
+      const query = {
+        ff3: 'pavel',
+        toolid: 'pavel',
+        pub: 'pavel',
+        campid: 'pavel',
+        customid: 'pavel',
+      };
+
+      assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://ebay.bttn.io/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_refkey=customid&btn_ref=srctok-XXX',
+        browser_link:
+          'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+      });
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(

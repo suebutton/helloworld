@@ -170,6 +170,31 @@ describe('lib/kokiri/builders/apple-retail', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link: null,
+        browser_link:
+          'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://aos.prf.hn/click/camref:1101lMpQ/pubref:srctok-XXX/destination:http://www.apple.com/bloop?btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

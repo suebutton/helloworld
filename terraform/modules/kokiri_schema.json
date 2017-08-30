@@ -64,5 +64,10 @@
     "name": "app_action",
     "type": "STRING",
     "description": "JSON-encoded App action returned in response"
+  },
+  {
+    "name": "web_action",
+    "type": "STRING",
+    "description": "JSON-encoded Web action returned in response"
   }
 ]

@@ -1,4 +1,5 @@
 const assert = require('assert');
+const { omit } = require('lodash');
 
 const sinon = require('sinon');
 
@@ -399,6 +400,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           browser_link:
             'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }),
+        web_action: null,
       };
       verifyRequest.date = this.bigqueryLogger.scheduleInsert.args[0][1].date;
       assert.deepEqual(
@@ -450,6 +452,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         experience: null,
         universal_link: null,
         app_action: undefined,
+        web_action: null,
       };
       verifyRequest.date = this.bigqueryLogger.scheduleInsert.args[0][1].date;
       assert.deepEqual(
@@ -472,6 +475,124 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.kokiriAdapter.appAction(), null);
       assert.equal(this.kokiriAdapter.appAction('url'), null);
       assert.equal(this.kokiriAdapter.appAction(null, 'org-YYY', '', {}));
+    });
+  });
+
+  describe('#webAction', function() {
+    it('succesfully returns links and merchantId', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.webAction(
+          'http://hotels.com/bloop',
+          'org-XXX',
+          'ios',
+          'srctok-XXX',
+          {
+            request: {
+              url: 'https://kokiri.com/v1/links/web-action',
+              method: 'POST',
+            },
+            state: {
+              requestId: 1234,
+            },
+          }
+        ),
+        {
+          app_link:
+            'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        omit(this.bigqueryLogger.scheduleInsert.args[0][1], ['date']),
+        {
+          reqid: 1234,
+          http_method: 'POST',
+          path: '/v1/links/web-action',
+          publisher_organization_id: 'org-XXX',
+          merchant_organization_id: 'org-3573c6b896624279',
+          url: 'http://hotels.com/bloop',
+          is_supported: true,
+          is_approved: true,
+          experience: null,
+          universal_link: null,
+          app_action: null,
+          web_action: JSON.stringify({
+            app_link:
+              'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+            browser_link:
+              'https://www.hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          }),
+        }
+      );
+
+      assert.equal(this.metrics.increment.callCount, 1);
+      assert.deepEqual(this.metrics.increment.args[0][0], {
+        name: 'kokiri_enhance_link',
+        type: 'web-action',
+        status: 'success',
+        publisher: 'org-XXX',
+        merchant: 'org-3573c6b896624279',
+        statsdName: 'kokiri.success',
+      });
+    });
+
+    it('returns null on error and increments metrics', function() {
+      const ctx = {
+        request: {
+          url: 'https://kokiri.com/v1/links/web-action',
+          method: 'POST',
+        },
+        state: {
+          requestId: 1234,
+        },
+      };
+
+      assert.equal(
+        this.kokiriAdapter.webAction(
+          'https://pavel.net',
+          'org-YYY',
+          'ios',
+          'srctok-XXX',
+          ctx
+        ),
+        null
+      );
+
+      assert.deepEqual(
+        omit(this.bigqueryLogger.scheduleInsert.args[0][1], 'date'),
+        {
+          reqid: 1234,
+          http_method: 'POST',
+          path: '/v1/links/web-action',
+          publisher_organization_id: 'org-YYY',
+          merchant_organization_id: null,
+          url: 'https://pavel.net',
+          is_supported: false,
+          is_approved: true,
+          experience: null,
+          universal_link: null,
+          app_action: null,
+          web_action: undefined,
+        }
+      );
+
+      assert.equal(this.metrics.increment.callCount, 1);
+      assert.deepEqual(this.metrics.increment.args[0][0], {
+        name: 'kokiri_enhance_link',
+        type: 'web-action',
+        status: 'error',
+        publisher: 'org-YYY',
+        merchant: null,
+        statsdName: 'kokiri.error',
+      });
+    });
+
+    it('returns null with insufficient arguments', function() {
+      assert.equal(this.kokiriAdapter.webAction(), null);
+      assert.equal(this.kokiriAdapter.webAction('url'), null);
+      assert.equal(this.kokiriAdapter.webAction(null, 'org-YYY', '', {}));
     });
   });
 
@@ -505,9 +626,10 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         is_supported: true,
         is_approved: true,
         experience: '{}',
-        app_action: null,
         universal_link:
           'https://track.bttn.io/hotels?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+        app_action: null,
+        web_action: null,
       };
       verifyRequest.date = this.bigqueryLogger.scheduleInsert.args[0][1].date;
       assert.deepEqual(

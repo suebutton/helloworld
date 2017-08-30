@@ -90,6 +90,49 @@ describe('lib/kokiri/builders/itunes', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://itunes.bttn.io?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX',
+        browser_link:
+          'https://itunes.apple.com?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://itunes.bttn.io/bloop?a=2&at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX',
+          browser_link:
+            'https://itunes.apple.com/bloop?a=2&at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with protected affiliation parameters', function() {
+      const query = {
+        at: 'pavel',
+        mt: 'pavel',
+        app: 'pavel',
+        ct: 'pavel',
+      };
+
+      assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://itunes.bttn.io?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX',
+        browser_link:
+          'https://itunes.apple.com?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(

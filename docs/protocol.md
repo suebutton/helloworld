@@ -151,7 +151,52 @@ be `null`.
 }
 ```
 
-### `POST /v1/link/universal`
+### `POST /v1/link/web-action`
+
+Fetch a Web Action for a link.  Accepts an array of links or individual link
+payload.  If a link couldn't be enhanced, the corresponding response entry will
+be `null`.
+
+###### Request Payload
+
+```json
+[
+  {
+    "publisher_id": "org-XXX",
+    "url": "https://hotels.com",
+    "platform": "ios",
+    "attribution_token": "srctok-XXX"
+  }
+]
+```
+
+###### Response Payload
+
+```json
+{
+  "meta": {
+    "status": "ok"
+  },
+  "data": {
+    "objects": [
+      {
+        "merchant_id": "org-YYY",
+        "approved": true,
+        "redirect": true,
+        "web_action": {
+          "app_link": "https://hotels.bttn.io?rffrid=pavel&btn_ref=srctok-XXX",
+          "browser_link": "https://www.hotels.com?rffrid=pavel&btn_ref=srctok-XXX"
+        },
+      }
+    ],
+    "warnings": [
+      null
+    ]
+  }
+}
+```
+
+### **DEPRECATED** `POST /v1/link/universal`
 
 Fetch a universal link for a link.  Accepts an array of links or individual link
 payload.  If a link couldn't be enhanced, the corresponding response entry will

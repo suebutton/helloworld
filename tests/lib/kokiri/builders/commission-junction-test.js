@@ -141,6 +141,34 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       );
     });
   });
+
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://express.bttn.io/click-8395017-11393884?sid=srctok-XXX&url=&btn_refkey=sid&btn_ref=srctok-XXX',
+        browser_link:
+          'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://express.bttn.io/click-8395017-11393884?sid=srctok-XXX&url=&btn_refkey=sid&btn_ref=srctok-XXX',
+          browser_link:
+            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=&btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
   describe('destinationFromUrl', function() {
     it('returns a destination from a url', function() {
       assert.deepEqual(
@@ -155,6 +183,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       });
     });
   });
+
   describe('#universalLink', function() {
     it('universal link returns null', function() {
       assert.deepEqual(

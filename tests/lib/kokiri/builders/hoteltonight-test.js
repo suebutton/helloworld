@@ -85,6 +85,48 @@ describe('lib/kokiri/builders/hoteltonight', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://hoteltonight.bttn.io?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.hoteltonight.com?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://hoteltonight.bttn.io/bloop?a=2&adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hoteltonight.com/bloop?a=2&adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action protecting affiliation parameters', function() {
+      const query = {
+        adjust_tracker: 'pavel',
+        utm_source: 'pavel',
+        utm_campaign: 'pavel',
+      };
+
+      assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://hoteltonight.bttn.io?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.hoteltonight.com?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+      });
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(

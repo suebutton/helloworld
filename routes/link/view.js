@@ -89,6 +89,46 @@ function viewAppAction(appAction) {
  * @param  {string} merchantId
  * @param  {boolean} approved
  * @param  {boolean} shouldRedirect
+ * @param  {Object} webAction
+ * @param  {string} webAction.app_link
+ * @param  {string} webAction.browser_link
+ * @return {Object}
+ */
+function viewWebActionWithMeta(
+  merchantId,
+  approved,
+  shouldRedirect,
+  webAction
+) {
+  return {
+    merchant_id: merchantId,
+    approved,
+    redirect: shouldRedirect,
+    web_action: viewWebAction(webAction),
+  };
+}
+
+/**
+ * @param  {Object} webAction
+ * @param  {string} webAction.app_link
+ * @param  {string} webAction.browser_link
+ * @return {Object}
+ */
+function viewWebAction(webAction) {
+  if (!isPlainObject(webAction)) {
+    return null;
+  }
+
+  return {
+    app_link: webAction.app_link || null,
+    browser_link: webAction.browser_link || null,
+  };
+}
+
+/**
+ * @param  {string} merchantId
+ * @param  {boolean} approved
+ * @param  {boolean} shouldRedirect
  * @param  {string} universalLink
  * @return {Object}
  */
@@ -109,5 +149,6 @@ function viewUniveralWithMeta(
 module.exports = {
   viewAttributes,
   viewAppActionWithMeta,
+  viewWebActionWithMeta,
   viewUniveralWithMeta,
 };

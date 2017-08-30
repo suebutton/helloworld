@@ -1062,6 +1062,7 @@ describe('lib/kokiri/kokiri-config', function() {
               key: 'id',
               value: 'bleep',
               organization_id: 'org-3573c6b896624279',
+              url: 'https://bloop.com',
             },
           ];
 
@@ -1097,7 +1098,11 @@ describe('lib/kokiri/kokiri-config', function() {
           ];
 
           const webToAppMappings = [
-            { subdomain_name: 'bloop', organization: 'org-3573c6b896624279' },
+            {
+              subdomain_name: 'bloop',
+              organization: 'org-3573c6b896624279',
+              external_host: 'https://bloop.com',
+            },
           ];
 
           const approvals = [
@@ -1193,6 +1198,7 @@ describe('lib/kokiri/kokiri-config', function() {
         beforeEach(function() {
           const supportedMerchants = [
             { hostname: 'bloop.com', organization_id: 'org-3573c6b896624279' },
+            { hostname: 'pup.net', organization_id: 'org-PUP' },
           ];
 
           const supportedAffiliateQueryIds = [
@@ -1201,6 +1207,7 @@ describe('lib/kokiri/kokiri-config', function() {
               key: 'id',
               value: 'bleep',
               organization_id: 'org-3573c6b896624279',
+              url: 'http://bloop.com',
             },
           ];
 
@@ -1236,7 +1243,11 @@ describe('lib/kokiri/kokiri-config', function() {
           ];
 
           const webToAppMappings = [
-            { subdomain_name: 'bloop', organization: 'org-3573c6b896624279' },
+            {
+              subdomain_name: 'bloop',
+              organization: 'org-3573c6b896624279',
+              external_host: 'http://bloop.com',
+            },
             {
               subdomain_name: 'pup',
               organization: 'org-PUP',

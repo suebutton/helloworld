@@ -15,7 +15,10 @@ For a full description of the protocol, consult `docs/protocol.md`.  Here are
 the basics:
 
 * `POST /v1/link/attributes`: Get meta data about a link
-* `POST /v1/link/app-action`: Get an App Action (app link + browser link)
+* `POST /v1/link/app-action`: Get an SDK consumable App Action
+  (app link + browser link)
+* `POST /v1/link/web-action`: Get a Boomerang consumable Web Action
+  (app link + browser link)
 * `POST /v1/link/universal`: Get a univeral link
 * `POST /v1/sdk/config`: Get an configuration object consumable by SDKs for
   determining Button support for a link
@@ -28,19 +31,17 @@ HTTP header.
 1. Comstore (web-to-app-mappings and approvals)
 2. A redis cache (_optional_).  This cache is used for mapping urls to their
    redirect location.  Used only as a performance improvement.  The service
-   operates slowly without it.
-
+   operates slowly without it.  To use, `$ brew install redis; redis-server`
 
 ## Local Setup
 
 * Kokiri runs on node `v7.9.0`
-* It requires a local redis instance (`$ brew intall redis`)
 * It uses Comstore's staging instance locally by default
 
 ```bash
 $ nvm use 7.9.0
 $ yarn
-$ npm start
+$ yarn start
 ```
 
 #### ...with Docker
@@ -55,11 +56,11 @@ requires Docker>=17.06.0_
 
 ## Handy Commands
 
-* `npm start`: Run the server
-* `npm test`: Run the tests
-* `npm run lint`: Manually run the linter
-* `npm run format`: Manually run the code formatter
-* `npm run coverage`: Generate a code coverage report, apply salt to taste.
+* `yarn start`: Run the server
+* `yarn test`: Run the tests
+* `yarn run lint`: Manually run the linter
+* `yarn run format`: Manually run the code formatter
+* `yarn run coverage`: Generate a code coverage report, apply salt to taste.
 
 ## Environment Variables
 

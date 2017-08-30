@@ -308,6 +308,76 @@ describe('lib/kokiri/builders/groupon', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX',
+        browser_link:
+          'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_refkey=sid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with uk region', function() {
+      assert.deepEqual(
+        this.builder.webAction({ region: 'uk' }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'https://groupon-uk-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_refkey=sid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://t.groupon.co.uk/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with an unknown region', function() {
+      assert.deepEqual(
+        this.builder.webAction({ region: 'pavel' }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action protecting affiliation parameters', function() {
+      const query = {
+        utm_medium: 'pavel',
+        utm_source: 'pavel',
+        utm_campaign: 'pavel',
+        sid: 'dabral',
+      };
+
+      assert.deepEqual(
+        this.builder.webAction({ region: 'pavel', query }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(

@@ -107,6 +107,40 @@ describe('lib/kokiri/builders/linkshare', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { url: 'https://techarmor.com' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://techarmor.bttn.io/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com&u1=srctok-XXX&btn_refkey=u1&btn_ref=srctok-XXX',
+          browser_link:
+            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { url: 'https://techarmor.com/bloop?a=2' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://techarmor.bttn.io/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com%2Fbloop%3Fa%3D2&u1=srctok-XXX&btn_refkey=u1&btn_ref=srctok-XXX',
+          browser_link:
+            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com%2Fbloop%3Fa%3D2&u1=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(

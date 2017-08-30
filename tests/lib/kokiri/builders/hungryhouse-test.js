@@ -46,6 +46,30 @@ describe('lib/kokiri/builders/hungryhouse', function() {
     });
   });
 
+  describe('#webAction', function() {
+    it('returns a web action', function() {
+      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link: 'https://hungryhouse.bttn.io?btn_ref=srctok-XXX',
+        browser_link: 'https://www.hungryhouse.co.uk?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'https://hungryhouse.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hungryhouse.co.uk/bloop?a=2&btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
   describe('#universalLink', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
