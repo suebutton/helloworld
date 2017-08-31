@@ -119,73 +119,6 @@ describe('lib/kokiri/kokiri-config', function() {
         });
       });
 
-      describe('#merchantIdFromWebToAppMappingExternalHostname', function() {
-        beforeEach(function() {
-          const webToAppMappings = [
-            { subdomain_name: 'bleep', organization: PUBLISHER_ID },
-            {
-              subdomain_name: 'bloop',
-              organization: 'org-3573c6b896624279',
-              external_host: 'https://www.bloop.com',
-            },
-            { subdomain_name: 'blorp', organization: 'org-YYY' },
-          ];
-
-          const approvals = [
-            {
-              status: 'approved',
-              audience: PUBLISHER_ID,
-              organization: 'org-3573c6b896624279',
-            },
-          ];
-
-          this.config = createConfig(
-            [],
-            [],
-            [],
-            [],
-            webToAppMappings,
-            approvals
-          );
-        });
-
-        it('returns a merchant id for a known hostname', function() {
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappingExternalHostname(
-              'bloop.com'
-            ),
-            'org-3573c6b896624279'
-          );
-        });
-
-        it('returns a merchant id for a known hostname with www prefix', function() {
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappingExternalHostname(
-              'www.bloop.com'
-            ),
-            'org-3573c6b896624279'
-          );
-        });
-
-        it('returns null for unknown hostnames', function() {
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappingExternalHostname(
-              'bleep.co.uk'
-            ),
-            null
-          );
-        });
-
-        it('returns null for a bad config', function() {
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappingExternalHostname(
-              'bleep.co.uk'
-            ),
-            null
-          );
-        });
-      });
-
       describe('#bttnioSubdomainFromMerchantId', function() {
         beforeEach(function() {
           const webToAppMappings = [
@@ -293,42 +226,6 @@ describe('lib/kokiri/kokiri-config', function() {
             this.config.merchantIdFromWebToAppMappings(
               'track.bttn.io',
               '/bloop/2',
-              PUBLISHER_ID
-            ),
-            'org-3573c6b896624279'
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'www.bloop.com',
-              '',
-              PUBLISHER_ID
-            ),
-            'org-3573c6b896624279'
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'www.bloop.com',
-              '/2',
-              PUBLISHER_ID
-            ),
-            'org-3573c6b896624279'
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'bloop.com',
-              '',
-              PUBLISHER_ID
-            ),
-            'org-3573c6b896624279'
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'bloop.com',
-              '/2',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
@@ -1324,13 +1221,6 @@ describe('lib/kokiri/kokiri-config', function() {
           assert.equal(merchantId, 'org-3573c6b896624279');
         });
 
-        it('returns a merchant with a matching web-to-app-mapping defined host', function() {
-          const merchantId = this.config.merchantIdByUrl(
-            'http://pup.net/bloop/bleep'
-          );
-          assert.equal(merchantId, 'org-PUP');
-        });
-
         it('returns null for an unsupported url', function() {
           assert.equal(this.config.merchantIdByUrl('http://bleep.org'), null);
         });
@@ -1946,7 +1836,6 @@ describe('lib/kokiri/kokiri-config', function() {
           supported_hostnames: [
             { hostname: 'pup.com' },
             { hostname: 'cloudnothings.com' },
-            { hostname: 'twinpeaks.com' },
           ],
           supported_bttnio_subdomains: [
             { subdomain: 'pup' },
@@ -2090,7 +1979,7 @@ describe('lib/kokiri/kokiri-config', function() {
         });
 
         assert.deepEqual(this.config.toSDKConfig('org-PP4'), {
-          supported_hostnames: [{ hostname: 'blabla.com' }],
+          supported_hostnames: [],
           supported_bttnio_subdomains: [{ subdomain: 'blabla' }],
           supported_affiliates: [
             {
