@@ -4,7 +4,7 @@ const { get, merge } = require('lodash');
 const {
   NODE_ENV,
   PORT,
-  REDIS_HOSTNAME,
+  REDIS_HOST,
   REDIS_PORT,
   COMSTORE_URL,
   STATSD_PORT_8125_UDP_ADDR,
@@ -26,7 +26,7 @@ const inDockerContainer = (() => {
 const LOCALHOST = inDockerContainer ? 'docker.for.mac.localhost' : '127.0.0.1';
 
 const DEFAULT_PORT = 3000;
-const DEFAULT_REDIS_HOSTNAME = LOCALHOST;
+const DEFAULT_REDIS_HOST = LOCALHOST;
 const DEFAULT_REDIS_PORT = '6379';
 const DEFAULT_COMSTORE_URL = 'http://comstore-ecs-staging.button-internal.com';
 const DEFAULT_STATSD_HOSTNAME = LOCALHOST;
@@ -35,7 +35,7 @@ const DEFAULT_STATSD_PORT = '8125';
 const defaultConfig = {
   port: PORT || DEFAULT_PORT,
   redis: {
-    hostname: REDIS_HOSTNAME || DEFAULT_REDIS_HOSTNAME,
+    hostname: REDIS_HOST || DEFAULT_REDIS_HOST,
     port: REDIS_PORT || DEFAULT_REDIS_PORT,
   },
   comstore: {

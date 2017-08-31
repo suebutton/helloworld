@@ -54,6 +54,28 @@ $ docker run -p 3000:3000 -ti kokiri
 _n.b. running Kokiri inside of Docker and talking to redis on the host machine
 requires Docker>=17.06.0_
 
+## Local with Pint
+
+Install Pint:
+
+```
+curl https://s3-us-west-2.amazonaws.com/button-archive/go/pint/darwin/pint-latest > /usr/local/bin/pint
+chmod +x /usr/local/bin/pint
+```
+
+Run:
+
+```bash
+$ nvm use 7.9.0
+$ pint setup
+$ pint run yarn start
+```
+
+#### ...Pint with Docker
+$ pint docker build
+$ pint docker run
+```
+
 ## Handy Commands
 
 * `yarn start`: Run the server
@@ -66,7 +88,7 @@ requires Docker>=17.06.0_
 
 * `NODE_ENV`: The running environment's name
 * `PORT=3000`: The port to listen on
-* `REDIS_HOSTNAME=localhost`: The hostname of a redis instance to use
+* `REDIS_HOST=localhost`: The hostname of a redis instance to use
 * `REDIS_PORT=6379`: The port of a redis instance to use
 * `COMSTORE_URL=http://comstore-ecs-staging.button-internal.com`: The location
   of a Comstore instance
