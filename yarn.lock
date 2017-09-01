@@ -279,6 +279,10 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
+browser-fingerprint@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/browser-fingerprint/-/browser-fingerprint-0.0.1.tgz#8df3cdca25bf7d5b3542d61545d730053fce604a"
+
 "btnschemas@https://button-archive.s3.amazonaws.com/npm/btnschemas-1.2.1.tgz":
   version "1.2.1"
   resolved "https://button-archive.s3.amazonaws.com/npm/btnschemas-1.2.1.tgz#56eee0f0b364b4d553c72d84d70bea55828dfbe6"
@@ -533,6 +537,10 @@ copy-to@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/copy-to/-/copy-to-2.0.1.tgz#2680fbb8068a48d08656b6098092bdafc906f4a5"
 
+core-js@^1.1.1:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
+
 core-js@^2.4.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.4.1.tgz#4de911e667b0eae9124e34254b53aea6fc618d3e"
@@ -574,6 +582,14 @@ cryptiles@2.x.x:
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
   dependencies:
     boom "2.x.x"
+
+cuid@^1.3.8:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/cuid/-/cuid-1.3.8.tgz#4b875e0969bad764f7ec0706cf44f5fb0831f6b7"
+  dependencies:
+    browser-fingerprint "0.0.1"
+    core-js "^1.1.1"
+    node-fingerprint "0.0.2"
 
 cycle@1.0.x:
   version "1.0.3"
@@ -1773,13 +1789,14 @@ levn@^0.3.0, levn@~0.3.0:
     raven "^0.9.0"
     ua-parser-js "^0.7.10"
 
-"libbtn@https://button-archive.s3.amazonaws.com/npm/libbtn-2.0.0.tgz":
-  version "2.0.0"
-  resolved "https://button-archive.s3.amazonaws.com/npm/libbtn-2.0.0.tgz#7af8efcb62e211bf04deb57895b55f4172e59dc1"
+"libbtn@https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.0.tgz":
+  version "2.3.0"
+  resolved "https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.0.tgz#72f74790eec8804130b5b44819ed6f7030e33598"
   dependencies:
     big-integer "^1.6.13"
     blocked "^1.2.1"
     bluebird "^2.10.0"
+    cuid "^1.3.8"
     debug "^2.2.0"
     geolib "^2.0.18"
     koa "^2.2.0"
@@ -2133,6 +2150,10 @@ nock@^8.0.0:
     mkdirp "^0.5.0"
     propagate "0.4.0"
     qs "^6.0.2"
+
+node-fingerprint@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/node-fingerprint/-/node-fingerprint-0.0.2.tgz#31cbabeb71a67ae7dd5a7dc042e51c3c75868501"
 
 node-uuid@~1.4.1:
   version "1.4.8"

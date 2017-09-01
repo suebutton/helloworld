@@ -4,7 +4,7 @@ const serve = require('koa-static');
 const Application = require('libbtn/web/app');
 
 const formatMiddleware = require('../middleware/format');
-const requestIdMiddleware = require('../middleware/request-id');
+const requestIdMiddleware = require('libbtn/web/middleware/request-id');
 
 const LinkRouter = require('./link');
 const ConfigRouter = require('./config');
@@ -23,7 +23,7 @@ module.exports = (redis, kokiriAdapter) => {
 
   router.use(bodyParser());
   router.use(formatMiddleware);
-  router.use(requestIdMiddleware);
+  router.use(requestIdMiddleware({ writer: false }));
 
   router.use('/v1/link', LinkRouter(redis, kokiriAdapter).routes());
   router.use('/v1/config', ConfigRouter(kokiriAdapter).routes());
