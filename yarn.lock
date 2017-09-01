@@ -1789,9 +1789,9 @@ levn@^0.3.0, levn@~0.3.0:
     raven "^0.9.0"
     ua-parser-js "^0.7.10"
 
-"libbtn@https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.0.tgz":
-  version "2.3.0"
-  resolved "https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.0.tgz#72f74790eec8804130b5b44819ed6f7030e33598"
+"libbtn@https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.2.tgz":
+  version "2.3.2"
+  resolved "https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.2.tgz#7cc05f4d0063e44968cbb28ef280a95537e2a074"
   dependencies:
     big-integer "^1.6.13"
     blocked "^1.2.1"
