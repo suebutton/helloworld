@@ -95,8 +95,20 @@ payload.
         },
         "approved": false,
         "redirect": false,
-        "has_ios_deeplink": false,
-        "has_android_deeplink": true
+        "ios_support": {
+          "app_to_web": true,
+          "app_to_app": true,
+          "web_to_web": true,
+          "web_to_app": true,
+          "web_to_app_with_install": false
+        },
+        "android_support": {
+          "app_to_web": true,
+          "app_to_app": true,
+          "web_to_web": true,
+          "web_to_app": true,
+          "web_to_app_with_install": false
+        }
       }
     ],
     "warnings": [

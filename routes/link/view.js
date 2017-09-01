@@ -7,8 +7,8 @@ const { isPlainObject } = require('lodash');
  * @param  {?Object} affiliate
  * @param  {string} affiliate.hostname
  * @param  {string} affiliate.display_name
- * @param  {boolean} hasIosDeeplink
- * @param  {boolean} hasAndroidDeeplink
+ * @param  {?Object} iosSupport
+ * @param  {?Object} androidSupport
  * @return {Object}
  */
 function viewAttributes(
@@ -16,16 +16,39 @@ function viewAttributes(
   approved,
   shouldRedirect,
   affiliate,
-  hasIosDeeplink,
-  hasAndroidDeeplink
+  iosSupport,
+  androidSupport
 ) {
   return {
     merchant_id: merchantId,
     affiliate: viewAffiliate(affiliate),
     approved,
     redirect: shouldRedirect,
-    has_ios_deeplink: hasIosDeeplink,
-    has_android_deeplink: hasAndroidDeeplink,
+    ios_support: viewSupportMatrix(iosSupport),
+    android_support: viewSupportMatrix(androidSupport),
+  };
+}
+
+/**
+ * @param  {?Object} supportMatrix
+ * @param  {boolean} supportMatrix.appToWeb
+ * @param  {boolean} supportMatrix.appToApp
+ * @param  {boolean} supportMatrix.webToWeb
+ * @param  {boolean} supportMatrix.webToApp
+ * @param  {boolean} supportMatrix.webToAppWithInstall
+ * @return {?Object}
+ */
+function viewSupportMatrix(supportMatrix) {
+  if (!isPlainObject(supportMatrix)) {
+    return null;
+  }
+
+  return {
+    app_to_web: supportMatrix.appToWeb,
+    app_to_app: supportMatrix.appToApp,
+    web_to_web: supportMatrix.webToWeb,
+    web_to_app: supportMatrix.webToApp,
+    web_to_app_with_install: supportMatrix.webToAppWithInstall,
   };
 }
 
@@ -33,6 +56,7 @@ function viewAttributes(
  * @param  {?Object} affiliate
  * @param  {string} affiliate.hostname
  * @param  {string} affiliate.display_name
+ * @return {?Object}
  */
 function viewAffiliate(affiliate) {
   if (!isPlainObject(affiliate)) {
@@ -72,7 +96,7 @@ function viewAppActionWithMeta(
  * @param  {Object} appAction
  * @param  {string} appAction.app_link
  * @param  {string} appAction.browser_link
- * @return {Object}
+ * @return {?Object}
  */
 function viewAppAction(appAction) {
   if (!isPlainObject(appAction)) {

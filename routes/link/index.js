@@ -35,20 +35,29 @@ module.exports = (redis, kokiriAdapter) => {
       affiliate,
     } = await kokiriAdapter.maybeRedirect(redis, url);
 
-    const {
-      merchantId,
-      approved,
-      hasIosDeeplink,
-      hasAndroidDeeplink,
-    } = kokiriAdapter.linkAttributes(targetUrl, publisherId);
+    const { merchantId, approved } = kokiriAdapter.linkAttributes(
+      targetUrl,
+      publisherId
+    );
+
+    const iosSupport = kokiriAdapter.supportMatrix(
+      targetUrl,
+      publisherId,
+      'ios'
+    );
+    const androidSupport = kokiriAdapter.supportMatrix(
+      targetUrl,
+      publisherId,
+      'android'
+    );
 
     return viewAttributes(
       merchantId,
       approved,
       shouldRedirect,
       affiliate,
-      hasIosDeeplink,
-      hasAndroidDeeplink
+      iosSupport,
+      androidSupport
     );
   });
 

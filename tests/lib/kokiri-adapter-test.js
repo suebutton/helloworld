@@ -214,8 +214,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-3573c6b896624279',
           approved: true,
-          hasAndroidDeeplink: false,
-          hasIosDeeplink: false,
         }
       );
 
@@ -227,8 +225,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: null,
           approved: false,
-          hasAndroidDeeplink: false,
-          hasIosDeeplink: false,
         }
       );
     });
@@ -239,8 +235,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-3573c6b896624279',
           approved: true,
-          hasAndroidDeeplink: false,
-          hasIosDeeplink: false,
         }
       );
 
@@ -249,8 +243,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: null,
           approved: false,
-          hasAndroidDeeplink: false,
-          hasIosDeeplink: false,
         }
       );
 
@@ -259,8 +251,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-681847bf6cc4d57c',
           approved: false,
-          hasAndroidDeeplink: false,
-          hasIosDeeplink: false,
         }
       );
     });
@@ -274,8 +264,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           merchantId: 'org-3573c6b896624279',
           approved: true,
-          hasAndroidDeeplink: false,
-          hasIosDeeplink: false,
         }
       );
     });
@@ -284,9 +272,73 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.deepEqual(this.kokiriAdapter.linkAttributes(null, 'org-XXX'), {
         merchantId: null,
         approved: false,
-        hasAndroidDeeplink: false,
-        hasIosDeeplink: false,
       });
+    });
+  });
+
+  describe('#supportMatrix', function() {
+    it('returns a support matrix for a platform', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.supportMatrix(
+          'https://hotels.com',
+          'org-XXX',
+          'ios'
+        ),
+        {
+          appToApp: true,
+          appToWeb: true,
+          webToApp: false,
+          webToAppWithInstall: false,
+          webToWeb: true,
+        }
+      );
+    });
+
+    it('returns a support matrix for an unsupported platform', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.supportMatrix(
+          'https://mrandmrssmith.com',
+          'org-XXX',
+          'android'
+        ),
+        {
+          appToApp: false,
+          appToWeb: false,
+          webToApp: false,
+          webToAppWithInstall: false,
+          webToWeb: false,
+        }
+      );
+    });
+
+    it('returns a support matrix for an unapproved partner', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.supportMatrix(
+          'https://hotels.com',
+          'org-CHRIS',
+          'ios'
+        ),
+        {
+          appToApp: false,
+          appToWeb: false,
+          webToApp: false,
+          webToAppWithInstall: false,
+          webToWeb: false,
+        }
+      );
+    });
+
+    it('returns a support matrix for an unknown partner', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.supportMatrix('https://pup.biz', 'org-CHRIS', 'ios'),
+        {
+          appToApp: false,
+          appToWeb: false,
+          webToApp: false,
+          webToAppWithInstall: false,
+          webToWeb: false,
+        }
+      );
     });
   });
 
@@ -451,8 +503,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         is_approved: true,
         experience: null,
         universal_link: null,
-        app_action: undefined,
         web_action: null,
+        app_action: null,
       };
       verifyRequest.date = this.bigqueryLogger.scheduleInsert.args[0][1].date;
       assert.deepEqual(

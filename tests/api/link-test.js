@@ -25,8 +25,13 @@ describe('api /v1/link', function() {
       linkAttributes: sinon.spy(() => ({
         merchantId: 'org-YYY',
         approved: true,
-        hasIosDeeplink: false,
-        hasAndroidDeeplink: true,
+      })),
+      supportMatrix: sinon.spy((a, b, platform) => ({
+        appToWeb: platform === 'ios',
+        appToApp: false,
+        webToWeb: false,
+        webToApp: false,
+        webToAppWithInstall: false,
       })),
       appAction: sinon.spy(() => ({
         app_link: 'bloop:///?btn_ref=srctok-XXX',
@@ -60,10 +65,22 @@ describe('api /v1/link', function() {
                   hostname: 'bleep.biz',
                 },
                 approved: true,
-                has_android_deeplink: true,
-                has_ios_deeplink: false,
                 merchant_id: 'org-YYY',
                 redirect: true,
+                ios_support: {
+                  app_to_web: true,
+                  app_to_app: false,
+                  web_to_web: false,
+                  web_to_app: false,
+                  web_to_app_with_install: false,
+                },
+                android_support: {
+                  app_to_web: false,
+                  app_to_app: false,
+                  web_to_web: false,
+                  web_to_app: false,
+                  web_to_app_with_install: false,
+                },
               },
             },
           })
@@ -74,10 +91,17 @@ describe('api /v1/link', function() {
             this.kokiriAdapter.maybeRedirect.args[0][1],
             'http://bloop.com'
           );
+
           assert.equal(this.kokiriAdapter.linkAttributes.callCount, 1);
           assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0], [
             'http://bleep.biz',
             'org-XXX',
+          ]);
+
+          assert.equal(this.kokiriAdapter.supportMatrix.callCount, 2);
+          assert.deepEqual(this.kokiriAdapter.supportMatrix.args, [
+            ['http://bleep.biz', 'org-XXX', 'ios'],
+            ['http://bleep.biz', 'org-XXX', 'android'],
           ]);
         })
         .end(done);
@@ -102,6 +126,7 @@ describe('api /v1/link', function() {
         .expect(() => {
           assert.equal(this.kokiriAdapter.maybeRedirect.callCount, 0);
           assert.equal(this.kokiriAdapter.linkAttributes.callCount, 0);
+          assert.equal(this.kokiriAdapter.supportMatrix.callCount, 0);
         })
         .end(done);
     });
@@ -113,8 +138,6 @@ describe('api /v1/link', function() {
       this.kokiriAdapter.linkAttributes = sinon.spy(() => ({
         merchantId: null,
         approved: false,
-        hasIosDeeplink: false,
-        hasAndroidDeeplink: false,
       }));
 
       this.request
@@ -130,10 +153,22 @@ describe('api /v1/link', function() {
               object: {
                 affiliate: null,
                 approved: false,
-                has_android_deeplink: false,
-                has_ios_deeplink: false,
                 merchant_id: null,
                 redirect: false,
+                ios_support: {
+                  app_to_web: true,
+                  app_to_app: false,
+                  web_to_web: false,
+                  web_to_app: false,
+                  web_to_app_with_install: false,
+                },
+                android_support: {
+                  app_to_web: false,
+                  app_to_app: false,
+                  web_to_web: false,
+                  web_to_app: false,
+                  web_to_app_with_install: false,
+                },
               },
             },
           });
@@ -164,18 +199,42 @@ describe('api /v1/link', function() {
                     hostname: 'bleep.biz',
                   },
                   approved: true,
-                  has_android_deeplink: true,
-                  has_ios_deeplink: false,
                   merchant_id: 'org-YYY',
                   redirect: true,
+                  ios_support: {
+                    app_to_web: true,
+                    app_to_app: false,
+                    web_to_web: false,
+                    web_to_app: false,
+                    web_to_app_with_install: false,
+                  },
+                  android_support: {
+                    app_to_web: false,
+                    app_to_app: false,
+                    web_to_web: false,
+                    web_to_app: false,
+                    web_to_app_with_install: false,
+                  },
                 },
                 {
                   affiliate: null,
                   approved: true,
-                  has_android_deeplink: true,
-                  has_ios_deeplink: false,
                   merchant_id: 'org-YYY',
                   redirect: false,
+                  ios_support: {
+                    app_to_web: true,
+                    app_to_app: false,
+                    web_to_web: false,
+                    web_to_app: false,
+                    web_to_app_with_install: false,
+                  },
+                  android_support: {
+                    app_to_web: false,
+                    app_to_app: false,
+                    web_to_web: false,
+                    web_to_app: false,
+                    web_to_app_with_install: false,
+                  },
                 },
               ],
               warnings: [null, null],
@@ -192,6 +251,7 @@ describe('api /v1/link', function() {
             this.kokiriAdapter.maybeRedirect.args[1][1],
             'http://pup.com'
           );
+
           assert.equal(this.kokiriAdapter.linkAttributes.callCount, 2);
           assert.deepEqual(this.kokiriAdapter.linkAttributes.args[0], [
             'http://bleep.biz',
@@ -200,6 +260,14 @@ describe('api /v1/link', function() {
           assert.deepEqual(this.kokiriAdapter.linkAttributes.args[1], [
             'http://pup.biz',
             'org-ZZZ',
+          ]);
+
+          assert.equal(this.kokiriAdapter.supportMatrix.callCount, 4);
+          assert.deepEqual(this.kokiriAdapter.supportMatrix.args, [
+            ['http://bleep.biz', 'org-XXX', 'ios'],
+            ['http://bleep.biz', 'org-XXX', 'android'],
+            ['http://pup.biz', 'org-ZZZ', 'ios'],
+            ['http://pup.biz', 'org-ZZZ', 'android'],
           ]);
         })
         .end(done);
@@ -226,10 +294,22 @@ describe('api /v1/link', function() {
                     hostname: 'bleep.biz',
                   },
                   approved: true,
-                  has_android_deeplink: true,
-                  has_ios_deeplink: false,
                   merchant_id: 'org-YYY',
                   redirect: true,
+                  ios_support: {
+                    app_to_web: true,
+                    app_to_app: false,
+                    web_to_web: false,
+                    web_to_app: false,
+                    web_to_app_with_install: false,
+                  },
+                  android_support: {
+                    app_to_web: false,
+                    app_to_app: false,
+                    web_to_web: false,
+                    web_to_app: false,
+                    web_to_app_with_install: false,
+                  },
                 },
                 null,
               ],
@@ -246,6 +326,7 @@ describe('api /v1/link', function() {
         .expect(() => {
           assert.equal(this.kokiriAdapter.maybeRedirect.callCount, 1);
           assert.equal(this.kokiriAdapter.linkAttributes.callCount, 1);
+          assert.equal(this.kokiriAdapter.supportMatrix.callCount, 2);
         })
         .end(done);
     });
