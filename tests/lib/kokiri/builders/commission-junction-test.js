@@ -20,6 +20,11 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         audience: 'org-XXX',
         organization: 'org-33fbd5f8fc3214c4', // stitch fix staging
       },
+      {
+        status: 'approved',
+        audience: 'org-2d432a88b9bb8bda',
+        organization: 'org-3acb6dc42678c843',
+      },
     ];
 
     this.config = new KokiriConfig([], [], [], [], [], approvals);
@@ -60,6 +65,28 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       );
     });
 
+    it('returns an app action with publisher-specific parameters', function() {
+      const builder = this.config.createBuilder(
+        'org-2d432a88b9bb8bda',
+        'org-3acb6dc42678c843'
+      );
+
+      assert.deepEqual(
+        builder.appAction(
+          {
+            url: 'https://www.express.com/',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.dpbolvw.net/click-8415784-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action with destination and a path', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -94,6 +121,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         }
       );
     });
+
     it('returns app action with destination path for stitch fix ', function() {
       const b = this.config.createBuilder('org-XXX', 'org-33fbd5f8fc3214c4');
       assert.deepEqual(
@@ -111,6 +139,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         }
       );
     });
+
     it('returns app action with null values if there is no org_id to mid mapping', function() {
       this.builder.merchantId = 'org-XXX';
       assert.deepEqual(
