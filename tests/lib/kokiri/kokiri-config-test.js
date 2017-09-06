@@ -45,7 +45,7 @@ describe('lib/kokiri/kokiri-config', function() {
     const createConfig = createConfigMaybeRemote.bind(null, useRemote);
 
     describe(message, function() {
-      describe('#merchantIdFromSupportedMerchants', function() {
+      describe('#merchantIdByUrl', function() {
         beforeEach(function() {
           const supportedMerchants = [
             { hostname: 'bloop.net', organization_id: PUBLISHER_ID },
@@ -73,49 +73,34 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns a merchant id for a known hostname', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedMerchants(
-              'bloop.com',
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://bloop.com', PUBLISHER_ID),
             'org-3573c6b896624279'
           );
         });
 
         it('returns a merchant id for a known hostname with www prefix', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedMerchants(
-              'www.bloop.com',
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://www.bloop.com', PUBLISHER_ID),
             'org-3573c6b896624279'
           );
         });
 
         it('returns null for unknown hostnames', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedMerchants(
-              'bleep.co.uk',
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://bleep.co.uk', PUBLISHER_ID),
             null
           );
         });
 
         it('returns null for a bad config', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedMerchants(
-              'bleep.co.uk',
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://bleep.co.uk', PUBLISHER_ID),
             null
           );
         });
 
         it('returns null for a null url', function() {
-          assert.equal(
-            this.config.merchantIdFromSupportedMerchants(null, PUBLISHER_ID),
-            null
-          );
+          assert.equal(this.config.merchantIdByUrl(null, PUBLISHER_ID), null);
         });
       });
 
@@ -164,16 +149,29 @@ describe('lib/kokiri/kokiri-config', function() {
         });
       });
 
-      describe('#merchantIdFromWebToAppMappings', function() {
+      describe('#merchantIdByUrl bttn URLs', function() {
         beforeEach(function() {
+          const supportedMerchants = [
+            {
+              hostname: 'bloop.com',
+              organization_id: 'org-3573c6b896624279',
+            },
+          ];
+
           const webToAppMappings = [
-            { subdomain_name: 'bleep', organization: PUBLISHER_ID },
+            {
+              subdomain_name: 'bleep',
+              organization: PUBLISHER_ID,
+            },
             {
               subdomain_name: 'bloop',
               organization: 'org-3573c6b896624279',
               external_host: 'https://www.bloop.com',
             },
-            { subdomain_name: 'blorp', organization: 'org-YYY' },
+            {
+              subdomain_name: 'blorp',
+              organization: 'org-YYY',
+            },
           ];
 
           const approvals = [
@@ -185,7 +183,7 @@ describe('lib/kokiri/kokiri-config', function() {
           ];
 
           this.config = createConfig(
-            [],
+            supportedMerchants,
             [],
             [],
             [],
@@ -196,36 +194,26 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns a merchant id for a known subdomain', function() {
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'bloop.bttn.io',
-              '',
+            this.config.merchantIdByUrl('http://bloop.bttn.io', PUBLISHER_ID),
+            'org-3573c6b896624279'
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl('http://bloop.bttn.io/2', PUBLISHER_ID),
+            'org-3573c6b896624279'
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://track.bttn.io/bloop',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'bloop.bttn.io',
-              '/2',
-              PUBLISHER_ID
-            ),
-            'org-3573c6b896624279'
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'track.bttn.io',
-              '/bloop',
-              PUBLISHER_ID
-            ),
-            'org-3573c6b896624279'
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'track.bttn.io',
-              '/bloop/2',
+            this.config.merchantIdByUrl(
+              'http://track.bttn.io/bloop/2',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
@@ -234,103 +222,78 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for unknown subdomains', function() {
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'bloop.bleep.bttn.io',
-              '',
+            this.config.merchantIdByUrl(
+              'http://bloop.bleep.bttn.io',
               PUBLISHER_ID
             ),
             null
           );
 
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'blop.bttn.io',
-              '',
+            this.config.merchantIdByUrl('http://blop.bttn.io', PUBLISHER_ID),
+            null
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://blop.bttn.io/bloop/2',
               PUBLISHER_ID
             ),
             null
           );
 
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'blop.bttn.io',
-              '/bloop/2',
+            this.config.merchantIdByUrl(
+              'http://track.bttn.io/blop/bloop/2',
               PUBLISHER_ID
             ),
             null
           );
 
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'track.bttn.io',
-              '/blop/bloop/2',
+            this.config.merchantIdByUrl('http://track.bttn.io/', PUBLISHER_ID),
+            null
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl('http://track.bttn.io', PUBLISHER_ID),
+            null
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://track.bttn.iop/bloop/',
               PUBLISHER_ID
             ),
             null
           );
 
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'track.bttn.io',
-              '/',
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://bloop.bttn.iop', PUBLISHER_ID),
             null
           );
 
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'track.bttn.io',
-              '',
-              PUBLISHER_ID
-            ),
-            null
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'track.bttn.iop/bloop',
-              '/',
-              PUBLISHER_ID
-            ),
-            null
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'bloop.bttn.iop',
-              '/',
-              PUBLISHER_ID
-            ),
-            null
-          );
-
-          assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'pavel.com',
-              '/',
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://pavel.com/', PUBLISHER_ID),
             null
           );
         });
 
         it('returns null for a bad config', function() {
           assert.equal(
-            this.config.merchantIdFromWebToAppMappings(
-              'track.bttn.io',
-              '/',
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://track.bttn.io', PUBLISHER_ID),
             null
           );
         });
       });
 
-      describe('#merchantIdFromSupportedAffiliates', function() {
+      describe('#merchantIdByUrl affiliate URLs', function() {
         beforeEach(function() {
           const supportedMerchants = [
-            { hostname: 'bloop.com', organization_id: 'org-3573c6b896624279' },
+            {
+              hostname: 'bloop.com',
+              organization_id: 'org-3573c6b896624279',
+            },
             {
               hostname: 'bloop.co.uk',
               organization_id: 'org-3573c6b896624279',
@@ -343,18 +306,21 @@ describe('lib/kokiri/kokiri-config', function() {
               key: 'mid',
               value: '123',
               organization_id: PUBLISHER_ID,
+              url: 'https://bloop.com',
             },
             {
               hostname: 'linksynergy.com',
               key: 'mid',
               value: '456',
               organization_id: 'org-3573c6b896624279',
+              url: 'https://bloop.com',
             },
             {
               hostname: 'linksynergy.com',
               key: 'mid',
               value: '678',
               organization_id: 'org-YYY',
+              url: 'https://bloop.com',
             },
           ];
 
@@ -440,10 +406,8 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for a non matching affiliate', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'bloopaffiliates.com',
-              '',
-              { wurl: 'https://bloop.com/2?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://bloopaffiliates.com?wurl=https%3A%2F%2Fbloop.com%2F2%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             null
@@ -452,10 +416,8 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for a non matching affiliate', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'bloopaffiliates.com',
-              '',
-              { wurl: 'https://bloop.com/2?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://bloopaffiliates.com?wurl=https%3A%2F%2Fbloop.com%2F2%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             null
@@ -464,63 +426,48 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns a merchant Id with a matching query url', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              { url: 'https://bloop.com/?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?url=https%3A%2F%2Fbloop.com%2F%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              {
-                wurl: 'https://bloop.com/?query=true#bleep',
-                bleep: '2',
-              },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?wurl=https%3A%2F%2Fbloop.com%2F%3Fquery%3Dtrue%23bleep&bleep=2',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              { wurl: 'https://bloop.com/?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?wurl=https%3A%2F%2Fbloop.com%2F%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              { wurl: 'https://bloop.com/2?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?wurl=https%3A%2F%2Fbloop.com%2F2%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'www.linksynergy.com',
-              '',
-              { url: 'https://bloop.com/?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://www.linksynergy.com?url=https%3A%2F%2Fbloop.com%2F%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'www.linksynergy.com',
-              '',
-              { url: 'https://www.bloop.com/?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://www.linksynergy.com?url=https%3A%2F%2Fwww.bloop.com%2F%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
@@ -529,10 +476,8 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for a non matching query url', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              { wurl: 'https://bleep.com/2?query=true#bleep' },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?wurl=https%3A%2F%2Fbleep.com%2F2%3Fquery%3Dtrue%23bleep',
               PUBLISHER_ID
             ),
             null
@@ -541,32 +486,23 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for a non matching query url or id', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              {},
-              PUBLISHER_ID
-            ),
+            this.config.merchantIdByUrl('http://linksynergy.com', PUBLISHER_ID),
             null
           );
         });
 
         it('returns a merchant Id with a matching query id', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              { mid: '456' },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?mid=456',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'www.linksynergy.com',
-              '',
-              { mid: '456' },
+            this.config.merchantIdByUrl(
+              'http://www.linksynergy.com?mid=456',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
@@ -575,20 +511,16 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for a non matching query id', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              { mid: '666' },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?mid=666',
               PUBLISHER_ID
             ),
             null
           );
 
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              { bleep: '456' },
+            this.config.merchantIdByUrl(
+              'http://linksynergy.com?bleep=456',
               PUBLISHER_ID
             ),
             null
@@ -597,50 +529,40 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns a merchant Id with a matching pathname', function() {
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'quidco.com',
-              '/visit/US-4567/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://quidco.com/visit/US-4567/bloop',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'wWw.quidco.com',
-              '/visit/US-4567/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://wWw.quidco.com/visit/US-4567/bloop',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'wWw.quidco.com',
-              '/api-visit/US-4567/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://wWw.quidco.com/api-visit/US-4567/bloop',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'wWw.quidco.com',
-              '/mobile-visit/US-4567/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://wWw.quidco.com/mobile-visit/US-4567/bloop',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
           );
 
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'quidco.com',
-              '/visit/UK-666/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://quidco.com/visit/UK-666/bloop',
               PUBLISHER_ID
             ),
             'org-3573c6b896624279'
@@ -649,10 +571,8 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns a null merchant id with a matching pathname that requires unwinding', function() {
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'vouchercloud.com',
-              '/out/offer/1478624',
-              {},
+            this.config.merchantIdByUrl(
+              'http://vouchercloud.com/out/offer/1478624',
               PUBLISHER_ID
             ),
             null
@@ -661,30 +581,24 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null with a non-matching pathname', function() {
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'quidco.com',
-              '/visit/UK-4567/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://quidco.com/visit/UK-4567/bloop',
               PUBLISHER_ID
             ),
             null
           );
 
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'quidco.com',
-              '/VISIT/US-4567/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://quidco.com/VISIT/US-4567/bloop',
               PUBLISHER_ID
             ),
             null
           );
 
           assert.deepEqual(
-            this.config.merchantIdFromSupportedAffiliates(
-              'quidco.com',
-              '/visit/US-w4567/bloop',
-              {},
+            this.config.merchantIdByUrl(
+              'http://quidco.com/visit/US-w4567/bloop',
               PUBLISHER_ID
             ),
             null
@@ -693,13 +607,8 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for a bad config', function() {
           assert.equal(
-            this.config.merchantIdFromSupportedAffiliates(
-              'linksynergy.com',
-              '',
-              {}
-            ),
-            null,
-            PUBLISHER_ID
+            this.config.merchantIdByUrl('http://linksynergy.com', PUBLISHER_ID),
+            null
           );
         });
       });
