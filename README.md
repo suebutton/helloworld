@@ -72,6 +72,8 @@ $ pint run yarn start
 ```
 
 #### ...Pint with Docker
+
+```bash
 $ pint docker build
 $ pint docker run
 ```
