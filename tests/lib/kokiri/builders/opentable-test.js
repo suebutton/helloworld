@@ -35,7 +35,7 @@ describe('lib/kokiri/builders/opentable', function() {
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link:
-          'vnd.opentable.deeplink://?reengagement=1&partner_id=2183&invoke_id=133730&publisher_id=btn-prod-refid&btn_ref=srctok-XXX',
+          'vnd.opentable.deeplink://opentable.com?reengagement=1&partner_id=2183&invoke_id=133730&publisher_id=btn-prod-refid&btn_ref=srctok-XXX',
         browser_link:
           'https://www.opentable.com?reengagement=1&partner_id=2183&invoke_id=133730&publisher_id=btn-prod-refid&btn_ref=srctok-XXX',
       });

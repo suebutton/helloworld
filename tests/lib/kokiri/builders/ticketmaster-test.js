@@ -48,6 +48,22 @@ describe('lib/kokiri/builders/ticketmaster', function() {
           browser_link: null,
         }
       );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/item/p1297',
+            query: { a: 2 },
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'ticketmaster://?btn_ref=srctok-XXX',
+          browser_link: null,
+        }
+      );
     });
   });
 

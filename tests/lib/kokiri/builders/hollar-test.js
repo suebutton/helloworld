@@ -27,7 +27,7 @@ describe('lib/kokiri/builders/hollar', function() {
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'hollar://?btn_ref=srctok-XXX',
+        app_link: 'hollar://t/home?btn_ref=srctok-XXX',
         browser_link: 'https://www.hollar.com?btn_ref=srctok-XXX',
       });
     });

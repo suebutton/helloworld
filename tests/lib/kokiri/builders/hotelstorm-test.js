@@ -20,14 +20,14 @@ describe('lib/kokiri/builders/hotelstorm', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'hotelstorm.noapp://?btn_ref=srctok-XXX',
+        app_link: null,
         browser_link: 'https://www.hotelstorm.com?btn_ref=srctok-XXX',
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'hotelstorm.noapp://?btn_ref=srctok-XXX',
+        app_link: null,
         browser_link: 'https://www.hotelstorm.com?btn_ref=srctok-XXX',
       });
     });

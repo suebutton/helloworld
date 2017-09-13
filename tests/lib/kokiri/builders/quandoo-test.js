@@ -27,7 +27,7 @@ describe('lib/kokiri/builders/quandoo', function() {
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'ubquandoo://?btn_ref=srctok-XXX',
+        app_link: null,
         browser_link: null,
       });
     });
