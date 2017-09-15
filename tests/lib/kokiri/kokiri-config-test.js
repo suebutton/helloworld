@@ -48,9 +48,19 @@ describe('lib/kokiri/kokiri-config', function() {
       describe('#merchantIdByUrl', function() {
         beforeEach(function() {
           const supportedMerchants = [
+            {
+              hostname: 'bloop.com',
+              query_regex: String.raw`(?:^|&)buddy=pavel(?:&|$)`,
+              organization_id: 'org-ZZZ',
+            },
             { hostname: 'bloop.net', organization_id: PUBLISHER_ID },
             { hostname: 'bloop.com', organization_id: 'org-3573c6b896624279' },
             { hostname: 'click.bloop.com', organization_id: 'org-YYY' },
+            {
+              hostname: 'bloop.com',
+              query_regex: String.raw`(?:^|&)buddy=daniel(?:&|$)`,
+              organization_id: 'org-QQQ',
+            },
           ];
 
           const approvals = [
@@ -58,6 +68,16 @@ describe('lib/kokiri/kokiri-config', function() {
               status: 'approved',
               audience: PUBLISHER_ID,
               organization: 'org-3573c6b896624279',
+            },
+            {
+              status: 'approved',
+              audience: PUBLISHER_ID,
+              organization: 'org-ZZZ',
+            },
+            {
+              status: 'approved',
+              audience: PUBLISHER_ID,
+              organization: 'org-QQQ',
             },
           ];
 
@@ -101,6 +121,48 @@ describe('lib/kokiri/kokiri-config', function() {
 
         it('returns null for a null url', function() {
           assert.equal(this.config.merchantIdByUrl(null, PUBLISHER_ID), null);
+        });
+
+        it('returns a merchant with a query match', function() {
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://bloop.com/1/2?buddy=daniel&thing=2',
+              PUBLISHER_ID
+            ),
+            'org-QQQ'
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://bloop.com/1/2?thing=2&buddy=daniel',
+              PUBLISHER_ID
+            ),
+            'org-QQQ'
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://bloop.com/1/2?thing=2&buddy=pavel',
+              PUBLISHER_ID
+            ),
+            'org-ZZZ'
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://bloop.com/1/2?thing=2&buddy=wilson',
+              PUBLISHER_ID
+            ),
+            'org-3573c6b896624279'
+          );
+
+          assert.equal(
+            this.config.merchantIdByUrl(
+              'http://bloop.com/1/2?thing=2&buddy=danielz',
+              PUBLISHER_ID
+            ),
+            'org-3573c6b896624279'
+          );
         });
       });
 
