@@ -35,7 +35,7 @@ describe('lib/kokiri/builders/hoteltonight', function() {
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link:
-          'https://hoteltonight.bttn.io?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+          'hoteltonight://open?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
         browser_link:
           'https://www.hoteltonight.com?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
       });
@@ -78,7 +78,7 @@ describe('lib/kokiri/builders/hoteltonight', function() {
 
       assert.deepEqual(builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link:
-          'https://hoteltonight.bttn.io?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button_Ibotta&btn_ref=srctok-XXX',
+          'hoteltonight://open?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button_Ibotta&btn_ref=srctok-XXX',
         browser_link:
           'https://www.hoteltonight.com?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button_Ibotta&btn_ref=srctok-XXX',
       });
