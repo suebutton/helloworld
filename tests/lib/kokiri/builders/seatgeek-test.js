@@ -25,6 +25,13 @@ describe('lib/kokiri/builders/seatgeek', function() {
       });
     });
 
+    it('returns an app action for android', function() {
+      assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
+        app_link: 'seatgeek://app?btn_ref=srctok-XXX',
+        browser_link: 'https://seatgeek.com?btn_ref=srctok-XXX',
+      });
+    });
+
     it('returns an app action with destination', function() {
       assert.deepEqual(
         this.builder.appAction(
