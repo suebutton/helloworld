@@ -10,6 +10,11 @@ describe('lib/kokiri/builders/booking', function() {
         audience: 'org-XXX',
         organization: 'org-4d6aaae0d30aaa7d',
       },
+      {
+        status: 'approved',
+        audience: 'org-030575eddb72b4df',
+        organization: 'org-4d6aaae0d30aaa7d',
+      },
     ];
 
     this.config = new KokiriConfig([], [], [], [], [], approvals);
@@ -21,9 +26,23 @@ describe('lib/kokiri/builders/booking', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+          'https://booking.com/index.html?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
           'https://www.booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns an app action for special publishers', function() {
+      const builder = this.config.createBuilder(
+        'org-030575eddb72b4df',
+        'org-4d6aaae0d30aaa7d'
+      );
+
+      assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://booking.com/index.html?aid=1353900&label=srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.booking.com?aid=1353900&label=srctok-XXX&btn_ref=srctok-XXX',
       });
     });
 
@@ -39,8 +58,7 @@ describe('lib/kokiri/builders/booking', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://booking.com/hotel/us/tuscan-inn.html?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://www.booking.com/hotel/us/tuscan-inn.html?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -51,8 +69,7 @@ describe('lib/kokiri/builders/booking', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://booking.bttn.io?aid=858965&label=srctok-XXX&btn_refkey=label&btn_ref=srctok-XXX',
+        app_link: null,
         browser_link:
           'https://www.booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
       });
@@ -66,8 +83,7 @@ describe('lib/kokiri/builders/booking', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://booking.bttn.io/bloop?a=2&aid=858965&label=srctok-XXX&btn_refkey=label&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://www.booking.com/bloop?a=2&aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -81,8 +97,7 @@ describe('lib/kokiri/builders/booking', function() {
       };
 
       assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://booking.bttn.io?aid=858965&label=srctok-XXX&btn_refkey=label&btn_ref=srctok-XXX',
+        app_link: null,
         browser_link:
           'https://www.booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
       });
@@ -93,15 +108,12 @@ describe('lib/kokiri/builders/booking', function() {
     it('returns a universal link', function() {
       assert.deepEqual(
         this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/booking?aid=858965&label=srctok-XXX&btn_refkey=label&btn_ref=srctok-XXX'
+        null
       );
     });
 
     it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/booking?aid=858965&label=org-XXX&btn_refkey=label&btn_ref=org-XXX'
-      );
+      assert.deepEqual(this.builder.universalLink({}), null);
     });
 
     it('returns a universal link for a hotel', function() {
@@ -115,7 +127,7 @@ describe('lib/kokiri/builders/booking', function() {
           'ios',
           'srctok-XXX'
         ),
-        'https://track.bttn.io/booking/hotel/us/tuscan-inn.html?aid=858965&label=srctok-XXX&btn_refkey=label&btn_ref=srctok-XXX'
+        null
       );
     });
   });
