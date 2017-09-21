@@ -46,7 +46,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
         ),
         {
           app_link:
-            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?btn_ref=srctok-XXX',
+            'https://www.seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?btn_ref=srctok-XXX',
           browser_link:
             'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?btn_ref=srctok-XXX',
         }
@@ -69,7 +69,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
         ),
         {
           app_link:
-            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+            'https://www.seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
           browser_link:
             'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
         }
