@@ -26,7 +26,7 @@ describe('lib/kokiri/builders/booking', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://booking.com/index.html?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+          'https://www.booking.com/index.html?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
           'https://www.booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
       });
@@ -40,7 +40,7 @@ describe('lib/kokiri/builders/booking', function() {
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://booking.com/index.html?aid=1353900&label=srctok-XXX&btn_ref=srctok-XXX',
+          'https://www.booking.com/index.html?aid=1353900&label=srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
           'https://www.booking.com?aid=1353900&label=srctok-XXX&btn_ref=srctok-XXX',
       });

@@ -51,6 +51,24 @@ describe('lib/kokiri/builders/seatgeek', function() {
             'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?btn_ref=srctok-XXX',
         }
       );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname:
+              '/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032',
+            query: {},
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns an app action with query parameters', function() {
