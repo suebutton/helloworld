@@ -25,7 +25,7 @@ describe('lib/kokiri/builders/jet', function() {
       });
 
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'jet://landing/landing?btn_ref=srctok-XXX',
+        app_link: 'jet://open?btn_ref=srctok-XXX',
         browser_link: 'https://www.jet.com?btn_ref=srctok-XXX',
       });
     });
