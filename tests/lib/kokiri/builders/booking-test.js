@@ -26,9 +26,9 @@ describe('lib/kokiri/builders/booking', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://www.booking.com/index.html?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+          'https://www.booking.com/index.html?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+          'https://www.booking.com?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
       });
     });
 
@@ -60,7 +60,7 @@ describe('lib/kokiri/builders/booking', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.booking.com/hotel/us/tuscan-inn.html?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.booking.com/hotel/us/tuscan-inn.html?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -71,7 +71,7 @@ describe('lib/kokiri/builders/booking', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://www.booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+          'https://www.booking.com?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
       });
     });
 
@@ -85,7 +85,7 @@ describe('lib/kokiri/builders/booking', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.booking.com/bloop?a=2&aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.booking.com/bloop?a=2&aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -99,7 +99,7 @@ describe('lib/kokiri/builders/booking', function() {
       assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://www.booking.com?aid=858965&label=srctok-XXX&btn_ref=srctok-XXX',
+          'https://www.booking.com?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
       });
     });
   });
