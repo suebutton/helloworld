@@ -31,6 +31,22 @@ describe('lib/kokiri/builders/ebay', function() {
       });
     });
 
+    it('returns an app action with non-.com TLD', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          { hostname: 'www.ebay.co.uk' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://rover.ebay.com/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action overriding affiliation paremeters', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -77,6 +93,22 @@ describe('lib/kokiri/builders/ebay', function() {
         browser_link:
           'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
       });
+    });
+
+    it('returns a web action with non-.com TLD', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { hostname: 'www.ebay.co.uk' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://ebay.bttn.io/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk&btn_refkey=customid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns a web action with destination', function() {
@@ -169,6 +201,19 @@ describe('lib/kokiri/builders/ebay', function() {
         'https://ebay.com/1/2?q=2&mpre=http%3A%2F%2Fwww.ebay.com#anchor'
       ),
       {
+        hostname: 'ebay.com',
+        pathname: '/1/2',
+        query: { q: '2', mpre: 'http://www.ebay.com' },
+        hash: '#anchor',
+      }
+    );
+
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://www.ebay.co.uk/1/2?q=2&mpre=http%3A%2F%2Fwww.ebay.com#anchor'
+      ),
+      {
+        hostname: 'www.ebay.co.uk',
         pathname: '/1/2',
         query: { q: '2', mpre: 'http://www.ebay.com' },
         hash: '#anchor',
@@ -182,6 +227,19 @@ describe('lib/kokiri/builders/ebay', function() {
         'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
+        hostname: 'www.ebay.com',
+        pathname: '/1/2',
+        query: { q: '2' },
+        hash: '#anchor',
+      }
+    );
+
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk%2F1%2F2%3Fq%3D2%23anchor'
+      ),
+      {
+        hostname: 'www.ebay.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -189,6 +247,7 @@ describe('lib/kokiri/builders/ebay', function() {
     );
 
     assert.deepEqual(this.builder.destinationFromUrl(''), {
+      hostname: null,
       pathname: null,
       query: {},
       hash: null,

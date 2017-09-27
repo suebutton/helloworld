@@ -3,6 +3,9 @@ const assert = require('assert');
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 const LinkBuilder = require('../../../../lib/kokiri/builders/link-builder');
 
+// TODO(will): These tests shouldn't test base-class behavior with a derived
+// class.
+//
 describe('lib/kokiri/builders/link-builder', function() {
   beforeEach(function() {
     const supportedAffiliates = [
@@ -23,7 +26,7 @@ describe('lib/kokiri/builders/link-builder', function() {
 
     const webToAppMappings = [
       {
-        organization: 'org-5d63b849c1d24db2',
+        organization: 'org-7edde2ff2a553edd',
         subdomain_name: 'bloop',
         external_host: 'https://bloop.com',
       },
@@ -33,7 +36,7 @@ describe('lib/kokiri/builders/link-builder', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-5d63b849c1d24db2',
+        organization: 'org-7edde2ff2a553edd',
       },
     ];
 
@@ -46,7 +49,7 @@ describe('lib/kokiri/builders/link-builder', function() {
       approvals
     );
 
-    this.builder = config.createBuilder('org-XXX', 'org-5d63b849c1d24db2');
+    this.builder = config.createBuilder('org-XXX', 'org-7edde2ff2a553edd');
 
     this.baseBuilder = new LinkBuilder({}, 'org-XXX', 'org-YYY');
   });
