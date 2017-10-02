@@ -20,6 +20,11 @@ describe('lib/kokiri/builders/groupon', function() {
         audience: 'org-2d432a88b9bb8bda',
         organization: 'org-681847bf6cc4d57c',
       },
+      {
+        status: 'approved',
+        audience: 'org-1443446d6738e5bc',
+        organization: 'org-681847bf6cc4d57c',
+      },
     ];
 
     const webToAppMappings = [
@@ -276,6 +281,23 @@ describe('lib/kokiri/builders/groupon', function() {
       );
     });
 
+    it('returns an app action with a wid', function() {
+      const builder = this.config.createBuilder(
+        'org-1443446d6738e5bc',
+        'org-681847bf6cc4d57c'
+      );
+
+      assert.deepEqual(
+        builder.appAction({ query: { wid: 'pavel' } }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'groupon:///dispatch/us?wid=https%3A%2F%2Fwww.shopsavvy.com%2F&utm_medium=afl&utm_source=GPN&utm_campaign=204629&sid=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1678675_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action for Ibotta', function() {
       const builder = this.config.createBuilder(
         'org-2d432a88b9bb8bda',
@@ -330,6 +352,23 @@ describe('lib/kokiri/builders/groupon', function() {
             'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_refkey=sid&btn_ref=srctok-XXX',
           browser_link:
             'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with a wid', function() {
+      const builder = this.config.createBuilder(
+        'org-1443446d6738e5bc',
+        'org-681847bf6cc4d57c'
+      );
+
+      assert.deepEqual(
+        builder.webAction({ query: { wid: 'pavel' } }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1678675_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_refkey=sid&btn_ref=srctok-XXX',
+          browser_link:
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1678675_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_ref=srctok-XXX',
         }
       );
     });

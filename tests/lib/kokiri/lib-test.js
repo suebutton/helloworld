@@ -5,6 +5,7 @@ const {
   joinPathname,
   cleanPathname,
   formatUrl,
+  compact,
   isHostnameMatch,
   isArrayMatch,
   normalizeHostname,
@@ -126,6 +127,19 @@ describe('lib/kokiri/lib', function() {
         }),
         'http://bloop.bleep/1/2'
       );
+    });
+  });
+
+  describe('#compact', function() {
+    it('compacts objects', function() {
+      assert.deepEqual(compact(), {});
+      assert.deepEqual(compact({ a: 1 }), { a: 1 });
+      assert.deepEqual(compact({ a: 1, b: null }), { a: 1 });
+      assert.deepEqual(compact({ a: undefined, b: null }), { a: undefined });
+    });
+
+    it('compacts objects with special predicates', function() {
+      assert.deepEqual(compact({ a: 1, b: 2 }, v => v % 2 === 0), { b: 2 });
     });
   });
 
