@@ -87,45 +87,6 @@ describe('lib/kokiri/builders/uber/', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/uberm?btn_fallback_exp=appstore&btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/uberm?btn_fallback_exp=appstore&btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link for a ride', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/',
-            query: {
-              action: 'setPickup',
-              'pickup[latitude]': '40.7382752',
-              'pickup[longitude]': '-73.9822849',
-              'dropoff[latitude]': '40.7530763',
-              'dropoff[longitude]': '-74.0069671',
-              'pickup[nickname]': 'start',
-              'dropoff[nickname]': 'end',
-            },
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/uberm?action=setPickup&pickup%5Blatitude%5D=40.7382752&pickup%5Blongitude%5D=-73.9822849&dropoff%5Blatitude%5D=40.7530763&dropoff%5Blongitude%5D=-74.0069671&pickup%5Bnickname%5D=start&dropoff%5Bnickname%5D=end&btn_fallback_exp=appstore&btn_ref=srctok-XXX'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

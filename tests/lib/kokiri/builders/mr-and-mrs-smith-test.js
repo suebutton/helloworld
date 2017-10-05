@@ -75,37 +75,6 @@ describe('lib/kokiri/builders/mr-and-mrs-smith', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/mrandmrssmith?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/mrandmrssmith?btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link with destination', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/bloop',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/mrandmrssmith/bloop?btn_ref=srctok-XXX'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

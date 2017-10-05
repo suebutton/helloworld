@@ -87,37 +87,6 @@ describe('lib/kokiri/builders/hungryhouse', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/hungryhouse?btn_fallback_exp=web&btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/hungryhouse?btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link for restaurant', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/italian-pizza',
-            query: {},
-            hash: '#menu',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/hungryhouse/italian-pizza?btn_fallback_exp=web&btn_ref=srctok-XXX#menu'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

@@ -131,15 +131,6 @@ describe('lib/kokiri/builders/apple-music', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('has no universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        null
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

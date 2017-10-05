@@ -112,59 +112,6 @@ describe('lib/kokiri/builders/bloomthat', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/bloomthat?btn_ref=srctok-XXX'
-      );
-
-      assert.deepEqual(
-        this.builder.universalLink({ pathname: '/' }, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/bloomthat?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link with static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/bloomthat?btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link with destination', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/flowers/the-siena',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/bloomthat/flowers/the-siena?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link with query parameters', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/flowers/the-siena',
-            query: {
-              utm_campaign: 'BEST OIL',
-            },
-            hash: 'anchor',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/bloomthat/flowers/the-siena?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX#anchor'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

@@ -92,55 +92,6 @@ describe('lib/kokiri/builders/boxed', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/boxed?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/boxed?btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link for product', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname:
-              '/product/129/special-k-red-berries-cereal-37-oz.-2-bags/',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/boxed/product/129/special-k-red-berries-cereal-37-oz.-2-bags?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for category', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/products/category/137/lifestyle/',
-            query: {
-              utm_campaign: 'BEST OIL',
-            },
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/boxed/products/category/137/lifestyle?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

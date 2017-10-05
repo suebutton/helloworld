@@ -104,34 +104,6 @@ describe('lib/kokiri/builders/booking', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        null
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(this.builder.universalLink({}), null);
-    });
-
-    it('returns a universal link for a hotel', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/hotel/us/tuscan-inn.html',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        null
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

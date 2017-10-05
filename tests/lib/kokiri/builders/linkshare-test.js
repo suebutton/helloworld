@@ -141,21 +141,6 @@ describe('lib/kokiri/builders/linkshare', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            url: 'https://www.techarmor.com/iphone-7',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/techarmor/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Fwww.techarmor.com%2Fiphone-7&u1=srctok-XXX&btn_refkey=u1&btn_ref=srctok-XXX'
-      );
-    });
-  });
-
   describe('#destinationFromUrl', function() {
     it('returns a destination from a url', function() {
       assert.deepEqual(

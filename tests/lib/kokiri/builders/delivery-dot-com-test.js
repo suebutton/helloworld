@@ -65,37 +65,6 @@ describe('lib/kokiri/builders/delivery-dot-com', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/delivery?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/delivery?btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link with a destination', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/bloop/2',
-            query: { a: true },
-            hash: 'anchor',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/delivery/bloop/2?a=true&btn_ref=srctok-XXX#anchor'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl('https://delivery.com/1/2?q=2#anchor'),

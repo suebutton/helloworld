@@ -19,7 +19,6 @@ the basics:
   (app link + browser link)
 * `POST /v1/link/web-action`: Get a Boomerang consumable Web Action
   (app link + browser link)
-* `POST /v1/link/universal`: Get a univeral link
 * `POST /v1/sdk/config`: Get an configuration object consumable by SDKs for
   determining Button support for a link
 

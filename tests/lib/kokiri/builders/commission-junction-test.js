@@ -212,19 +212,4 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       });
     });
   });
-
-  describe('#universalLink', function() {
-    it('universal link returns null', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            url: 'https://www.express.com/',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/express/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_refkey=sid&btn_ref=srctok-XXX'
-      );
-    });
-  });
 });

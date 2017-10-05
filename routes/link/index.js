@@ -6,14 +6,12 @@ const {
   validateAttributes,
   validateAppAction,
   validateWebAction,
-  validateUniversal,
 } = require('./validate');
 
 const {
   viewAttributes,
   viewAppActionWithMeta,
   viewWebActionWithMeta,
-  viewUniveralWithMeta,
 } = require('./view');
 
 /**
@@ -135,49 +133,9 @@ module.exports = (redis, kokiriAdapter) => {
     );
   });
 
-  const universal = bulk(async (ctx, body) => {
-    validateUniversal(body);
-
-    const {
-      url,
-      publisher_id: publisherId,
-      platform,
-      attribution_token: attributionToken,
-      experience,
-    } = body;
-
-    const { targetUrl, shouldRedirect } = await kokiriAdapter.maybeRedirect(
-      redis,
-      url
-    );
-
-    const { merchantId, approved } = kokiriAdapter.linkAttributes(
-      targetUrl,
-      publisherId
-    );
-
-    const universalLink = kokiriAdapter.universalLink(
-      targetUrl,
-      publisherId,
-      platform,
-      experience,
-      attributionToken,
-      ctx,
-      url
-    );
-
-    return viewUniveralWithMeta(
-      merchantId,
-      approved,
-      shouldRedirect,
-      universalLink
-    );
-  });
-
   router.post('/attributes', attributes);
   router.post('/app-action', appAction);
   router.post('/web-action', webAction);
-  router.post('/universal', universal);
 
   return router;
 };

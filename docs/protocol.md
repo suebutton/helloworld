@@ -208,7 +208,36 @@ be `null`.
 }
 ```
 
-### **DEPRECATED** `POST /v1/link/universal`
+### `POST /v1/config/sdk`
+
+Fetch the SDK config object.
+
+###### Request Payload
+
+```json
+{
+  "publisher_id": "org-XXX"
+}
+```
+
+###### Response Payload
+
+```json
+{
+  "meta": {
+    "status": "ok"
+  },
+  "data": {
+    "object": {
+      "supported_merchants": [],
+      "supported_bttnio_subdomains": [],
+      "supported_affiliates": [],
+    }
+  }
+}
+```
+
+### **REMOVED** `POST /v1/link/universal`
 
 Fetch a universal link for a link.  Accepts an array of links or individual link
 payload.  If a link couldn't be enhanced, the corresponding response entry will
@@ -248,35 +277,6 @@ affiliate.
     "warnings": [
       null
     ]
-  }
-}
-```
-
-### `POST /v1/config/sdk`
-
-Fetch the SDK config object.
-
-###### Request Payload
-
-```json
-{
-  "publisher_id": "org-XXX"
-}
-```
-
-###### Response Payload
-
-```json
-{
-  "meta": {
-    "status": "ok"
-  },
-  "data": {
-    "object": {
-      "supported_merchants": [],
-      "supported_bttnio_subdomains": [],
-      "supported_affiliates": [],
-    }
   }
 }
 ```

@@ -127,37 +127,6 @@ describe('lib/kokiri/builders/hoteltonight', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/hoteltonight?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/hoteltonight?adjust_tracker=z5iwhj&utm_source=Button&utm_campaign=Button&btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link for a path', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/bloop',
-            query: { utm_campaign: 'bleep', q: 2 },
-            hash: '#sleep',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/hoteltonight/bloop?utm_campaign=Button&q=2&adjust_tracker=z5iwhj&utm_source=Button&btn_ref=srctok-XXX#sleep'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

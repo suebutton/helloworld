@@ -132,54 +132,6 @@ describe('lib/kokiri/builders/spring', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/shopspring?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/shopspring?btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link for product', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/products/53497978',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/shopspring/products/53497978?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for brand', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/brands/3047',
-            query: {
-              utm_campaign: 'BEST OIL',
-            },
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/shopspring/brands/3047?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

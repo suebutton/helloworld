@@ -145,56 +145,6 @@ describe('lib/kokiri/builders/ebay', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/ebay/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_refkey=customid&btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/ebay/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=org-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_refkey=customid&btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link with a destination', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/bloop/2',
-            query: { a: true },
-            hash: 'anchor',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/ebay/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fbloop%2F2%3Fa%3Dtrue%23anchor&btn_refkey=customid&btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link overriding affiliation paremeters', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            query: {
-              ff3: 'pavel',
-              toolid: 'pavel',
-              pub: 'pavel',
-              campid: 'pavel',
-              customid: 'pavel',
-            },
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/ebay/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_refkey=customid&btn_ref=srctok-XXX'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(

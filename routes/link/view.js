@@ -149,30 +149,8 @@ function viewWebAction(webAction) {
   };
 }
 
-/**
- * @param  {string} merchantId
- * @param  {boolean} approved
- * @param  {boolean} shouldRedirect
- * @param  {string} universalLink
- * @return {Object}
- */
-function viewUniveralWithMeta(
-  merchantId,
-  approved,
-  shouldRedirect,
-  universalLink
-) {
-  return {
-    merchant_id: merchantId,
-    approved,
-    redirect: shouldRedirect,
-    universal_link: universalLink,
-  };
-}
-
 module.exports = {
   viewAttributes,
   viewAppActionWithMeta,
   viewWebActionWithMeta,
-  viewUniveralWithMeta,
 };

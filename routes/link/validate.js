@@ -24,16 +24,8 @@ const validateWebAction = createValidate([
   { key: 'attribution_token' },
 ]);
 
-const validateUniversal = createValidate([
-  { key: 'publisher_id' },
-  { key: 'url' },
-  { key: 'url', predicate: validUrl, getError: invalidUrlError },
-  { key: 'platform' },
-]);
-
 module.exports = {
   validateAttributes,
   validateAppAction,
   validateWebAction,
-  validateUniversal,
 };

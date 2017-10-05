@@ -76,37 +76,6 @@ describe('lib/kokiri/builders/generic', function() {
     });
   });
 
-  describe('#universalLink', function() {
-    it('returns a universal link', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}, 'ios', 'srctok-XXX'),
-        'https://track.bttn.io/bloop?btn_ref=srctok-XXX'
-      );
-    });
-
-    it('returns a universal link for static affiliation', function() {
-      assert.deepEqual(
-        this.builder.universalLink({}),
-        'https://track.bttn.io/bloop?btn_ref=org-XXX'
-      );
-    });
-
-    it('returns a universal link for a hotel', function() {
-      assert.deepEqual(
-        this.builder.universalLink(
-          {
-            pathname: '/some/resy/action',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        'https://track.bttn.io/bloop/some/resy/action?btn_ref=srctok-XXX'
-      );
-    });
-  });
-
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(
