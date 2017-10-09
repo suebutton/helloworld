@@ -116,8 +116,7 @@ describe('lib/kokiri/builders/linkshare', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://techarmor.bttn.io/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com&u1=srctok-XXX&btn_refkey=u1&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com&u1=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -132,8 +131,7 @@ describe('lib/kokiri/builders/linkshare', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://techarmor.bttn.io/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com%2Fbloop%3Fa%3D2&u1=srctok-XXX&btn_refkey=u1&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com%2Fbloop%3Fa%3D2&u1=srctok-XXX&btn_ref=srctok-XXX',
         }

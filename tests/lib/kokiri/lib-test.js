@@ -9,7 +9,6 @@ const {
   isHostnameMatch,
   isArrayMatch,
   normalizeHostname,
-  attributeQuery,
   attributeLink,
   urlCacheKey,
 } = require('../../../lib/kokiri/lib');
@@ -240,37 +239,6 @@ describe('lib/kokiri/lib', function() {
     });
   });
 
-  describe('#attributeQuery', function() {
-    it('adds a btn_ref', function() {
-      assert.deepEqual(attributeQuery({ a: 1 }, 'srctok-XXX'), {
-        a: 1,
-        btn_ref: 'srctok-XXX',
-      });
-
-      assert.deepEqual(attributeQuery({ btn_ref: 1 }, 'srctok-XXX'), {
-        btn_ref: 'srctok-XXX',
-      });
-    });
-
-    it('adds a non-standard ref', function() {
-      assert.deepEqual(attributeQuery({ a: 1 }, 'srctok-XXX', 'pavel'), {
-        a: 1,
-        pavel: 'srctok-XXX',
-        btn_refkey: 'pavel',
-      });
-    });
-
-    it('doesnt mutate input', function() {
-      const query = { a: 1 };
-
-      assert.deepEqual(attributeQuery(query, 'srctok-XXX'), {
-        a: 1,
-        btn_ref: 'srctok-XXX',
-      });
-      assert.deepEqual(query, { a: 1 });
-    });
-  });
-
   describe('#attributeLink', function() {
     it('attributes a link', function() {
       assert.deepEqual(
@@ -299,13 +267,6 @@ describe('lib/kokiri/lib', function() {
       );
 
       assert.deepEqual(attributeLink(null, 'srctok-XXX'), null);
-    });
-
-    it('adds a non-standard ref', function() {
-      assert.deepEqual(
-        attributeLink('https://pavel.net/?a=1#anchor', 'srctok-XXX', 'pavel'),
-        'https://pavel.net?a=1&pavel=srctok-XXX&btn_refkey=pavel#anchor'
-      );
     });
   });
 

@@ -116,6 +116,13 @@ describe('lib/kokiri/builders/spring', function() {
       });
     });
 
+    it('returns a web action for android', function() {
+      assert.deepEqual(this.builder.webAction({}, 'android', 'srctok-XXX'), {
+        app_link: null,
+        browser_link: 'https://www.shopspring.com?btn_ref=srctok-XXX',
+      });
+    });
+
     it('returns a web action with destination', function() {
       assert.deepEqual(
         this.builder.webAction(

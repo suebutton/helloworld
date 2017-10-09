@@ -333,8 +333,7 @@ describe('lib/kokiri/builders/groupon', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX',
+        app_link: null,
         browser_link:
           'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
       });
@@ -348,8 +347,7 @@ describe('lib/kokiri/builders/groupon', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_refkey=sid&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_ref=srctok-XXX',
         }
@@ -365,8 +363,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(
         builder.webAction({ query: { wid: 'pavel' } }, 'ios', 'srctok-XXX'),
         {
-          app_link:
-            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1678675_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_refkey=sid&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1678675_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_ref=srctok-XXX',
         }
@@ -377,8 +374,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(
         this.builder.webAction({ region: 'uk' }, 'ios', 'srctok-XXX'),
         {
-          app_link:
-            'https://groupon-uk-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_refkey=sid&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://t.groupon.co.uk/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_ref=srctok-XXX',
         }
@@ -389,8 +385,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(
         this.builder.webAction({ region: 'pavel' }, 'ios', 'srctok-XXX'),
         {
-          app_link:
-            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
         }
@@ -408,8 +403,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(
         this.builder.webAction({ region: 'pavel', query }, 'ios', 'srctok-XXX'),
         {
-          app_link:
-            'https://groupon-tracking.bttn.io/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_refkey=sid&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
         }
@@ -568,24 +562,5 @@ describe('lib/kokiri/builders/groupon', function() {
       hash: null,
       region: 'us',
     });
-  });
-
-  it('returns a region-specific bttnio subdomain', function() {
-    assert.deepEqual(
-      this.builder.getPartnerSubdomain({ region: 'us' }),
-      'groupon-tracking'
-    );
-
-    assert.deepEqual(
-      this.builder.getPartnerSubdomain({ region: 'uk' }),
-      'groupon-uk-tracking'
-    );
-
-    assert.deepEqual(
-      this.builder.getPartnerSubdomain({ region: 'pavel' }),
-      'groupon-tracking'
-    );
-
-    assert.deepEqual(this.builder.getPartnerSubdomain({}), 'groupon-tracking');
   });
 });

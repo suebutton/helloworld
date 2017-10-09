@@ -174,8 +174,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://express.bttn.io/click-8395017-11393884?sid=srctok-XXX&url=&btn_refkey=sid&btn_ref=srctok-XXX',
+        app_link: null,
         browser_link:
           'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=&btn_ref=srctok-XXX',
       });
@@ -189,8 +188,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://express.bttn.io/click-8395017-11393884?sid=srctok-XXX&url=&btn_refkey=sid&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=&btn_ref=srctok-XXX',
         }

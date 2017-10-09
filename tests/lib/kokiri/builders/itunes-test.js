@@ -93,8 +93,7 @@ describe('lib/kokiri/builders/itunes', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://itunes.bttn.io?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX',
+        app_link: null,
         browser_link:
           'https://itunes.apple.com?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_ref=srctok-XXX',
       });
@@ -108,8 +107,7 @@ describe('lib/kokiri/builders/itunes', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://itunes.bttn.io/bloop?a=2&at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://itunes.apple.com/bloop?a=2&at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -125,8 +123,7 @@ describe('lib/kokiri/builders/itunes', function() {
       };
 
       assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://itunes.bttn.io?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_refkey=ct&btn_ref=srctok-XXX',
+        app_link: null,
         browser_link:
           'https://itunes.apple.com?at=1000lquK&mt=1&app=itunes&ct=srctok-XXX&btn_ref=srctok-XXX',
       });

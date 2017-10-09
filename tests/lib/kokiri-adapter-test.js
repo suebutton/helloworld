@@ -521,7 +521,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         ),
         {
           app_link:
-            'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+            'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -543,7 +543,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           app_action: null,
           web_action: JSON.stringify({
             app_link:
-              'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+              'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
             browser_link:
               'https://www.hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           }),

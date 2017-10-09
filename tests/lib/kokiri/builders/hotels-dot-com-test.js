@@ -336,7 +336,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
           'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
       });
@@ -351,7 +351,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         ),
         {
           app_link:
-            'https://hotels.bttn.io/bloop?a=2&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+            'https://hotels.bttn.io/bloop?a=2&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.hotels.com/bloop?a=2&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -365,7 +365,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
 
       assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_refkey=rffrid&btn_ref=srctok-XXX',
+          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
           'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
       });
