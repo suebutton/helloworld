@@ -20,8 +20,10 @@ describe('lib/kokiri/builders/walmart', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'walmart://?btn_ref=srctok-XXX',
-        browser_link: 'https://www.walmart.com?btn_ref=srctok-XXX',
+        app_link:
+          'walmart://?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.walmart.com?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
       });
     });
 
@@ -37,9 +39,10 @@ describe('lib/kokiri/builders/walmart', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'walmart://ip/12345678?btn_ref=srctok-XXX',
+          app_link:
+            'walmart://ip/12345678?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.walmart.com/ip/12345678?btn_ref=srctok-XXX',
+            'https://www.walmart.com/ip/12345678?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
       );
     });
@@ -56,9 +59,10 @@ describe('lib/kokiri/builders/walmart', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'walmart://ip/12345678?btn_ref=srctok-XXX',
+          app_link:
+            'walmart://ip/12345678?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.walmart.com/ip/productname/12345678?btn_ref=srctok-XXX',
+            'https://www.walmart.com/ip/productname/12345678?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
       );
     });
@@ -78,9 +82,9 @@ describe('lib/kokiri/builders/walmart', function() {
         ),
         {
           app_link:
-            'walmart://ip/12345678?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+            'walmart://ip/12345678?utm_campaign=BEST%20OIL&sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.walmart.com/ip/12345678?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+            'https://www.walmart.com/ip/12345678?utm_campaign=BEST%20OIL&sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
       );
     });
@@ -89,8 +93,10 @@ describe('lib/kokiri/builders/walmart', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://walmart.bttn.io?btn_ref=srctok-XXX',
-        browser_link: 'https://www.walmart.com?btn_ref=srctok-XXX',
+        app_link:
+          'https://walmart.bttn.io?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.walmart.com?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
       });
     });
 
@@ -102,8 +108,10 @@ describe('lib/kokiri/builders/walmart', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://walmart.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
-          browser_link: 'https://www.walmart.com/bloop?a=2&btn_ref=srctok-XXX',
+          app_link:
+            'https://walmart.bttn.io/bloop?a=2&sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.walmart.com/bloop?a=2&sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
       );
     });
