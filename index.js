@@ -55,7 +55,12 @@ const clientStore = new ClientStore(
 
 clientStore.start();
 
-const kokiriAdapter = new KokiriAdapter(metrics, clientStore, bigqueryLogger);
+const kokiriAdapter = new KokiriAdapter(
+  metrics,
+  clientStore,
+  bigqueryLogger,
+  errorLogger
+);
 
 const app = createApp({
   port: config.port,

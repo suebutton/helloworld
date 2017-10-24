@@ -17,6 +17,10 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       scheduleInsert: sinon.spy(),
     };
 
+    this.errorLogger = {
+      logError: sinon.spy(),
+    };
+
     const approvals = new Map([
       [
         'a',
@@ -63,7 +67,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
     this.kokiriAdapter = new KokiriAdapter(
       this.metrics,
       this.clientStore,
-      this.bigqueryLogger
+      this.bigqueryLogger,
+      this.errorLogger
     );
   });
 
@@ -499,6 +504,59 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.kokiriAdapter.appAction('url'), null);
       assert.equal(this.kokiriAdapter.appAction(null, 'org-YYY', '', {}));
     });
+
+    it('doesnt log non-kokiri errors', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.appAction(
+          'https://unknownmerchant.com',
+          'org-XXX',
+          'ios',
+          'srctok-XXX',
+          {
+            request: {
+              url: 'https://api.usebutton.com/v1/session/get-links',
+              method: 'POST',
+            },
+            state: {
+              requestId: 1234,
+            },
+          }
+        ),
+        null
+      );
+
+      const verifyRequest = {
+        reqid: 1234,
+        http_method: 'POST',
+        path: '/v1/session/get-links',
+        publisher_organization_id: 'org-XXX',
+        merchant_organization_id: null,
+        url: 'https://unknownmerchant.com',
+        is_supported: false,
+        is_approved: true,
+        experience: null,
+        universal_link: null,
+        app_action: undefined,
+        web_action: null,
+      };
+      verifyRequest.date = this.bigqueryLogger.scheduleInsert.args[0][1].date;
+      assert.deepEqual(
+        this.bigqueryLogger.scheduleInsert.args[0][1],
+        verifyRequest
+      );
+
+      assert.equal(this.metrics.increment.callCount, 1);
+      assert.deepEqual(this.metrics.increment.args[0][0], {
+        name: 'kokiri_enhance_link',
+        type: 'app-action',
+        status: 'error',
+        publisher: 'org-XXX',
+        merchant: null,
+        statsdName: 'kokiri.error',
+      });
+
+      assert.equal(this.errorLogger.logError.callCount, 0);
+    });
   });
 
   describe('#webAction', function() {
@@ -616,6 +674,59 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.equal(this.kokiriAdapter.webAction(), null);
       assert.equal(this.kokiriAdapter.webAction('url'), null);
       assert.equal(this.kokiriAdapter.webAction(null, 'org-YYY', '', {}));
+    });
+
+    it('doesnt log non-kokiri errors', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.webAction(
+          'https://unknownmerchant.com',
+          'org-XXX',
+          'ios',
+          'srctok-XXX',
+          {
+            request: {
+              url: 'https://api.usebutton.com/v1/session/get-links',
+              method: 'POST',
+            },
+            state: {
+              requestId: 1234,
+            },
+          }
+        ),
+        null
+      );
+
+      const verifyRequest = {
+        reqid: 1234,
+        http_method: 'POST',
+        path: '/v1/session/get-links',
+        publisher_organization_id: 'org-XXX',
+        merchant_organization_id: null,
+        url: 'https://unknownmerchant.com',
+        is_supported: false,
+        is_approved: true,
+        experience: null,
+        universal_link: null,
+        app_action: undefined,
+        web_action: null,
+      };
+      verifyRequest.date = this.bigqueryLogger.scheduleInsert.args[0][1].date;
+      assert.deepEqual(
+        this.bigqueryLogger.scheduleInsert.args[0][1],
+        verifyRequest
+      );
+
+      assert.equal(this.metrics.increment.callCount, 1);
+      assert.deepEqual(this.metrics.increment.args[0][0], {
+        name: 'kokiri_enhance_link',
+        type: 'web-action',
+        status: 'error',
+        publisher: 'org-XXX',
+        merchant: null,
+        statsdName: 'kokiri.error',
+      });
+
+      assert.equal(this.errorLogger.logError.callCount, 0);
     });
   });
 
