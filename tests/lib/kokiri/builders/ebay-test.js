@@ -182,6 +182,18 @@ describe('lib/kokiri/builders/ebay', function() {
 
     assert.deepEqual(
       this.builder.destinationFromUrl(
+        'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX'
+      ),
+      {
+        hostname: 'ebay.com',
+        pathname: '/',
+        query: {},
+        hash: null,
+      }
+    );
+
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
         'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
