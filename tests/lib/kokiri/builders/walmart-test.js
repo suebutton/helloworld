@@ -67,6 +67,46 @@ describe('lib/kokiri/builders/walmart', function() {
       );
     });
 
+    it('returns an app action with category search', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/cp/smart-home/1229875',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'walmart://search-department/1229875?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.walmart.com/cp/smart-home/1229875?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action with category search and shorter ID', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/cp/smart-home/122987',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'walmart://search-department/122987?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.walmart.com/cp/smart-home/122987?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action with query parameters', function() {
       assert.deepEqual(
         this.builder.appAction(
