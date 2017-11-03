@@ -30,6 +30,20 @@ describe('lib/kokiri/builders/booking', function() {
         browser_link:
           'https://www.booking.com?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
       });
+
+      assert.deepEqual(
+        this.builder.appAction(
+          { pathname: '/index.html' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://www.booking.com/index.html?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.booking.com/index.html?aid=1364923&label=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns an app action for special publishers', function() {
