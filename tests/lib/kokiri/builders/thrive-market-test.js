@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/thrive-market', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-013e2e3ddf915475');
   });

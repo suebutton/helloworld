@@ -17,7 +17,28 @@ describe('lib/kokiri/builders/booking', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: 'org-4d6aaae0d30aaa7d',
+        default_value: '1364923',
+        name: 'aid',
+      },
+    ];
+
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: 'org-030575eddb72b4df',
+        value: '1353900',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-4d6aaae0d30aaa7d');
   });

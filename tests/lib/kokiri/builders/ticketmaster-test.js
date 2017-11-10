@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/ticketmaster', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-12442b0c35f7f8bb');
   });

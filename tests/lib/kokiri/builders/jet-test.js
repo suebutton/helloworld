@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/jet', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-7edde2ff2a553edd');
   });

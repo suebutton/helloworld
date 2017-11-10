@@ -17,7 +17,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-6ef589c578ab8ac6');
   });

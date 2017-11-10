@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/minibar', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-6539d5fcc80478f9');
   });

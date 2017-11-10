@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/quandoo', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-6b6a1003c3e5161f');
   });

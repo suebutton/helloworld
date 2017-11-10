@@ -45,8 +45,10 @@ describe('lib/kokiri/builders/link-builder', function() {
       supportedAffiliateQueryIds,
       [],
       supportedAffiliates,
-      webToAppMappings,
-      approvals
+      {
+        webToAppMappings,
+        approvals,
+      }
     );
 
     this.builder = config.createBuilder('org-XXX', 'org-7edde2ff2a553edd');

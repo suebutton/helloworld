@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/uberrewards', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-71d525a52970fe14');
   });

@@ -2,47 +2,123 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const GROUPON_ORG_ID = 'org-681847bf6cc4d57c';
+const QUIDCO_ORG_ID = 'org-294d8a7f8adbd98f';
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
+const PURCH_ORG_ID = 'org-1443446d6738e5bc';
+
 describe('lib/kokiri/builders/groupon', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-681847bf6cc4d57c',
+        organization: GROUPON_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-294d8a7f8adbd98f',
-        organization: 'org-681847bf6cc4d57c',
+        audience: QUIDCO_ORG_ID,
+        organization: GROUPON_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
-        organization: 'org-681847bf6cc4d57c',
+        audience: IBOTTA_ORG_ID,
+        organization: GROUPON_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-1443446d6738e5bc',
-        organization: 'org-681847bf6cc4d57c',
+        audience: PURCH_ORG_ID,
+        organization: GROUPON_ORG_ID,
       },
     ];
 
     const webToAppMappings = [
       {
-        organization: 'org-681847bf6cc4d57c',
+        organization: GROUPON_ORG_ID,
         subdomain_name: 'groupon-uk',
         external_host: 'https://groupon.co.uk',
       },
       {
-        organization: 'org-681847bf6cc4d57c',
+        organization: GROUPON_ORG_ID,
         subdomain_name: 'groupon',
         external_host: 'https://www.groupon.com',
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], webToAppMappings, approvals);
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: GROUPON_ORG_ID,
+        default_value: '206994',
+        name: 'utm-campaign-uk',
+      },
+      {
+        id: 'burger',
+        organization: GROUPON_ORG_ID,
+        default_value: '206994',
+        name: 'utm-campaign-us',
+      },
+      {
+        id: '54321',
+        organization: GROUPON_ORG_ID,
+        default_value: 'US_AFF_0_204629_1660315_0',
+        name: 'ts-token-us',
+      },
+      {
+        id: 'tea',
+        organization: GROUPON_ORG_ID,
+        default_value: 'US_AFF_0_204629_1660315_0',
+        name: 'ts-token-uk',
+      },
+      {
+        id: 'wiid',
+        organization: GROUPON_ORG_ID,
+        default_value: null,
+        name: 'wid',
+      },
+    ];
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-681847bf6cc4d57c');
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: QUIDCO_ORG_ID,
+        value: '211215',
+      },
+      {
+        partner_parameter: 'burger',
+        organization: PURCH_ORG_ID,
+        value: '204629',
+      },
+      {
+        partner_parameter: '54321',
+        organization: PURCH_ORG_ID,
+        value: 'US_AFF_0_204629_1678675_0',
+      },
+      {
+        partner_parameter: '54321',
+        organization: IBOTTA_ORG_ID,
+        value: 'US_AFF_0_206994_1652352_0',
+      },
+      {
+        partner_parameter: 'tea',
+        organization: QUIDCO_ORG_ID,
+        value: 'UK_AFF_0_211215_1219277_0',
+      },
+      {
+        partner_parameter: 'wiid',
+        organization: PURCH_ORG_ID,
+        value: 'https://www.shopsavvy.com/',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      webToAppMappings,
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
+
+    this.builder = this.config.createBuilder('org-XXX', GROUPON_ORG_ID);
   });
 
   describe('#appAction', function() {
@@ -253,7 +329,7 @@ describe('lib/kokiri/builders/groupon', function() {
         ),
         {
           app_link:
-            'groupon:///dispatch/pavel?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
+            'groupon:///dispatch/us?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
           browser_link:
             'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%3Fa%3Dtrue%23anchor&btn_ref=srctok-XXX',
         }
@@ -282,10 +358,7 @@ describe('lib/kokiri/builders/groupon', function() {
     });
 
     it('returns an app action with a wid', function() {
-      const builder = this.config.createBuilder(
-        'org-1443446d6738e5bc',
-        'org-681847bf6cc4d57c'
-      );
+      const builder = this.config.createBuilder(PURCH_ORG_ID, GROUPON_ORG_ID);
 
       assert.deepEqual(
         builder.appAction({ query: { wid: 'pavel' } }, 'ios', 'srctok-XXX'),
@@ -299,10 +372,7 @@ describe('lib/kokiri/builders/groupon', function() {
     });
 
     it('returns an app action for Ibotta', function() {
-      const builder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-681847bf6cc4d57c'
-      );
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, GROUPON_ORG_ID);
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
@@ -313,10 +383,7 @@ describe('lib/kokiri/builders/groupon', function() {
     });
 
     it('returns an app action for Quidco', function() {
-      const builder = this.config.createBuilder(
-        'org-294d8a7f8adbd98f',
-        'org-681847bf6cc4d57c'
-      );
+      const builder = this.config.createBuilder(QUIDCO_ORG_ID, GROUPON_ORG_ID);
 
       assert.deepEqual(
         builder.appAction({ region: 'uk' }, 'ios', 'srctok-XXX'),
@@ -355,10 +422,7 @@ describe('lib/kokiri/builders/groupon', function() {
     });
 
     it('returns a web action with a wid', function() {
-      const builder = this.config.createBuilder(
-        'org-1443446d6738e5bc',
-        'org-681847bf6cc4d57c'
-      );
+      const builder = this.config.createBuilder(PURCH_ORG_ID, GROUPON_ORG_ID);
 
       assert.deepEqual(
         builder.webAction({ query: { wid: 'pavel' } }, 'ios', 'srctok-XXX'),

@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/apple-music', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-7e4081c0d88c5427');
   });

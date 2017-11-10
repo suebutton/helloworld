@@ -17,7 +17,28 @@ describe('lib/kokiri/builders/amazon', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: 'org-3b6a623e75cc729c',
+        default_value: 'button',
+        name: 'tag',
+      },
+    ];
+
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: 'org-2d432a88b9bb8bda',
+        value: 'ibotta09-20',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-3b6a623e75cc729c');
   });

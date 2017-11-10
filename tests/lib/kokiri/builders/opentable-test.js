@@ -17,7 +17,28 @@ describe('lib/kokiri/builders/opentable', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: 'org-1381881532ffe9f4',
+        default_value: 'btn-prod-refid',
+        name: 'publisher_id',
+      },
+    ];
+
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: 'org-290b2877c15d987b',
+        value: '169542',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-1381881532ffe9f4');
   });

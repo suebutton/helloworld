@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/caviar', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-4bbe43f218248059');
   });

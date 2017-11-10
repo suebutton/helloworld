@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-00eb446216ab549a');
   });

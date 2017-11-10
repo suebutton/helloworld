@@ -2,24 +2,48 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const APPLE_RETAIL_ORG_ID = 'org-6970ba034d932903';
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
+
 describe('lib/kokiri/builders/apple-retail', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-6970ba034d932903',
+        organization: APPLE_RETAIL_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
-        organization: 'org-6970ba034d932903',
+        audience: IBOTTA_ORG_ID,
+        organization: APPLE_RETAIL_ORG_ID,
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: APPLE_RETAIL_ORG_ID,
+        default_value: '1101lMpQ',
+        name: 'camref-suffix',
+      },
+    ];
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-6970ba034d932903');
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: IBOTTA_ORG_ID,
+        value: '1101ly5X',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
+
+    this.builder = this.config.createBuilder('org-XXX', APPLE_RETAIL_ORG_ID);
   });
 
   describe('#appAction', function() {
@@ -34,8 +58,8 @@ describe('lib/kokiri/builders/apple-retail', function() {
 
     it('returns a publisher-specific app action', function() {
       const builder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-6970ba034d932903'
+        IBOTTA_ORG_ID,
+        APPLE_RETAIL_ORG_ID
       );
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {

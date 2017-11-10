@@ -17,7 +17,7 @@ describe('lib/kokiri/builders/poshmark', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-59593cbf9713a5fc');
   });

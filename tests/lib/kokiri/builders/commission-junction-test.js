@@ -27,7 +27,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-3acb6dc42678c843');
   });

@@ -59,9 +59,24 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       ],
     ]);
 
+    const partnerParameters = new Map([
+      [
+        'a',
+        {
+          organization: 'org-3573c6b896624279',
+          name: 'rffrid-prefix',
+          default_value: 'aff.hcom.GL.049.000.00699.019',
+        },
+      ],
+    ]);
+
+    const partnerValues = new Map([]);
+
     this.clientStore = {
       approvals,
       webToAppMappings,
+      partnerParameters,
+      partnerValues,
     };
 
     this.kokiriAdapter = new KokiriAdapter(

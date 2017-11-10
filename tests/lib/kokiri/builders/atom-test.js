@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/atom', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-6c6c57762afd0d79');
   });

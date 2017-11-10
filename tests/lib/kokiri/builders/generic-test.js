@@ -20,7 +20,10 @@ describe('lib/kokiri/builders/generic', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], webToAppMappings, approvals);
+    this.config = new KokiriConfig([], [], [], [], {
+      webToAppMappings,
+      approvals,
+    });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-1234');
   });

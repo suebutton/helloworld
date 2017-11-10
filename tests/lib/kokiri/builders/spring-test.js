@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/spring', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-5f8137923a8ee6e3');
   });

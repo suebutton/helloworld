@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/delivery-dot-com', function() {
       },
     ];
 
-    const config = new KokiriConfig([], [], [], [], [], approvals);
+    const config = new KokiriConfig([], [], [], [], { approvals });
     this.builder = config.createBuilder('org-XXX', 'org-0c9334a8b3947ccc');
   });
 

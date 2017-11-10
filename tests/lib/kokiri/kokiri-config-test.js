@@ -24,8 +24,10 @@ function createConfigMaybeRemote(
     supportedAffiliateQueryIds,
     supportedAffiliatePathnameIds,
     supportedAffiliates,
-    webToAppMappings,
-    approvals
+    {
+      webToAppMappings,
+      approvals,
+    }
   );
 
   if (!useRemote) {
@@ -1562,8 +1564,10 @@ describe('lib/kokiri/kokiri-config', function() {
         supportedAffiliateQueryIds,
         supportedAffiliatePathnameIds,
         supportedAffiliates,
-        webToAppMappings,
-        approvals
+        {
+          webToAppMappings,
+          approvals,
+        }
       );
     });
 

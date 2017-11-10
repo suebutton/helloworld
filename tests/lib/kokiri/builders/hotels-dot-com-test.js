@@ -17,8 +17,28 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: 'org-3573c6b896624279',
+        default_value: 'aff.hcom.GL.049.000.00699.019',
+        name: 'rffrid-prefix',
+      },
+    ];
 
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: 'org-2d432a88b9bb8bda',
+        value: 'aff.hcom.US.049.000.00695.019',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
     this.builder = this.config.createBuilder('org-XXX', 'org-3573c6b896624279');
   });
 

@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/1800flowers', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-78f56ab485a9d61e');
   });

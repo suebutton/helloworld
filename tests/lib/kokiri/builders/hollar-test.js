@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/hollar', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-6c44299ea17a4656');
   });

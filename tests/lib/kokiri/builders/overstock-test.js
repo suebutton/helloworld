@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/overstock', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-695642d20753707a');
   });

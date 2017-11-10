@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/ebags', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-67cb320e6548dfb3');
   });

@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/drizly', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-1d159507be3d049e');
   });

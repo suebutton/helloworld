@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/hotelstorm', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-047a60621cef0d87');
   });

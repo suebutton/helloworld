@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/mr-and-mrs-smith', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-4a2d4ae6a222295d');
   });

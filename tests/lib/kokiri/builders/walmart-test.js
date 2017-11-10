@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/walmart', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-2365a4c935cb296b');
   });

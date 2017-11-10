@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/boxed', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-372a59a7b6ddb53b');
   });

@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/bloomthat', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-717bc2bbb268c3f6');
   });

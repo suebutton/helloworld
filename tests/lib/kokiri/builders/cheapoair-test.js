@@ -12,7 +12,7 @@ describe('lib/kokiri/builders/cheapoair', function() {
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], [], approvals);
+    this.config = new KokiriConfig([], [], [], [], { approvals });
 
     this.builder = this.config.createBuilder('org-XXX', 'org-39fc5b25a4debc2e');
   });

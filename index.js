@@ -48,7 +48,12 @@ const comstore = new Comstore(
 const clientStore = new ClientStore(
   comstore,
   config.comstore.refreshIntervalMillis,
-  [COLLECTIONS.WEB_TO_APP_MAPPINGS, COLLECTIONS.APPROVALS],
+  [
+    COLLECTIONS.WEB_TO_APP_MAPPINGS,
+    COLLECTIONS.APPROVALS,
+    COLLECTIONS.PARTNER_VALUES,
+    COLLECTIONS.PARTNER_PARAMETERS,
+  ],
   errorLogger,
   statsd
 );
