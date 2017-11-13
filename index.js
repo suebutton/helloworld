@@ -40,7 +40,7 @@ const redis = new RedisClient(
 
 const comstore = new Comstore(
   config.comstore.url,
-  statsd,
+  metrics,
   { maxSockets: config.comstore.maxSockets },
   config.comstore.timeoutMillis
 );
@@ -55,7 +55,7 @@ const clientStore = new ClientStore(
     COLLECTIONS.PARTNER_PARAMETERS,
   ],
   errorLogger,
-  statsd
+  metrics
 );
 
 clientStore.start();
