@@ -22,7 +22,7 @@ describe('lib/kokiri/builders/opentable', function() {
         id: '12345',
         organization: 'org-1381881532ffe9f4',
         default_value: 'btn-prod-refid',
-        name: 'publisher_id',
+        name: 'publisher-id',
       },
     ];
 
