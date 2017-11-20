@@ -60,7 +60,7 @@ describe('lib/kokiri/builders/ebay', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'ebay://rover.ebay.com/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+          'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
         browser_link:
           'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
       });
@@ -75,7 +75,7 @@ describe('lib/kokiri/builders/ebay', function() {
         ),
         {
           app_link:
-            'ebay://rover.ebay.com/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk&btn_ref=srctok-XXX',
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.co.uk&btn_ref=srctok-XXX',
           browser_link:
             'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk&btn_ref=srctok-XXX',
         }
@@ -99,7 +99,7 @@ describe('lib/kokiri/builders/ebay', function() {
         ),
         {
           app_link:
-            'ebay://rover.ebay.com/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
           browser_link:
             'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
         }
@@ -110,10 +110,82 @@ describe('lib/kokiri/builders/ebay', function() {
       const builder = this.config.createBuilder(SHOPKICK_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'ebay://rover.ebay.com/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575309782&campid=5338106664&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+          'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575309782%26campid%3D5338106664%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
         browser_link:
           'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575309782&campid=5338106664&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
       });
+    });
+
+    it('returns an app action for product pages', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname:
+              '/ctg/Secura-DuxTop-Black-Electric-Induction-Cooktop-/140654293',
+            query: { _pcatid: 57 },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=item.product&epid=140654293&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Fctg%252FSecura-DuxTop-Black-Electric-Induction-Cooktop-%252F140654293%253F_pcatid%253D57&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fctg%2FSecura-DuxTop-Black-Electric-Induction-Cooktop-%2F140654293%3F_pcatid%3D57&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/ctg/140654293',
+            query: { _pcatid: 57 },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=item.product&epid=140654293&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Fctg%252F140654293%253F_pcatid%253D57&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fctg%2F140654293%3F_pcatid%3D57&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for item pages', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname:
+              '/itm/Apple-iPhone-7-128GB-PRODUCT-RED-Special-Edition-USA-Model-WARRANTY-BRAND-NEW-/152522506551',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=item.view&id=152522506551&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Fitm%252FApple-iPhone-7-128GB-PRODUCT-RED-Special-Edition-USA-Model-WARRANTY-BRAND-NEW-%252F152522506551&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fitm%2FApple-iPhone-7-128GB-PRODUCT-RED-Special-Edition-USA-Model-WARRANTY-BRAND-NEW-%2F152522506551&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/itm/152522506551',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=item.view&id=152522506551&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Fitm%252F152522506551&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fitm%2F152522506551&btn_ref=srctok-XXX',
+        }
+      );
     });
   });
 
@@ -242,5 +314,19 @@ describe('lib/kokiri/builders/ebay', function() {
       query: {},
       hash: null,
     });
+  });
+
+  it('returns a destination from a tracking url with HTML encoded querystrings', function() {
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'http://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&amp;pub=5574652453&amp;toolid=10001&amp;campid=5338189312&amp;customid=&amp;mpre=https%3A%2F%2Fwww.ebay.com%2Fitm%2F292069472191'
+      ),
+      {
+        hostname: 'www.ebay.com',
+        pathname: '/itm/292069472191',
+        query: {},
+        hash: null,
+      }
+    );
   });
 });
