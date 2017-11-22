@@ -237,6 +237,66 @@ Fetch the SDK config object.
 }
 ```
 
+### `POST /v1/support/app-links`
+Fetch app linking support for a merchant. Accepts an array of merchants or an individual merchant
+
+
+##### Request Payload
+```json
+[
+  {
+    "merchant_id": "org-XXX"
+  }
+]
+```
+
+###### Response Payload
+
+```json
+{
+  "meta": {
+    "status": "ok"
+  },
+  "data": {
+    "objects": [
+      {
+        "merchant_id": "org-XXX",
+        "links": [
+          {
+            "bucket": "Category",
+            "ios_support": {
+              "app_to_app": true,
+              "web_to_app": false
+            },
+            "android_support": {
+              "app_to_app": false,
+              "web_to_app": false
+            },
+            "link": "https://ebay.com/department/1234",
+            "label": "Ebay Department Link"
+          },
+          {
+            "bucket": "Product",
+            "ios_support": {
+              "app_to_app": true,
+              "web_to_app": true
+            },
+            "android_support": {
+              "app_to_app": true,
+              "web_to_app": true
+            },
+
+            "link": "https://ebay.com/item/1234",
+            "label": "Ebay Item Link"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
 ### **REMOVED** `POST /v1/link/universal`
 
 Fetch a universal link for a link.  Accepts an array of links or individual link

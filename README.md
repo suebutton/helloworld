@@ -21,6 +21,7 @@ the basics:
   (app link + browser link)
 * `POST /v1/sdk/config`: Get an configuration object consumable by SDKs for
   determining Button support for a link
+* `POST /v1/support/app-links`: Get a report of app linking capability for a merchant
 
 If you have a Button Request Id handy, please pass it as the `X-Button-Request`
 HTTP header.
