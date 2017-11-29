@@ -774,4 +774,34 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       },
     ]);
   });
+  it('retrieves example links', function() {
+    const expected = [
+      {
+        merchant_id: 'org-XXX',
+        url: 'https://www.hotels.com',
+        label: 'Hotels link',
+        bucket: 'Homepage',
+      },
+      {
+        merchant_id: 'org-XXX',
+        url: 'https://ebay.com',
+        label: 'Ebay link',
+        bucket: 'Homepage',
+      },
+    ];
+    const actual = this.kokiriAdapter.exampleLinks('org-XXX');
+    assert.deepEqual(actual, expected);
+  });
+  it('generates app linking support', function() {
+    const expected = {
+      web_to_app: false,
+      app_to_app: true,
+    };
+    const actual = this.kokiriAdapter.appLinkingSupport(
+      'ios',
+      'org-XXX',
+      'https://www.ebay.com'
+    );
+    assert.deepEqual(actual, expected);
+  });
 });

@@ -8,6 +8,7 @@ const requestIdMiddleware = require('libbtn/web/middleware/request-id');
 
 const LinkRouter = require('./link');
 const ConfigRouter = require('./config');
+const SupportRouter = require('./support');
 
 const path = require('path');
 
@@ -27,6 +28,7 @@ module.exports = (redis, kokiriAdapter) => {
 
   router.use('/v1/link', LinkRouter(redis, kokiriAdapter).routes());
   router.use('/v1/config', ConfigRouter(kokiriAdapter).routes());
+  router.use('/v1/support', SupportRouter(kokiriAdapter).routes());
 
   return router;
 };

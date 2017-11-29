@@ -272,7 +272,7 @@ Fetch app linking support for a merchant. Accepts an array of merchants or an in
               "app_to_app": false,
               "web_to_app": false
             },
-            "link": "https://ebay.com/department/1234",
+            "url": "https://ebay.com/department/1234",
             "label": "Ebay Department Link"
           },
           {
@@ -286,7 +286,7 @@ Fetch app linking support for a merchant. Accepts an array of merchants or an in
               "web_to_app": true
             },
 
-            "link": "https://ebay.com/item/1234",
+            "url": "https://ebay.com/item/1234",
             "label": "Ebay Item Link"
           }
         ]
