@@ -46,6 +46,25 @@ describe('lib/kokiri/builders/boxed', function() {
       );
     });
 
+    it('returns a null app link for webview only paths', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/products/highlight/67/prince-spring',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.boxed.com/products/highlight/67/prince-spring?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action for category', function() {
       assert.deepEqual(
         this.builder.appAction(
