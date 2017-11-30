@@ -243,11 +243,9 @@ Fetch app linking support for a merchant. Accepts an array of merchants or an in
 
 ##### Request Payload
 ```json
-[
-  {
-    "merchant_id": "org-XXX"
-  }
-]
+{
+  "merchant_id": "org-XXX"
+}
 ```
 
 ###### Response Payload
@@ -259,38 +257,33 @@ Fetch app linking support for a merchant. Accepts an array of merchants or an in
   },
   "data": {
     "objects": [
-      {
-        "merchant_id": "org-XXX",
-        "links": [
-          {
-            "bucket": "Category",
-            "ios_support": {
-              "app_to_app": true,
-              "web_to_app": false
-            },
-            "android_support": {
-              "app_to_app": false,
-              "web_to_app": false
-            },
-            "url": "https://ebay.com/department/1234",
-            "label": "Ebay Department Link"
+        {
+          "bucket": "Category",
+          "ios_support": {
+            "app_to_app": true,
+            "web_to_app": false
           },
-          {
-            "bucket": "Product",
-            "ios_support": {
-              "app_to_app": true,
-              "web_to_app": true
-            },
-            "android_support": {
-              "app_to_app": true,
-              "web_to_app": true
-            },
+          "android_support": {
+            "app_to_app": false,
+            "web_to_app": false
+          },
+          "url": "https://ebay.com/department/1234",
+          "label": "Ebay Department Link"
+        },
+        {
+          "bucket": "Product",
+          "ios_support": {
+            "app_to_app": true,
+            "web_to_app": true
+          },
+          "android_support": {
+            "app_to_app": true,
+            "web_to_app": true
+          },
 
-            "url": "https://ebay.com/item/1234",
-            "label": "Ebay Item Link"
-          }
-        ]
-      }
+          "url": "https://ebay.com/item/1234",
+          "label": "Ebay Item Link"
+        }
     ]
   }
 }
