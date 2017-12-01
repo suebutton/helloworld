@@ -1,4 +1,4 @@
-FROM docker.button-internal.com/node-baseimage:git-d673b9b
+FROM docker.button-internal.com/node-baseimage:git-fd031b3
 MAINTAINER Will Myers <will@usebutton.com>
 
 RUN mkdir /app

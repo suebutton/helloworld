@@ -35,11 +35,11 @@ HTTP header.
 
 ## Local Setup
 
-* Kokiri runs on node `v7.9.0`
+* Kokiri runs on node `v8.9.1`
 * It uses Comstore's staging instance locally by default
 
 ```bash
-$ nvm use 7.9.0
+$ nvm use 8.9.1
 $ yarn
 $ yarn start
 ```
@@ -66,7 +66,7 @@ chmod +x /usr/local/bin/pint
 Run:
 
 ```bash
-$ nvm use 7.9.0
+$ nvm use 8.9.1
 $ pint setup
 $ pint run yarn start
 ```
