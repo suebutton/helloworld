@@ -278,8 +278,42 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           appToApp: true,
           appToWeb: true,
-          webToApp: false,
+          webToApp: true,
+          webToAppWithInstall: true,
+          webToWeb: true,
+        }
+      );
+    });
+
+    it('respects no post install attribution', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.supportMatrix(
+          'https://hotels.com?btn_fallback_exp=web',
+          'org-XXX',
+          'ios'
+        ),
+        {
+          appToApp: true,
+          appToWeb: true,
+          webToApp: true,
           webToAppWithInstall: false,
+          webToWeb: true,
+        }
+      );
+    });
+
+    it('it understands fallback experience', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.supportMatrix(
+          'https://hotels.com?btn_fallback_exp=interstitial',
+          'org-XXX',
+          'ios'
+        ),
+        {
+          appToApp: true,
+          appToWeb: true,
+          webToApp: true,
+          webToAppWithInstall: true,
           webToWeb: true,
         }
       );
