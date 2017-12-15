@@ -45,7 +45,7 @@ standard baseweb-formatted errors:
 
 ## App Endpoints
 
-All `/v1/link/*` endpoints support bulk requests.
+All `/v1/{link,support}/*` endpoints support bulk requests.
 
 If the request body is an `Array`:
 
@@ -238,7 +238,9 @@ Fetch the SDK config object.
 ```
 
 ### `POST /v1/support/app-links`
-Fetch app linking support for a merchant. Accepts an array of merchants or an individual merchant
+
+Fetch a manifest of app content linking support for a merchant. Accepts an array
+of merchants or an individual merchant.
 
 
 ##### Request Payload
@@ -285,6 +287,49 @@ Fetch app linking support for a merchant. Accepts an array of merchants or an in
           "label": "Ebay Item Link"
         }
     ]
+  }
+}
+```
+
+### `POST /v1/support/baseline`
+
+Fetch the basic flows a merchant supports. Accepts an array of merchants or an
+individual merchant.
+
+This represents the baseline linking capability of a merchant for app and mweb
+publishers (i.e. where and how they've interated with Button).
+
+##### Request Payload
+```json
+{
+  "merchant_id": "org-XXX"
+}
+```
+
+###### Response Payload
+
+```json
+{
+  "meta": {
+    "status": "ok"
+  },
+  "data": {
+    "object": {
+      "android_support": {
+        "app_to_app": false,
+        "app_to_web": true,
+        "web_to_app": false,
+        "web_to_app_with_install": false,
+        "web_to_web": true
+      },
+      "ios_support": {
+        "app_to_app": false,
+        "app_to_web": true,
+        "web_to_app": false,
+        "web_to_app_with_install": false,
+        "web_to_web": true
+      }
+    }
   }
 }
 ```

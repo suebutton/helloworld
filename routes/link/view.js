@@ -153,4 +153,5 @@ module.exports = {
   viewAttributes,
   viewAppActionWithMeta,
   viewWebActionWithMeta,
+  viewSupportMatrix,
 };

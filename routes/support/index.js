@@ -4,9 +4,10 @@ const { createValidate } = require('../../lib/validate');
 const { bulk } = require('../../lib/bulk');
 
 const validateBody = createValidate([{ key: 'merchant_id' }]);
-const { viewAppLinkingSupport } = require('./view');
+const { viewAppLinkingSupport, viewBaselineSupport } = require('./view');
 
 const { OS_IOS, OS_ANDROID } = require('../../lib/constants');
+const PLATFORMS = [OS_IOS, OS_ANDROID];
 
 /**
  * @param  {KokiriAdapter} kokiriAdapter
@@ -17,27 +18,32 @@ module.exports = kokiriAdapter => {
 
   const appLinkingSupport = bulk(async (ctx, body) => {
     validateBody(body);
-
     const { merchant_id: merchantId } = body;
 
-    const examples = kokiriAdapter.exampleLinks(merchantId);
-    const supportReport = examples.map(example => {
-      const androidSupport = kokiriAdapter.appLinkingSupport(
-        OS_ANDROID,
-        merchantId,
-        example.url
+    return kokiriAdapter.exampleLinks(merchantId).map(example => {
+      const { url } = example;
+
+      const [iosSupport, androidSupport] = PLATFORMS.map(platform =>
+        kokiriAdapter.appLinkingSupport(platform, merchantId, url)
       );
-      const iosSupport = kokiriAdapter.appLinkingSupport(
-        OS_IOS,
-        merchantId,
-        example.url
-      );
+
       return viewAppLinkingSupport(example, iosSupport, androidSupport);
     });
-    return supportReport;
+  });
+
+  const baselineSupport = bulk(async (ctx, body) => {
+    validateBody(body);
+    const { merchant_id: merchantId } = body;
+
+    const [iosSupport, androidSupport] = PLATFORMS.map(platform =>
+      kokiriAdapter.baselineSupport(platform, merchantId)
+    );
+
+    return viewBaselineSupport(iosSupport, androidSupport);
   });
 
   router.post('/app-links', appLinkingSupport);
+  router.post('/baseline', baselineSupport);
 
   return router;
 };

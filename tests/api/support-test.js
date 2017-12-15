@@ -23,8 +23,8 @@ describe('api /v1/config', function() {
       }),
       appLinkingSupport: sinon.spy(() => {
         return {
-          web_to_app: true,
-          app_to_app: true,
+          webToApp: true,
+          appToApp: true,
         };
       }),
     };

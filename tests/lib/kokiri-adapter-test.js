@@ -810,28 +810,20 @@ describe('/lib/kokiri/kokiri-adapter', function() {
   });
 
   it('retrieves example links', function() {
-    const expected = [
-      {
-        merchant_id: 'org-XXX',
-        url: 'https://www.hotels.com',
-        label: 'Hotels link',
-        bucket: 'Homepage',
-      },
-      {
-        merchant_id: 'org-XXX',
-        url: 'https://ebay.com',
-        label: 'Ebay link',
-        bucket: 'Homepage',
-      },
-    ];
-    const actual = this.kokiriAdapter.exampleLinks('org-XXX');
-    assert.deepEqual(actual, expected);
+    const actual = this.kokiriAdapter.exampleLinks('org-3573c6b896624279');
+    const homepage = actual.find(e => e.bucket === 'Homepage');
+    assert.deepEqual(homepage, {
+      url: 'http://www.hotels.com',
+      merchant_id: 'org-3573c6b896624279',
+      bucket: 'Homepage',
+      label: 'Hotels.com Homepage',
+    });
   });
 
   it('generates app linking support', function() {
     const expected = {
-      web_to_app: false,
-      app_to_app: true,
+      webToApp: false,
+      appToApp: true,
     };
     const actual = this.kokiriAdapter.appLinkingSupport(
       'ios',
