@@ -808,6 +808,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       },
     ]);
   });
+
   it('retrieves example links', function() {
     const expected = [
       {
@@ -826,6 +827,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
     const actual = this.kokiriAdapter.exampleLinks('org-XXX');
     assert.deepEqual(actual, expected);
   });
+
   it('generates app linking support', function() {
     const expected = {
       web_to_app: false,
@@ -833,8 +835,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
     };
     const actual = this.kokiriAdapter.appLinkingSupport(
       'ios',
-      'org-XXX',
-      'https://www.ebay.com'
+      'org-3573c6b896624279',
+      'https://www.hotels.com'
     );
     assert.deepEqual(actual, expected);
   });

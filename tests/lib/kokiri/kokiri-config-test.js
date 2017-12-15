@@ -919,12 +919,14 @@ describe('lib/kokiri/kokiri-config', function() {
           }, Error);
         });
       });
+
       describe('#createMockBuilder', function() {
         beforeEach(function() {
           this.config = createConfig([], [], [], [], [], []);
         });
+
         it('allows the creation of a builder for an unapproved merchant', function() {
-          this.config.createMockBuilder('org-YYY');
+          this.config.createMockBuilder('org-3573c6b896624279');
         });
       });
 
