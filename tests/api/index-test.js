@@ -2,7 +2,7 @@ const supertest = require('supertest-koa-agent');
 
 const { app } = require('../helpers');
 
-describe('api/index', function() {
+describe('api /', function() {
   before(function() {
     this.app = app();
     this.request = supertest(this.app.koa);
