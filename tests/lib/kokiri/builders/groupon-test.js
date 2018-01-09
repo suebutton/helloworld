@@ -167,23 +167,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'deal/pavel-kitty-house',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        {
-          app_link:
-            'groupon:///dispatch/us/deal/pavel-kitty-house?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
-          browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fdeal%2Fpavel-kitty-house&btn_ref=srctok-XXX',
-        }
-      );
-
-      assert.deepEqual(
-        this.builder.appAction(
-          {
-            pathname: 'deal/pavel-kitty-house',
+            pathname: '/deal/pavel-kitty-house',
             region: 'uk',
           },
           'ios',
@@ -220,17 +204,11 @@ describe('lib/kokiri/builders/groupon', function() {
       );
 
       assert.deepEqual(
-        this.builder.appAction({ pathname: 'goods/' }, 'ios', 'srctok-XXX'),
-        {
-          app_link:
-            'groupon:///dispatch/us/channel/goods?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
-          browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fgoods&btn_ref=srctok-XXX',
-        }
-      );
-
-      assert.deepEqual(
-        this.builder.appAction({ pathname: 'goods/baby' }, 'ios', 'srctok-XXX'),
+        this.builder.appAction(
+          { pathname: '/goods/baby' },
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
@@ -243,7 +221,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'browse/pavel-kitty-house',
+            pathname: '/browse/pavel-kitty-house',
             query: { category: 'personal-services', category2: 'photography' },
           },
           'ios',
@@ -277,7 +255,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'browse/',
+            pathname: '/browse/',
             query: { category: 'personal-services', category2: 'photography' },
           },
           'ios',

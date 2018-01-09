@@ -216,19 +216,80 @@ describe('lib/kokiri/app-mapping', function() {
 
   describe('#matchPathname', function() {
     it('returns a match object with a match', function() {
-      const matcher = matchPathname(/(\d)-(\d)-(\d)/, ['one', 'two', 'three']);
+      const matcher = matchPathname('/:one/:two/:three');
 
-      assert.deepEqual(matcher({ pathname: '1-2-3' }), {
+      assert.deepEqual(matcher({ pathname: '/1/2/3' }), {
         one: '1',
         two: '2',
         three: '3',
       });
     });
 
-    it('returns null with no match', function() {
-      const matcher = matchPathname(/(\d)-(\d)-(\d)/, ['one', 'two', 'three']);
+    it('supports optional parameters', function() {
+      const matcher = matchPathname('/:one/:two?/:three');
 
-      assert.deepEqual(matcher({ pathname: '?pavel?' }), null);
+      assert.deepEqual(matcher({ pathname: '/1/2/3' }), {
+        one: '1',
+        two: '2',
+        three: '3',
+      });
+
+      assert.deepEqual(matcher({ pathname: '/1/3' }), {
+        one: '1',
+        two: undefined,
+        three: '3',
+      });
+    });
+
+    it('supports parameter-specific regexs', function() {
+      const matcher = matchPathname('/:one(\\d)/:two(a|b)');
+
+      assert.deepEqual(matcher({ pathname: '/1/a' }), {
+        one: '1',
+        two: 'a',
+      });
+
+      assert.deepEqual(matcher({ pathname: '/2/b' }), {
+        one: '2',
+        two: 'b',
+      });
+
+      assert.deepEqual(matcher({ pathname: '/a/b' }), null);
+      assert.deepEqual(matcher({ pathname: '/2/c' }), null);
+    });
+
+    it('supports unnamed parameters', function() {
+      const matcher = matchPathname('/:one/:two/(.*)?');
+
+      assert.deepEqual(matcher({ pathname: '/1/a' }), {
+        0: undefined,
+        one: '1',
+        two: 'a',
+      });
+
+      assert.deepEqual(matcher({ pathname: '/1/a/' }), {
+        0: '',
+        one: '1',
+        two: 'a',
+      });
+
+      assert.deepEqual(matcher({ pathname: '/1/a/bleep' }), {
+        0: 'bleep',
+        one: '1',
+        two: 'a',
+      });
+
+      assert.deepEqual(matcher({ pathname: '/1/a/bleep/bloop/' }), {
+        0: 'bleep/bloop/',
+        one: '1',
+        two: 'a',
+      });
+    });
+
+    it('returns null with no match', function() {
+      const matcher = matchPathname('/:one/:two/:three');
+
+      assert.deepEqual(matcher({ pathname: '/?pavel?' }), null);
     });
   });
 
@@ -316,21 +377,21 @@ describe('lib/kokiri/app-mapping', function() {
 
   describe('#composeMatches', function() {
     it('allows composing matches together', function() {
-      const pathname = matchPathname(/(\d)-(\d)-(\d)/, ['one', 'two', 'three']);
+      const pathname = matchPathname('/:one/:two/:three');
       const platform = matchIOS;
 
       assert.deepEqual(
-        composeMatches(pathname, platform)({ pathname: '1-2-3' }, 'ios'),
+        composeMatches(pathname, platform)({ pathname: '/1/2/3' }, 'ios'),
         { one: '1', two: '2', three: '3' }
       );
     });
 
     it(`returns null if any don't match`, function() {
-      const pathname = matchPathname(/(\d)-(\d)-(\d)/, ['one', 'two', 'three']);
+      const pathname = matchPathname('/:one/:two/:three');
       const platform = matchIOS;
 
       assert.deepEqual(
-        composeMatches(pathname, platform)({ pathname: '1-2-3' }, 'pavel'),
+        composeMatches(pathname, platform)({ pathname: '/1/2/3' }, 'pavel'),
         null
       );
 
@@ -341,15 +402,11 @@ describe('lib/kokiri/app-mapping', function() {
     });
 
     it('merges all match objects', function() {
-      const pathname1 = matchPathname(/(\d)-(\d)-(\d)/, [
-        'one',
-        'two',
-        'three',
-      ]);
-      const pathname2 = matchPathname(/(\d)-(\d)-(\d)/, ['uno', 'dos', 'tres']);
+      const pathname1 = matchPathname('/:one/:two/:three');
+      const pathname2 = matchPathname('/:uno/:dos/:tres');
 
       assert.deepEqual(
-        composeMatches(pathname1, pathname2)({ pathname: '1-2-3' }, 'ios'),
+        composeMatches(pathname1, pathname2)({ pathname: '/1/2/3' }, 'ios'),
         {
           one: '1',
           two: '2',

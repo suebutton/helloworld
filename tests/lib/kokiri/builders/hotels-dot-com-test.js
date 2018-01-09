@@ -86,7 +86,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'ho212522',
+            pathname: '/ho212522',
           },
           'ios',
           'srctok-XXX'
@@ -102,7 +102,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'ho212522',
+            pathname: '/ho212522',
             query: { a: 2 },
           },
           'ios',
@@ -137,7 +137,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'de172809',
+            pathname: '/de172809',
           },
           'ios',
           'srctok-XXX'
@@ -153,7 +153,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'de172809',
+            pathname: '/de172809',
             query: { a: 2 },
           },
           'ios',
@@ -172,7 +172,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'hotel/details.html',
+            pathname: '/hotel/details.html',
             query: {
               'q-check-out': '2017-06-25',
               'q-check-in': '2017-06-24',
@@ -216,7 +216,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'search.do',
+            pathname: '/search.do',
             query: { 'destination-id': '172809' },
           },
           'ios',
@@ -252,7 +252,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'hotel-deals',
+            pathname: '/hotel-deals',
           },
           'ios',
           'srctok-XXX'
@@ -301,7 +301,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'bloop/2',
+            pathname: '/bloop/2',
             query: { a: true },
             hash: 'anchor',
           },

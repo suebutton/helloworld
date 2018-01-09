@@ -52,7 +52,7 @@ describe('lib/kokiri/builders/jet', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: 'product/0147dccdb5984ec5bbbcaa2cce33022e',
+            pathname: '/product/0147dccdb5984ec5bbbcaa2cce33022e',
             query: {},
             hash: null,
           },
@@ -62,24 +62,6 @@ describe('lib/kokiri/builders/jet', function() {
         {
           app_link:
             'jet://jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
-          browser_link:
-            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
-        }
-      );
-
-      assert.deepEqual(
-        this.builder.appAction(
-          {
-            pathname: 'product/0147dccdb5984ec5bbbcaa2cce33022e',
-            query: {},
-            hash: null,
-          },
-          'android',
-          'srctok-XXX'
-        ),
-        {
-          app_link:
-            'jet://product/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
           browser_link:
             'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
         }

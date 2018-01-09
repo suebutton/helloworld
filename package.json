@@ -28,6 +28,7 @@
     "koa-static": "^4.0.1",
     "libbtn": "https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.2.tgz",
     "lodash": "^4.17.4",
+    "path-to-regexp": "^2.1.0",
     "redis": "^2.7.1",
     "request": "^2.81.0"
   },
