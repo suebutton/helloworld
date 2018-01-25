@@ -25,6 +25,13 @@ describe('lib/kokiri/builders/etsy', function() {
         browser_link:
           'https://www.etsy.com?utm_medium=affiliate&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
       });
+
+      assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
+        app_link:
+          'etsy://home?utm_medium=affiliate&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.etsy.com?utm_medium=affiliate&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+      });
     });
 
     it('returns an app action for featured', function() {
