@@ -45,7 +45,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com/',
         }
       );
 
@@ -60,7 +60,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com/',
         }
       );
     });
@@ -82,7 +82,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8415784-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2F&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8415784/type/dlg/sid/srctok-XXX/https://www.express.com/',
         }
       );
     });
@@ -99,7 +99,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=https%3A%2F%2Fwww.express.com%2Fa%2Fb%2Fc%3Ffoo%3Dbar%23123&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com/a/b/c?foo=bar#123',
         }
       );
     });
@@ -117,7 +117,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-10410849?sid=srctok-XXX&url=https%3A%2F%2Fgap.com%2Fa%2Fb%2Fc&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://gap.com/a/b/c',
         }
       );
     });
@@ -135,37 +135,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-12922947?sid=srctok-XXX&url=https%3A%2F%2Fwww.stitchfix.com%2Fa%2Fb%2Fc&btn_ref=srctok-XXX',
-        }
-      );
-    });
-
-    it('returns app action with null values if there is no org_id to mid mapping', function() {
-      this.builder.merchantId = 'org-XXX';
-      assert.deepEqual(
-        this.builder.appAction(
-          {
-            url: 'http://www.example.com',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        {
-          app_link: null,
-          browser_link: null,
-        }
-      );
-      assert.deepEqual(
-        this.builder.appAction(
-          {
-            url: 'http://www.example.com',
-          },
-          'android',
-          'srctok-XXX'
-        ),
-        {
-          app_link: null,
-          browser_link: null,
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.stitchfix.com/a/b/c',
         }
       );
     });
@@ -173,24 +143,35 @@ describe('lib/kokiri/builders/commission-junction,', function() {
 
   describe('#webAction', function() {
     it('returns a web action', function() {
-      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: null,
-        browser_link:
-          'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=&btn_ref=srctok-XXX',
-      });
-    });
-
-    it('returns a web action with destination', function() {
       assert.deepEqual(
         this.builder.webAction(
-          { pathname: '/bloop', query: { a: 2 } },
+          {
+            url: 'http://merchant.net',
+          },
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'http://www.dpbolvw.net/click-8395017-11393884?sid=srctok-XXX&url=&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/http://merchant.net',
+        }
+      );
+    });
+
+    it('returns a web action with destination', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            url: 'http://merchant.com/1/2/3?a=2&b=3#anchor',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/http://merchant.com/1/2/3?a=2&b=3#anchor',
         }
       );
     });
