@@ -2,26 +2,100 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const BOXED_ORG_ID = 'org-372a59a7b6ddb53b';
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
+const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
+
 describe('lib/kokiri/builders/boxed', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-372a59a7b6ddb53b',
+        organization: BOXED_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: IBOTTA_ORG_ID,
+        organization: BOXED_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: SHOPKICK_ORG_ID,
+        organization: BOXED_ORG_ID,
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], { approvals });
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: BOXED_ORG_ID,
+        default_value: 'ibotta',
+        name: 'utmcampaign',
+      },
+    ];
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-372a59a7b6ddb53b');
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: IBOTTA_ORG_ID,
+        value: 'ibotta',
+      },
+      {
+        partner_parameter: '12345',
+        organization: SHOPKICK_ORG_ID,
+        value: 'shopkick',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
+
+    this.builder = this.config.createBuilder('org-XXX', BOXED_ORG_ID);
   });
 
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'boxedwholesale://boxed.com?btn_ref=srctok-XXX',
-        browser_link: 'https://www.boxed.com?btn_ref=srctok-XXX',
+        app_link:
+          'boxedwholesale://boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns an app action overriding affiliation parameters', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            query: {
+              utm_source: 'pavel',
+              utm_medium: 'pavel',
+              utm_campaign: 'pavel',
+            },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'boxedwholesale://boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action with per-publisher tokens', function() {
+      const builder = this.config.createBuilder(SHOPKICK_ORG_ID, BOXED_ORG_ID);
+      assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'boxedwholesale://boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=shopkick&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=shopkick&btn_ref=srctok-XXX',
       });
     });
 
@@ -39,9 +113,9 @@ describe('lib/kokiri/builders/boxed', function() {
         ),
         {
           app_link:
-            'boxedwholesale://boxed.com/product/129/special-k-red-berries-cereal-37-oz.-2-bags?btn_ref=srctok-XXX',
+            'boxedwholesale://boxed.com/product/129/special-k-red-berries-cereal-37-oz.-2-bags?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.boxed.com/product/129/special-k-red-berries-cereal-37-oz.-2-bags?btn_ref=srctok-XXX',
+            'https://www.boxed.com/product/129/special-k-red-berries-cereal-37-oz.-2-bags?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
         }
       );
     });
@@ -60,7 +134,7 @@ describe('lib/kokiri/builders/boxed', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.boxed.com/products/highlight/67/prince-spring?btn_ref=srctok-XXX',
+            'https://www.boxed.com/products/highlight/67/prince-spring?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
         }
       );
     });
@@ -70,19 +144,15 @@ describe('lib/kokiri/builders/boxed', function() {
         this.builder.appAction(
           {
             pathname: '/products/category/137/lifestyle/',
-            query: {
-              utm_campaign: 'BEST OIL',
-            },
-            hash: null,
           },
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'boxedwholesale://boxed.com/products/category/137/lifestyle?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+            'boxedwholesale://boxed.com/products/category/137/lifestyle?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.boxed.com/products/category/137/lifestyle?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+            'https://www.boxed.com/products/category/137/lifestyle?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
         }
       );
     });
@@ -91,8 +161,10 @@ describe('lib/kokiri/builders/boxed', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://boxed.bttn.io?btn_ref=srctok-XXX',
-        browser_link: 'https://www.boxed.com?btn_ref=srctok-XXX',
+        app_link:
+          'https://boxed.bttn.io?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
       });
     });
 
@@ -104,8 +176,42 @@ describe('lib/kokiri/builders/boxed', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://boxed.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
-          browser_link: 'https://www.boxed.com/bloop?a=2&btn_ref=srctok-XXX',
+          app_link:
+            'https://boxed.bttn.io/bloop?a=2&utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.boxed.com/bloop?a=2&utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with per-publisher tokens', function() {
+      const builder = this.config.createBuilder(SHOPKICK_ORG_ID, BOXED_ORG_ID);
+      assert.deepEqual(builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'https://boxed.bttn.io?utm_source=button&utm_medium=affiliate&utm_campaign=shopkick&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=shopkick&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action protecting affiliation parameters', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            query: {
+              utm_source: 'pavel',
+              utm_medium: 'pavel',
+              utm_campaign: 'pavel',
+            },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://boxed.bttn.io?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=ibotta&btn_ref=srctok-XXX',
         }
       );
     });
