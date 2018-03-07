@@ -17,12 +17,17 @@ describe('lib/kokiri/builders/linkshare', function() {
       },
       {
         status: 'approved',
-        audience: 'org-030575eddb72b4df',
+        audience: 'org-2d432a88b9bb8bda',
         organization: 'org-6ef589c578ab8ac6',
       },
       {
         status: 'approved',
         audience: 'org-2d432a88b9bb8bda',
+        organization: 'org-139f1edad7388c6a',
+      },
+      {
+        status: 'approved',
+        audience: 'org-030575eddb72b4df',
         organization: 'org-6ef589c578ab8ac6',
       },
       {
@@ -32,7 +37,12 @@ describe('lib/kokiri/builders/linkshare', function() {
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
+        audience: 'org-4738195f8e741d19',
+        organization: 'org-6ef589c578ab8ac6',
+      },
+      {
+        status: 'approved',
+        audience: 'org-4738195f8e741d19',
         organization: 'org-139f1edad7388c6a',
       },
     ];
@@ -46,6 +56,22 @@ describe('lib/kokiri/builders/linkshare', function() {
   });
 
   describe('#appAction', function() {
+    it('returns an app action for gamestop from Samsung', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            url: 'http://www.gamestop.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
     it('returns an app action for gamestop from shopkick', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -195,7 +221,20 @@ describe('lib/kokiri/builders/linkshare', function() {
         }
       );
     });
-
+    it('returns a web action via Samsung', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { url: 'https://gamestop.com' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=https%3A%2F%2Fgamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
     it('returns a web action via ibotta', function() {
       const b = this.config.createBuilder(
         'org-2d432a88b9bb8bda',

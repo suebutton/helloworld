@@ -30,6 +30,11 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         audience: 'org-030575eddb72b4df',
         organization: 'org-3acb6dc42678c843',
       },
+      {
+        status: 'approved',
+        audience: 'org-4738195f8e741d19',
+        organization: 'org-3acb6dc42678c843',
+      },
     ];
 
     this.config = new KokiriConfig([], [], [], [], { approvals });
@@ -95,6 +100,28 @@ describe('lib/kokiri/builders/commission-junction,', function() {
     it('returns an app action with Shopkick org-id instead of Ibottas', function() {
       const builder = this.config.createBuilder(
         'org-030575eddb72b4df',
+        'org-3acb6dc42678c843'
+      );
+
+      assert.deepEqual(
+        builder.appAction(
+          {
+            url: 'https://www.express.com/',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.anrdoezrs.net/links/8639622/type/dlg/sid/srctok-XXX/https://www.express.com/',
+        }
+      );
+    });
+
+    it('returns an app action with Samsung org-id instead of Ibottas', function() {
+      const builder = this.config.createBuilder(
+        'org-4738195f8e741d19',
         'org-3acb6dc42678c843'
       );
 
