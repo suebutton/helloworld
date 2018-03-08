@@ -31,14 +31,14 @@ describe('lib/kokiri/builders/asos', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-        browser_link: 'https://m.asos.com?affid=20578&btn_ref=srctok-XXX',
+        browser_link: 'http://m.asos.com?affid=20578&btn_ref=srctok-XXX',
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-        browser_link: 'https://m.asos.com?affid=20578&btn_ref=srctok-XXX',
+        browser_link: 'http://m.asos.com?affid=20578&btn_ref=srctok-XXX',
       });
     });
 
@@ -48,7 +48,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/bloop?affid=20578&btn_ref=srctok-XXX',
+            'http://m.asos.com/bloop?affid=20578&btn_ref=srctok-XXX',
         }
       );
     });
@@ -61,7 +61,7 @@ describe('lib/kokiri/builders/asos', function() {
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-        browser_link: 'https://m.asos.com/us?affid=20578&btn_ref=srctok-XXX',
+        browser_link: 'http://m.asos.com/us?affid=20578&btn_ref=srctok-XXX',
       });
     });
   });
@@ -70,7 +70,7 @@ describe('lib/kokiri/builders/asos', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
-        browser_link: 'https://m.asos.com?affid=20578&btn_ref=srctok-XXX',
+        browser_link: 'http://m.asos.com?affid=20578&btn_ref=srctok-XXX',
       });
     });
 
@@ -82,7 +82,7 @@ describe('lib/kokiri/builders/asos', function() {
 
       assert.deepEqual(builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
-        browser_link: 'https://m.asos.com/us?affid=20578&btn_ref=srctok-XXX',
+        browser_link: 'http://m.asos.com/us?affid=20578&btn_ref=srctok-XXX',
       });
     });
 
@@ -96,7 +96,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/bloop?a=2&affid=20578&btn_ref=srctok-XXX',
+            'http://m.asos.com/bloop?a=2&affid=20578&btn_ref=srctok-XXX',
         }
       );
     });
@@ -116,7 +116,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/us/bloop?a=2&affid=20578&btn_ref=srctok-XXX',
+            'http://m.asos.com/us/bloop?a=2&affid=20578&btn_ref=srctok-XXX',
         }
       );
     });
@@ -125,7 +125,7 @@ describe('lib/kokiri/builders/asos', function() {
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(
-        'https://m.asos.com/bloop?utm_campaign=BEST%20OIL'
+        'http://m.asos.com/bloop?utm_campaign=BEST%20OIL'
       ),
       {
         pathname: '/bloop',
