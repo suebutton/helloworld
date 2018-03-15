@@ -2,10 +2,9 @@ Production configuration for Kokiri. See ../modules/README.md for details.
 
 # Import
 
-Existing tables were imported using the following commands:
+Existing resources were imported using the following commands:
 
 ```
 terraform import module.kokiri_production.google_bigquery_table.kokiri btn-dlc:production.kokiri
-terraform import module.kokiri_production.aws_elasticache_cluster.kokiri kokiri-production
-terraform state push -force terraform.tfstate
+terraform import aws_elasticache_replication_group.kokiri kokiri-prod
 ```

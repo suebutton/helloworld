@@ -1,3 +1,9 @@
+provider "google" {
+  credentials = "${file(pathexpand("~/.creds/bigquery-terraform.json"))}"
+  project     = "btn-dlc"
+  region      = "us"
+}
+
 // Stores request logs for Kokiri in staging.
 resource "google_bigquery_table" "kokiri" {
   dataset_id  = "${var.environment}"
