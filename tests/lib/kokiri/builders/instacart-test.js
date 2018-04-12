@@ -41,12 +41,99 @@ describe('lib/kokiri/builders/instacart', function() {
         }
       );
     });
+
+    it('returns an app action for a non-supported app path', function() {
+      assert.deepEqual(
+        this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
+        {
+          app_link: null,
+          browser_link: 'https://www.instacart.com/bloop?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an iOS app action with the correct grocer if requested', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/store/whole-foods/',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'instacart://store?retailer_slug=whole-foods&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.instacart.com/store/whole-foods?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an Android app action with the correct grocer if requested', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/store/whole-foods/',
+            query: {},
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'instacart://store/whole-foods?btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.instacart.com/store/whole-foods?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an iOS app action with the correct search path if requested', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/store/whole-foods/search_v3/bananas',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'instacart://search?q=bananas&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.instacart.com/store/whole-foods/search_v3/bananas?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an Android app action with the correct search path if requested', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/store/whole-foods/search_v3/bananas',
+            query: {},
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'instacart://search?query=bananas&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.instacart.com/store/whole-foods/search_v3/bananas?btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
-    it('returns a web action', function() {
+    it('returns a browser_link web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://instacart.bttn.io?btn_ref=srctok-XXX',
+        app_link: null,
         browser_link: 'https://www.instacart.com?btn_ref=srctok-XXX',
       });
     });
@@ -59,12 +146,88 @@ describe('lib/kokiri/builders/instacart', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://instacart.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://www.instacart.com/bloop?a=2&btn_ref=srctok-XXX',
         }
       );
     });
+  });
+
+  it('returns a web app action with a browser_link containing the correct grocer for iOS if requested', function() {
+    assert.deepEqual(
+      this.builder.webAction(
+        {
+          pathname: '/store/whole-foods/',
+          query: {},
+          hash: null,
+        },
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link: null,
+        browser_link:
+          'https://www.instacart.com/store/whole-foods?btn_ref=srctok-XXX',
+      }
+    );
+  });
+
+  it('returns a web app action with a browser_link containing the correct search for iOS if requested', function() {
+    assert.deepEqual(
+      this.builder.webAction(
+        {
+          pathname: '/store/whole-foods/search_v3/bananas',
+          query: {},
+          hash: null,
+        },
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link: null,
+        browser_link:
+          'https://www.instacart.com/store/whole-foods/search_v3/bananas?btn_ref=srctok-XXX',
+      }
+    );
+  });
+
+  it('returns a web app action with a browser_link containing the correct grocer on Android if requested', function() {
+    assert.deepEqual(
+      this.builder.webAction(
+        {
+          pathname: '/store/whole-foods/',
+          query: {},
+          hash: null,
+        },
+        'android',
+        'srctok-XXX'
+      ),
+      {
+        app_link: null,
+        browser_link:
+          'https://www.instacart.com/store/whole-foods?btn_ref=srctok-XXX',
+      }
+    );
+  });
+
+  it('returns a web app action with a browser_link containing the correct search on Android if requested', function() {
+    assert.deepEqual(
+      this.builder.webAction(
+        {
+          pathname: '/store/whole-foods/search_v3/bananas',
+          query: {},
+          hash: null,
+        },
+        'android',
+        'srctok-XXX'
+      ),
+      {
+        app_link: null,
+        browser_link:
+          'https://www.instacart.com/store/whole-foods/search_v3/bananas?btn_ref=srctok-XXX',
+      }
+    );
   });
 
   it('returns a destination from a url', function() {
