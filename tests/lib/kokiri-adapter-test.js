@@ -492,7 +492,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         status: 'success',
         publisher: 'org-XXX',
         merchant: 'org-3573c6b896624279',
-        statsdName: 'kokiri.success',
       });
     });
 
@@ -544,7 +543,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         status: 'error',
         publisher: 'org-YYY',
         merchant: null,
-        statsdName: 'kokiri.error',
       });
     });
 
@@ -601,7 +599,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         status: 'error',
         publisher: 'org-XXX',
         merchant: null,
-        statsdName: 'kokiri.error',
       });
 
       assert.equal(this.errorLogger.logError.callCount, 0);
@@ -664,7 +661,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         status: 'success',
         publisher: 'org-XXX',
         merchant: 'org-3573c6b896624279',
-        statsdName: 'kokiri.success',
       });
     });
 
@@ -715,7 +711,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         status: 'error',
         publisher: 'org-YYY',
         merchant: null,
-        statsdName: 'kokiri.error',
       });
     });
 
@@ -772,7 +767,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         status: 'error',
         publisher: 'org-XXX',
         merchant: null,
-        statsdName: 'kokiri.error',
       });
 
       assert.equal(this.errorLogger.logError.callCount, 0);

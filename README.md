@@ -96,9 +96,6 @@ $ pint docker run
 * `REDIS_PORT=6379`: The port of a redis instance to use
 * `COMSTORE_URL=http://comstore-ecs-staging.button-internal.com`: The location
   of a Comstore instance
-* `STATSD_PORT_8125_UDP_ADDR=localhost`: The hostname of a statsd instance to
-  use
-* `STATSD_PORT_8125_UDP_PORT=8125`: The port of a statsd instance to use
 * `SENTRY_DSN`: A Sentry DSN url
 * `BIGQUERY_PRIVATE_KEY` A BigQuery Private Key
 * `BIGQUERY_CLIENT_EMAIL` A BigQuery Email

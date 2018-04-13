@@ -7,8 +7,6 @@ const {
   REDIS_HOST,
   REDIS_PORT,
   COMSTORE_URL,
-  STATSD_PORT_8125_UDP_ADDR,
-  STATSD_PORT_8125_UDP_PORT,
   SENTRY_DSN,
   BIGQUERY_CLIENT_EMAIL,
   BIGQUERY_PRIVATE_KEY,
@@ -29,8 +27,6 @@ const DEFAULT_PORT = 3000;
 const DEFAULT_REDIS_HOST = LOCALHOST;
 const DEFAULT_REDIS_PORT = '6379';
 const DEFAULT_COMSTORE_URL = 'http://comstore-ecs-staging.button-internal.com';
-const DEFAULT_STATSD_HOSTNAME = LOCALHOST;
-const DEFAULT_STATSD_PORT = '8125';
 
 const defaultConfig = {
   port: PORT || DEFAULT_PORT,
@@ -43,13 +39,6 @@ const defaultConfig = {
     maxSockets: 5,
     timeoutMillis: 1000 * 5,
     refreshIntervalMillis: 1000 * 30,
-  },
-  statsdEnabled: false,
-  statsd: {
-    debug: true,
-    host: STATSD_PORT_8125_UDP_ADDR || DEFAULT_STATSD_HOSTNAME,
-    port: STATSD_PORT_8125_UDP_PORT || DEFAULT_STATSD_PORT,
-    prefix: `kokiri.${NODE_ENV || 'development'}`,
   },
   sentryDsn: SENTRY_DSN,
   bigquery: {
@@ -68,10 +57,6 @@ const environmentOverrides = get(
       comstore: {
         maxSockets: 20,
       },
-      statsdEnabled: true,
-      statsd: {
-        debug: false,
-      },
       bigquery: {
         dataset: 'staging',
         projectId: 'btn-dlc',
@@ -80,10 +65,6 @@ const environmentOverrides = get(
     production: {
       comstore: {
         maxSockets: 50,
-      },
-      statsdEnabled: true,
-      statsd: {
-        debug: false,
       },
       bigquery: {
         dataset: 'production',

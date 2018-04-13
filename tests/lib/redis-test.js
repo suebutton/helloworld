@@ -178,12 +178,11 @@ describe('lib/redis', function() {
           name: 'kokiri_redis_event',
           namespace: 'bloop',
           event: 'hit',
-          statsdName: 'kokiri.redis.bloop.hit',
         });
 
         assert.equal(this.metrics.gauge.callCount, 1);
         assert.deepEqual(this.metrics.gauge.args[0], [
-          { name: 'kokiri_redis_dbsize', statsdName: 'kokiri.redis.dbsize' },
+          { name: 'kokiri_redis_dbsize' },
           1989,
         ]);
 
@@ -223,12 +222,11 @@ describe('lib/redis', function() {
           name: 'kokiri_redis_event',
           namespace: 'bloop',
           event: 'miss',
-          statsdName: 'kokiri.redis.bloop.miss',
         });
 
         assert.equal(this.metrics.gauge.callCount, 1);
         assert.deepEqual(this.metrics.gauge.args[0], [
-          { name: 'kokiri_redis_dbsize', statsdName: 'kokiri.redis.dbsize' },
+          { name: 'kokiri_redis_dbsize' },
           1989,
         ]);
 
@@ -275,7 +273,6 @@ describe('lib/redis', function() {
           name: 'kokiri_redis_event',
           namespace: 'bloop',
           event: 'no-connection',
-          statsdName: 'kokiri.redis.bloop.no-connection',
         });
       })
     );

@@ -2,7 +2,6 @@
 
 const { get } = require('lodash');
 const nodeRedis = require('redis');
-const StatsdClient = require('libbtn/logging/statsd-client');
 const Metrics = require('libbtn/util/metrics');
 const ErrorLogger = require('libbtn/logging/error-logger');
 const BigqueryLogger = require('libbtn/logging/bqlog');
@@ -15,9 +14,8 @@ const config = require('./config');
 const RedisClient = require('./lib/redis');
 const KokiriAdapter = require('./lib/kokiri-adapter');
 
-const statsd = new StatsdClient(config.statsdEnabled ? config.statsd : null);
-const metrics = new Metrics({ statsdClient: statsd });
-const errorLogger = new ErrorLogger(config.sentryDsn, undefined, true);
+const metrics = new Metrics();
+const errorLogger = new ErrorLogger(config.sentryDsn, undefined, true, metrics);
 
 const bigqueryLogger =
   get(config, ['bigquery', 'credentials', 'key']) &&
@@ -25,7 +23,7 @@ const bigqueryLogger =
     config.bigquery.projectId,
     config.bigquery.dataset,
     config.bigquery.credentials,
-    statsd,
+    metrics,
     3000
   );
 

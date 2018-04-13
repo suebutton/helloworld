@@ -1771,9 +1771,9 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"libbtn@https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.2.tgz":
-  version "2.3.2"
-  resolved "https://button-archive.s3.amazonaws.com/npm/libbtn-2.3.2.tgz#7cc05f4d0063e44968cbb28ef280a95537e2a074"
+"libbtn@https://button-archive.s3.amazonaws.com/npm/libbtn-2.12.0.tgz":
+  version "2.12.0"
+  resolved "https://button-archive.s3.amazonaws.com/npm/libbtn-2.12.0.tgz#05430ab60255f67deb640f5952b9461127d06258"
   dependencies:
     big-integer "^1.6.13"
     blocked "^1.2.1"
