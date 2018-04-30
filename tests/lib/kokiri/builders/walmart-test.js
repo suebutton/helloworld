@@ -25,6 +25,13 @@ describe('lib/kokiri/builders/walmart', function() {
         browser_link:
           'https://www.walmart.com?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
       });
+
+      assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
+        app_link:
+          'walmart://home?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.walmart.com?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+      });
     });
 
     it('returns an app action with destination', function() {
