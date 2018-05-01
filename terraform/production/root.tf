@@ -26,4 +26,6 @@ resource "aws_elasticache_replication_group" "kokiri" {
   port                          = 6379
   automatic_failover_enabled    = "true"
   snapshot_retention_limit      = "1"
+  security_group_ids            = ["sg-d8af35bd"]
+  subnet_group_name             = "prod-private"
 }

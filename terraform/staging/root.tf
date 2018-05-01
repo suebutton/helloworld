@@ -27,5 +27,6 @@ resource "aws_elasticache_cluster" "kokiri" {
   engine_version       = "2.8.24"
   num_cache_nodes      = 1
   parameter_group_name = "lru-cache"
+  security_group_ids   = ["sg-d8af35bd"]
   subnet_group_name    = "internal-subnet"
 }
