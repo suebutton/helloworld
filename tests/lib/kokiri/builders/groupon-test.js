@@ -40,6 +40,11 @@ describe('lib/kokiri/builders/groupon', function() {
       },
       {
         organization: GROUPON_ORG_ID,
+        subdomain_name: 'groupon-au',
+        external_host: 'https://groupon.com.au',
+      },
+      {
+        organization: GROUPON_ORG_ID,
         subdomain_name: 'groupon',
         external_host: 'https://www.groupon.com',
       },
@@ -47,31 +52,13 @@ describe('lib/kokiri/builders/groupon', function() {
 
     const partnerParameters = [
       {
-        id: '12345',
+        id: '123',
         organization: GROUPON_ORG_ID,
-        default_value: '206994',
-        name: 'utm-campaign-uk',
+        default_value: '204629',
+        name: 'utm-campaign',
       },
       {
-        id: 'burger',
-        organization: GROUPON_ORG_ID,
-        default_value: '206994',
-        name: 'utm-campaign-us',
-      },
-      {
-        id: '54321',
-        organization: GROUPON_ORG_ID,
-        default_value: 'US_AFF_0_204629_1660315_0',
-        name: 'ts-token-us',
-      },
-      {
-        id: 'tea',
-        organization: GROUPON_ORG_ID,
-        default_value: 'US_AFF_0_204629_1660315_0',
-        name: 'ts-token-uk',
-      },
-      {
-        id: 'wiid',
+        id: '456',
         organization: GROUPON_ORG_ID,
         default_value: null,
         name: 'wid',
@@ -80,32 +67,17 @@ describe('lib/kokiri/builders/groupon', function() {
 
     const partnerValues = [
       {
-        partner_parameter: '12345',
+        partner_parameter: '123',
         organization: QUIDCO_ORG_ID,
         value: '211215',
       },
       {
-        partner_parameter: 'burger',
-        organization: PURCH_ORG_ID,
-        value: '204629',
-      },
-      {
-        partner_parameter: '54321',
-        organization: PURCH_ORG_ID,
-        value: 'US_AFF_0_204629_1678675_0',
-      },
-      {
-        partner_parameter: '54321',
+        partner_parameter: '123',
         organization: IBOTTA_ORG_ID,
-        value: 'US_AFF_0_206994_1652352_0',
+        value: '206994',
       },
       {
-        partner_parameter: 'tea',
-        organization: QUIDCO_ORG_ID,
-        value: 'UK_AFF_0_211215_1219277_0',
-      },
-      {
-        partner_parameter: 'wiid',
+        partner_parameter: '456',
         organization: PURCH_ORG_ID,
         value: 'https://www.shopsavvy.com/',
       },
@@ -125,9 +97,9 @@ describe('lib/kokiri/builders/groupon', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'groupon:///dispatch/us?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+          'groupon:///dispatch/us?utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+          'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
       });
     });
 
@@ -142,9 +114,9 @@ describe('lib/kokiri/builders/groupon', function() {
         ),
         {
           app_link:
-            'groupon:///dispatch/us/deal/pavel-kitty-house?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us/deal/pavel-kitty-house?utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fdeals%2Fpavel-kitty-house&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fdeals%2Fpavel-kitty-house&btn_ref=srctok-XXX',
         }
       );
 
@@ -158,9 +130,9 @@ describe('lib/kokiri/builders/groupon', function() {
         ),
         {
           app_link:
-            'groupon:///dispatch/us/deal/pavel-kitty-house?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us/deal/pavel-kitty-house?utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fdeal%2Fpavel-kitty-house&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fdeal%2Fpavel-kitty-house&btn_ref=srctok-XXX',
         }
       );
 
@@ -168,16 +140,16 @@ describe('lib/kokiri/builders/groupon', function() {
         this.builder.appAction(
           {
             pathname: '/deal/pavel-kitty-house',
-            region: 'uk',
+            hostname: 'groupon.co.uk',
           },
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'groupon:///dispatch/uk/deal/pavel-kitty-house?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/uk/deal/pavel-kitty-house?utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=531&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://t.groupon.co.uk/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2Fdeal%2Fpavel-kitty-house&btn_ref=srctok-XXX',
+            'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_204629_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2Fdeal%2Fpavel-kitty-house&btn_ref=srctok-XXX',
         }
       );
     });
@@ -187,9 +159,9 @@ describe('lib/kokiri/builders/groupon', function() {
         this.builder.appAction({ pathname: '/getaways' }, 'ios', 'srctok-XXX'),
         {
           app_link:
-            'groupon:///dispatch/us/channel/getaways?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us/channel/getaways?utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fgetaways&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fgetaways&btn_ref=srctok-XXX',
         }
       );
 
@@ -197,9 +169,9 @@ describe('lib/kokiri/builders/groupon', function() {
         this.builder.appAction({ pathname: '/goods' }, 'ios', 'srctok-XXX'),
         {
           app_link:
-            'groupon:///dispatch/us/channel/goods?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us/channel/goods?utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fgoods&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fgoods&btn_ref=srctok-XXX',
         }
       );
 
@@ -212,7 +184,7 @@ describe('lib/kokiri/builders/groupon', function() {
         {
           app_link: null,
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fgoods%2Fbaby&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fgoods%2Fbaby&btn_ref=srctok-XXX',
         }
       );
     });
@@ -229,9 +201,9 @@ describe('lib/kokiri/builders/groupon', function() {
         ),
         {
           app_link:
-            'groupon:///dispatch/us/search?category=personal-services&category2=photography&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us/search?category=personal-services&category2=photography&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%2Fpavel-kitty-house%3Fcategory%3Dpersonal-services%26category2%3Dphotography&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%2Fpavel-kitty-house%3Fcategory%3Dpersonal-services%26category2%3Dphotography&btn_ref=srctok-XXX',
         }
       );
 
@@ -246,9 +218,9 @@ describe('lib/kokiri/builders/groupon', function() {
         ),
         {
           app_link:
-            'groupon:///dispatch/us/search?category=personal-services&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us/search?category=personal-services&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%3Fcategory%3Dpersonal-services&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%3Fcategory%3Dpersonal-services&btn_ref=srctok-XXX',
         }
       );
 
@@ -263,14 +235,14 @@ describe('lib/kokiri/builders/groupon', function() {
         ),
         {
           app_link:
-            'groupon:///dispatch/us/search?category=personal-services&category2=photography&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us/search?category=personal-services&category2=photography&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%3Fcategory%3Dpersonal-services%26category2%3Dphotography&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbrowse%3Fcategory%3Dpersonal-services%26category2%3Dphotography&btn_ref=srctok-XXX',
         }
       );
     });
 
-    it('returns an app action overriding affiliation paremeters', function() {
+    it('returns an app action overriding affiliation parameters', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
@@ -278,6 +250,7 @@ describe('lib/kokiri/builders/groupon', function() {
               utm_medium: 'pavel',
               utm_source: 'pavel',
               utm_campaign: 'pavel',
+              mediaId: 'pavel',
               sid: 'dabral',
             },
           },
@@ -286,51 +259,89 @@ describe('lib/kokiri/builders/groupon', function() {
         ),
         {
           app_link:
-            'groupon:///dispatch/us?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us?utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
         }
       );
     });
 
-    it('returns an app action where region is unknown', function() {
+    it('returns an app action where hostname is unknown', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'pavel',
             pathname: '',
             query: { a: true },
             hash: 'anchor',
-            region: 'pavel',
           },
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'groupon:///dispatch/us?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
+            'groupon:///dispatch/us?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%3Fa%3Dtrue%23anchor&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%3Fa%3Dtrue%23anchor&btn_ref=srctok-XXX',
         }
       );
     });
 
-    it('returns an app action when region is UK', function() {
+    it('returns an app action when hostname is not US', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'groupon.co.uk',
             pathname: '',
             query: { a: true },
             hash: 'anchor',
-            region: 'uk',
           },
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'groupon:///dispatch/uk?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
+            'groupon:///dispatch/uk?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=531&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
           browser_link:
-            'https://t.groupon.co.uk/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%3Fa%3Dtrue%23anchor&btn_ref=srctok-XXX',
+            'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_204629_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%3Fa%3Dtrue%23anchor&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'groupon.fr',
+            pathname: '',
+            query: { a: true },
+            hash: 'anchor',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'groupon:///dispatch/fr?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=512&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
+          browser_link:
+            'https://t.groupon.fr/r?tsToken=FR_AFF_0_204629_512_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.fr%3Fa%3Dtrue%23anchor&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'grouponnz.co.nz',
+            pathname: '',
+            query: { a: true },
+            hash: 'anchor',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'groupon:///dispatch/nz?a=true&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=521&sid=srctok-XXX&btn_ref=srctok-XXX#anchor',
+          browser_link:
+            'https://t.grouponnz.co.nz/r?tsToken=NZ_AFF_0_204629_521_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.grouponnz.co.nz%3Fa%3Dtrue%23anchor&btn_ref=srctok-XXX',
         }
       );
     });
@@ -342,9 +353,9 @@ describe('lib/kokiri/builders/groupon', function() {
         builder.appAction({ query: { wid: 'pavel' } }, 'ios', 'srctok-XXX'),
         {
           app_link:
-            'groupon:///dispatch/us?wid=https%3A%2F%2Fwww.shopsavvy.com%2F&utm_medium=afl&utm_source=GPN&utm_campaign=204629&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/us?wid=https%3A%2F%2Fwww.shopsavvy.com%2F&utm_medium=afl&utm_source=GPN&utm_campaign=204629&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1678675_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_ref=srctok-XXX',
         }
       );
     });
@@ -354,9 +365,9 @@ describe('lib/kokiri/builders/groupon', function() {
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'groupon:///dispatch/us?utm_medium=afl&utm_source=GPN&utm_campaign=206994&sid=srctok-XXX&btn_ref=srctok-XXX',
+          'groupon:///dispatch/us?utm_medium=afl&utm_source=GPN&utm_campaign=206994&mediaId=500&sid=srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://tracking.groupon.com/r?tsToken=US_AFF_0_206994_1652352_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+          'https://tracking.groupon.com/r?tsToken=US_AFF_0_206994_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
       });
     });
 
@@ -364,12 +375,12 @@ describe('lib/kokiri/builders/groupon', function() {
       const builder = this.config.createBuilder(QUIDCO_ORG_ID, GROUPON_ORG_ID);
 
       assert.deepEqual(
-        builder.appAction({ region: 'uk' }, 'ios', 'srctok-XXX'),
+        builder.appAction({ hostname: 'groupon.co.uk' }, 'ios', 'srctok-XXX'),
         {
           app_link:
-            'groupon:///dispatch/uk?utm_medium=afl&utm_source=GPN&utm_campaign=211215&sid=srctok-XXX&btn_ref=srctok-XXX',
+            'groupon:///dispatch/uk?utm_medium=afl&utm_source=GPN&utm_campaign=211215&mediaId=531&sid=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_211215_1219277_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_ref=srctok-XXX',
+            'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_211215_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_ref=srctok-XXX',
         }
       );
     });
@@ -380,7 +391,7 @@ describe('lib/kokiri/builders/groupon', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+          'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
       });
     });
 
@@ -394,7 +405,7 @@ describe('lib/kokiri/builders/groupon', function() {
         {
           app_link: null,
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com%2Fbloop%3Fa%3D2&btn_ref=srctok-XXX',
         }
       );
     });
@@ -407,29 +418,57 @@ describe('lib/kokiri/builders/groupon', function() {
         {
           app_link: null,
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1678675_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&wid=https%3A%2F%2Fwww.shopsavvy.com%2F&btn_ref=srctok-XXX',
         }
       );
     });
 
-    it('returns a web action with uk region', function() {
+    it('returns a web action with a non-US hostname', function() {
       assert.deepEqual(
-        this.builder.webAction({ region: 'uk' }, 'ios', 'srctok-XXX'),
+        this.builder.webAction(
+          { hostname: 'groupon.co.uk' },
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
-            'https://t.groupon.co.uk/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_ref=srctok-XXX',
+            'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_204629_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk&btn_ref=srctok-XXX',
+        }
+      );
+      assert.deepEqual(
+        this.builder.webAction(
+          { hostname: 'groupon.pl' },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://t.groupon.pl/r?tsToken=PL_AFF_0_204629_524_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.pl&btn_ref=srctok-XXX',
+        }
+      );
+      assert.deepEqual(
+        this.builder.webAction({ hostname: 'groupon.fr' }, 'ios', 'srctok-XXX'),
+        {
+          app_link: null,
+          browser_link:
+            'https://t.groupon.fr/r?tsToken=FR_AFF_0_204629_512_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.fr&btn_ref=srctok-XXX',
         }
       );
     });
 
-    it('returns a web action with an unknown region', function() {
+    it('returns a web action with an unknown hostname', function() {
       assert.deepEqual(
-        this.builder.webAction({ region: 'pavel' }, 'ios', 'srctok-XXX'),
+        this.builder.webAction(
+          { hostname: 'groupon.pavel' },
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
         }
       );
     });
@@ -439,15 +478,20 @@ describe('lib/kokiri/builders/groupon', function() {
         utm_medium: 'pavel',
         utm_source: 'pavel',
         utm_campaign: 'pavel',
+        mediaId: 'pavel',
         sid: 'dabral',
       };
 
       assert.deepEqual(
-        this.builder.webAction({ region: 'pavel', query }, 'ios', 'srctok-XXX'),
+        this.builder.webAction(
+          { hostname: 'groupon.pavel', query },
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
-            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_1660315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
+            'https://tracking.groupon.com/r?tsToken=US_AFF_0_204629_500_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com&btn_ref=srctok-XXX',
         }
       );
     });
@@ -459,10 +503,10 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon.com/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor'
       ),
       {
+        hostname: 'groupon.com',
         pathname: '/1/2',
         query: { q: '2', url: 'https://www.groupon.co.uk' },
         hash: '#anchor',
-        region: 'us',
       }
     );
 
@@ -471,10 +515,22 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon.co.uk/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor'
       ),
       {
+        hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2', url: 'https://www.groupon.co.uk' },
         hash: '#anchor',
-        region: 'uk',
+      }
+    );
+
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://groupon.fr/1/2?q=2&url=https%3A%2F%2Fwww.groupon.fr#anchor'
+      ),
+      {
+        hostname: 'groupon.fr',
+        pathname: '/1/2',
+        query: { q: '2', url: 'https://www.groupon.fr' },
+        hash: '#anchor',
       }
     );
 
@@ -483,10 +539,10 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://www.groupon.co.uk/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor'
       ),
       {
+        hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2', url: 'https://www.groupon.co.uk' },
         hash: '#anchor',
-        region: 'uk',
       }
     );
   });
@@ -495,20 +551,20 @@ describe('lib/kokiri/builders/groupon', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl('https://groupon.bttn.io/1/2?q=2#anchor'),
       {
+        hostname: 'groupon.com',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'us',
       }
     );
 
     assert.deepEqual(
       this.builder.destinationFromUrl('https://groupon.bttn.io/1/2?q=2#anchor'),
       {
+        hostname: 'groupon.com',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'us',
       }
     );
 
@@ -517,10 +573,10 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://track.bttn.io/groupon/1/2?q=2#anchor'
       ),
       {
+        hostname: 'groupon.com',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'us',
       }
     );
 
@@ -529,10 +585,22 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon-uk.bttn.io/1/2?q=2#anchor'
       ),
       {
+        hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'uk',
+      }
+    );
+
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://groupon-au.bttn.io/1/2?q=2#anchor'
+      ),
+      {
+        hostname: 'groupon.com.au',
+        pathname: '/1/2',
+        query: { q: '2' },
+        hash: '#anchor',
       }
     );
 
@@ -541,10 +609,10 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon-uk.bttn.io/1/2?q=2#anchor'
       ),
       {
+        hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'uk',
       }
     );
 
@@ -553,10 +621,10 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://track.bttn.io/groupon-uk/1/2?q=2#anchor'
       ),
       {
+        hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'uk',
       }
     );
   });
@@ -564,37 +632,61 @@ describe('lib/kokiri/builders/groupon', function() {
   it('returns a destination from a tracking url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl(
-        'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_209099_1113315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
+        'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_209099_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
+        hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'uk',
       }
     );
 
     assert.deepEqual(
       this.builder.destinationFromUrl(
-        'https://tracking.groupon.com/r?tsToken=UK_AFF_0_209099_1113315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
+        'https://t.groupon.com.au/r?tsToken=AU_AFF_0_209099_533_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com.au%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
+        hostname: 'groupon.com.au',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'us',
       }
     );
 
     assert.deepEqual(
       this.builder.destinationFromUrl(
-        'https://www.tracking.groupon.com/r?tsToken=UK_AFF_0_209099_1113315_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
+        'https://t.groupon.fr/r?tsToken=FR_AFF_0_209099_512_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.fr%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
+        hostname: 'groupon.fr',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
-        region: 'us',
+      }
+    );
+
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://tracking.groupon.com/r?tsToken=UK_AFF_0_209099_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
+      ),
+      {
+        hostname: 'groupon.com',
+        pathname: '/1/2',
+        query: { q: '2' },
+        hash: '#anchor',
+      }
+    );
+
+    assert.deepEqual(
+      this.builder.destinationFromUrl(
+        'https://www.tracking.groupon.com/r?tsToken=UK_AFF_0_209099_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
+      ),
+      {
+        hostname: 'groupon.com',
+        pathname: '/1/2',
+        query: { q: '2' },
+        hash: '#anchor',
       }
     );
 
@@ -602,7 +694,7 @@ describe('lib/kokiri/builders/groupon', function() {
       pathname: null,
       query: {},
       hash: null,
-      region: 'us',
+      hostname: '',
     });
   });
 });
