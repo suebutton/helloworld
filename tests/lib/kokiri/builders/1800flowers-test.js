@@ -21,14 +21,14 @@ describe('lib/kokiri/builders/1800flowers', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'bestsellingflowers://?btn_ref=srctok-XXX',
-        browser_link: 'https://www.1800flowers.com?btn_ref=srctok-XXX',
+        browser_link: null,
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: 'flowersbutton://?btn_ref=srctok-XXX',
-        browser_link: 'https://www.1800flowers.com?btn_ref=srctok-XXX',
+        browser_link: null,
       });
     });
 
@@ -36,8 +36,8 @@ describe('lib/kokiri/builders/1800flowers', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: '/item/p1297',
-            query: { a: 2 },
+            pathname: '/mothers-day-best-sellers',
+            query: null,
             hash: null,
           },
           'ios',
@@ -46,7 +46,7 @@ describe('lib/kokiri/builders/1800flowers', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.1800flowers.com/item/p1297?a=2&btn_ref=srctok-XXX',
+            'https://m.www.1800flowers.com/mothers-day-best-sellers?btn_ref=srctok-XXX',
         }
       );
     });
@@ -56,21 +56,21 @@ describe('lib/kokiri/builders/1800flowers', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
-        browser_link: 'https://www.1800flowers.com?btn_ref=srctok-XXX',
+        browser_link: null,
       });
     });
 
     it('returns a web action with destination', function() {
       assert.deepEqual(
         this.builder.webAction(
-          { pathname: '/bloop', query: { a: 2 } },
+          { pathname: '/mothers-day-best-sellers', query: null },
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://www.1800flowers.com/bloop?a=2&btn_ref=srctok-XXX',
+            'https://m.www.1800flowers.com/mothers-day-best-sellers?btn_ref=srctok-XXX',
         }
       );
     });
