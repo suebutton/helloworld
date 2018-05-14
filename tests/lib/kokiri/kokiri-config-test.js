@@ -1476,23 +1476,6 @@ describe('lib/kokiri/kokiri-config', function() {
       );
     });
 
-    it('Allows you to pass in a warning function', function() {
-      const config = new KokiriConfig([], [], [], [], {
-        onWarning: e => {
-          throw e;
-        },
-      });
-
-      assert.throws(() => {
-        config._onWarning(new Error('Needs to throw'));
-      }, Error);
-    });
-
-    it('Warning function is a no op by default', function() {
-      const config = new KokiriConfig([], [], [], [], {});
-      config._onWarning(new Error('Nothing happens'));
-    });
-
     describe('#toSDKConfig', function() {
       it('returns an SDK config', function() {
         assert.deepEqual(this.config.toSDKConfig('org-PP0'), {
