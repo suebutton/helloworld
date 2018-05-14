@@ -127,6 +127,34 @@ describe('lib/kokiri/builders/ebay', function() {
       );
     });
 
+    it('returns an app action for m.ebay.com links', function() {
+      assert.deepEqual(
+        this.builder.appAction({ hostname: 'm.ebay.com' }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for m.ebay.co.uk links', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          { hostname: 'm.ebay.co.uk' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F710-53481-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.co.uk&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/710-53481-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action overriding affiliation parameters', function() {
       assert.deepEqual(
         this.builder.appAction(
