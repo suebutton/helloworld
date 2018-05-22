@@ -90,6 +90,23 @@ describe('lib/kokiri/builders/expedia', function() {
       );
     });
 
+    it('returns an app action for .co.uk links', function() {
+      const builder = this.config.createBuilder('org-XXX', EXPEDIA_ORG_ID);
+      assert.deepEqual(
+        builder.appAction(
+          builder.getDestinationFromUrl('https://expedia.co.uk'),
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://www.expedia.co.uk/mobile/deeplink?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.expedia.co.uk?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action for www. link', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -303,6 +320,43 @@ describe('lib/kokiri/builders/expedia', function() {
         app_link: null,
         browser_link:
           'https://www.expedia.com?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a destination from a US url', function() {
+      assert.deepEqual(
+        this.builder.destinationFromUrl(
+          'https://www.expedia.com/hotels/us/tuscan-inn.html?utm_campaign=BEST%20OIL'
+        ),
+        {
+          hostname: 'www.expedia.com',
+          pathname: '/hotels/us/tuscan-inn.html',
+          query: { utm_campaign: 'BEST OIL' },
+          hash: null,
+        }
+      );
+    });
+
+    it('returns a destination from a UK url', function() {
+      assert.deepEqual(
+        this.builder.destinationFromUrl(
+          'https://www.expedia.co.uk/hotels/us/tuscan-inn.html?utm_campaign=BEST%20OIL'
+        ),
+        {
+          hostname: 'www.expedia.co.uk',
+          pathname: '/hotels/us/tuscan-inn.html',
+          query: { utm_campaign: 'BEST OIL' },
+          hash: null,
+        }
+      );
+    });
+
+    it('returns a destination from a blank url', function() {
+      assert.deepEqual(this.builder.destinationFromUrl(''), {
+        hostname: null,
+        pathname: null,
+        query: {},
+        hash: null,
       });
     });
   });
