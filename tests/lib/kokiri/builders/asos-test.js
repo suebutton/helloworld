@@ -2,29 +2,54 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const ASOS_ORG_ID = 'org-3a546af44d7a007f';
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
+const QUIDCO_ORG_ID = 'org-294d8a7f8adbd98f';
+
 describe('lib/kokiri/builders/asos', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-3a546af44d7a007f',
+        organization: ASOS_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
-        organization: 'org-3a546af44d7a007f',
+        audience: IBOTTA_ORG_ID,
+        organization: ASOS_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-294d8a7f8adbd98f',
-        organization: 'org-3a546af44d7a007f',
+        audience: QUIDCO_ORG_ID,
+        organization: ASOS_ORG_ID,
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], { approvals });
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: ASOS_ORG_ID,
+        default_value: '',
+        name: 'locale',
+      },
+    ];
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-3a546af44d7a007f');
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: IBOTTA_ORG_ID,
+        value: 'us',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
+
+    this.builder = this.config.createBuilder('org-XXX', ASOS_ORG_ID);
   });
 
   describe('#appAction', function() {
@@ -54,10 +79,7 @@ describe('lib/kokiri/builders/asos', function() {
     });
 
     it('returns an app action with /us for a US publisher', function() {
-      const builder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-3a546af44d7a007f'
-      );
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
@@ -75,10 +97,7 @@ describe('lib/kokiri/builders/asos', function() {
     });
 
     it('returns a web action with /us for a US publisher', function() {
-      const builder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-3a546af44d7a007f'
-      );
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
@@ -102,10 +121,7 @@ describe('lib/kokiri/builders/asos', function() {
     });
 
     it('returns a web action with destination for a US pub', function() {
-      const builder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-3a546af44d7a007f'
-      );
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(
         builder.webAction(
