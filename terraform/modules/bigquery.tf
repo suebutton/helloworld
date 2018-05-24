@@ -12,7 +12,7 @@ resource "google_bigquery_table" "kokiri" {
 
   time_partitioning {
     type          = "DAY"
-    expiration_ms = 7776000000
+    expiration_ms = 2419200000
   }
 
   labels {
