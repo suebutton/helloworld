@@ -2,24 +2,48 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const POSHMARK_ORG_ID = 'org-59593cbf9713a5fc';
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
+
 describe('lib/kokiri/builders/poshmark', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-59593cbf9713a5fc',
+        organization: POSHMARK_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
-        organization: 'org-59593cbf9713a5fc',
+        audience: IBOTTA_ORG_ID,
+        organization: POSHMARK_ORG_ID,
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], { approvals });
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: POSHMARK_ORG_ID,
+        default_value: 'button',
+        name: 'utm_source',
+      },
+    ];
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-59593cbf9713a5fc');
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: IBOTTA_ORG_ID,
+        value: 'ibotta',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
+
+    this.builder = this.config.createBuilder('org-XXX', POSHMARK_ORG_ID);
   });
 
   describe('#appAction', function() {
@@ -40,10 +64,7 @@ describe('lib/kokiri/builders/poshmark', function() {
     });
 
     it('returns an app action with publisher-specific utm_source', function() {
-      const builder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-59593cbf9713a5fc'
-      );
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, POSHMARK_ORG_ID);
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'poshmark://?utm_source=ibotta&btn_ref=srctok-XXX',
