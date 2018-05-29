@@ -147,13 +147,4 @@ describe('lib/kokiri/builders/link-builder', function() {
       );
     });
   });
-
-  describe('#getUniversalLinkDestination', function() {
-    it('is identity by default', function() {
-      assert.deepEqual(
-        this.baseBuilder.getUniversalLinkDestination({ query: { a: 1 } }),
-        { query: { a: 1 } }
-      );
-    });
-  });
 });

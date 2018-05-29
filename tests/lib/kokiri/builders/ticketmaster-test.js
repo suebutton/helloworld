@@ -68,8 +68,15 @@ describe('lib/kokiri/builders/ticketmaster', function() {
   });
 
   describe('#webAction', function() {
-    it(`can't web action`, function() {
+    it('returns a webAction for ios', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link: 'https://ticketmaster.bttn.io?btn_ref=srctok-XXX',
+        browser_link: null,
+      });
+    });
+
+    it('returns a webAction for android', function() {
+      assert.deepEqual(this.builder.webAction({}, 'android', 'srctok-XXX'), {
         app_link: 'https://ticketmaster.bttn.io?btn_ref=srctok-XXX',
         browser_link: null,
       });

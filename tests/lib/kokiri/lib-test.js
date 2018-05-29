@@ -5,6 +5,7 @@ const {
   joinPathname,
   cleanPathname,
   formatUrl,
+  formatButtonUniversalUrl,
   compact,
   isHostnameMatch,
   isArrayMatch,
@@ -125,6 +126,67 @@ describe('lib/kokiri/lib', function() {
           pathname: '1/2',
         }),
         'http://bloop.bleep/1/2'
+      );
+    });
+  });
+
+  describe('#formatButtonUniversalUrl', function() {
+    it('formars a url', function() {
+      assert.deepEqual(
+        formatButtonUniversalUrl('pup', {
+          pathname: '1',
+          query: { a: 2 },
+          hash: 'pavel',
+        }),
+        'https://pup.bttn.io/1?a=2#pavel'
+      );
+
+      assert.deepEqual(
+        formatButtonUniversalUrl('pup', {
+          protocol: 'http',
+          hostname: 'bloop.bleep',
+          pathname: '1',
+          query: { a: 2 },
+          hash: 'pavel',
+        }),
+        'https://pup.bttn.io/1?a=2#pavel'
+      );
+
+      assert.deepEqual(
+        formatButtonUniversalUrl('pup', { pathname: '/' }),
+        'https://pup.bttn.io'
+      );
+
+      assert.deepEqual(
+        formatButtonUniversalUrl('pup', {}),
+        'https://pup.bttn.io'
+      );
+    });
+
+    it('normalizes pathnames', function() {
+      assert.deepEqual(
+        formatButtonUniversalUrl('pup', {
+          pathname: '//1/2///3///',
+        }),
+        'https://pup.bttn.io/1/2/3'
+      );
+
+      assert.deepEqual(
+        formatButtonUniversalUrl(
+          'pup',
+          {
+            pathname: '//1/2///3///',
+          },
+          false
+        ),
+        'https://pup.bttn.io//1/2///3///'
+      );
+
+      assert.deepEqual(
+        formatButtonUniversalUrl('pup', {
+          pathname: '1/2',
+        }),
+        'https://pup.bttn.io/1/2'
       );
     });
   });
