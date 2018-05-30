@@ -3,7 +3,6 @@ const assert = require('assert');
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
 const SEATGEEK_ORG_ID = 'org-00eb446216ab549a';
-const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
 const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
 
 describe('lib/kokiri/builders/seatgeek', function() {
@@ -12,11 +11,6 @@ describe('lib/kokiri/builders/seatgeek', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: SEATGEEK_ORG_ID,
-      },
-      {
-        status: 'approved',
-        audience: IBOTTA_ORG_ID,
         organization: SEATGEEK_ORG_ID,
       },
       {
@@ -30,17 +24,12 @@ describe('lib/kokiri/builders/seatgeek', function() {
       {
         id: '12345',
         organization: SEATGEEK_ORG_ID,
-        default_value: 'ibotta',
+        default_value: 'button',
         name: 'pid',
       },
     ];
 
     const partnerValues = [
-      {
-        partner_parameter: '12345',
-        organization: IBOTTA_ORG_ID,
-        value: 'ibotta',
-      },
       {
         partner_parameter: '12345',
         organization: SHOPKICK_ORG_ID,
@@ -60,17 +49,17 @@ describe('lib/kokiri/builders/seatgeek', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'seatgeek://?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+        app_link: 'seatgeek://?aid=12408&pid=button&btn_ref=srctok-XXX',
         browser_link:
-          'https://seatgeek.com?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+          'https://seatgeek.com?aid=12408&pid=button&btn_ref=srctok-XXX',
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'seatgeek://app?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+        app_link: 'seatgeek://app?aid=12408&pid=button&btn_ref=srctok-XXX',
         browser_link:
-          'https://seatgeek.com?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+          'https://seatgeek.com?aid=12408&pid=button&btn_ref=srctok-XXX',
       });
     });
 
@@ -87,9 +76,9 @@ describe('lib/kokiri/builders/seatgeek', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'seatgeek://?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+          app_link: 'seatgeek://?aid=12408&pid=button&btn_ref=srctok-XXX',
           browser_link:
-            'https://seatgeek.com?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com?aid=12408&pid=button&btn_ref=srctok-XXX',
         }
       );
     });
@@ -120,9 +109,9 @@ describe('lib/kokiri/builders/seatgeek', function() {
         ),
         {
           app_link:
-            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?aid=12408&pid=button&btn_ref=srctok-XXX',
           browser_link:
-            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?aid=12408&pid=button&btn_ref=srctok-XXX',
         }
       );
 
@@ -140,7 +129,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
         {
           app_link: null,
           browser_link:
-            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?aid=12408&pid=button&btn_ref=srctok-XXX',
         }
       );
     });
@@ -161,9 +150,9 @@ describe('lib/kokiri/builders/seatgeek', function() {
         ),
         {
           app_link:
-            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&aid=12408&pid=button&btn_ref=srctok-XXX',
           browser_link:
-            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL&aid=12408&pid=button&btn_ref=srctok-XXX',
         }
       );
     });
@@ -173,9 +162,9 @@ describe('lib/kokiri/builders/seatgeek', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://seatgeek.bttn.io?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+          'https://seatgeek.bttn.io?aid=12408&pid=button&btn_ref=srctok-XXX',
         browser_link:
-          'https://seatgeek.com?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+          'https://seatgeek.com?aid=12408&pid=button&btn_ref=srctok-XXX',
       });
     });
 
@@ -193,9 +182,9 @@ describe('lib/kokiri/builders/seatgeek', function() {
         ),
         {
           app_link:
-            'https://seatgeek.bttn.io?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.bttn.io?aid=12408&pid=button&btn_ref=srctok-XXX',
           browser_link:
-            'https://seatgeek.com?aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com?aid=12408&pid=button&btn_ref=srctok-XXX',
         }
       );
     });
@@ -222,9 +211,9 @@ describe('lib/kokiri/builders/seatgeek', function() {
         ),
         {
           app_link:
-            'https://seatgeek.bttn.io/bloop?a=2&aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.bttn.io/bloop?a=2&aid=12408&pid=button&btn_ref=srctok-XXX',
           browser_link:
-            'https://seatgeek.com/bloop?a=2&aid=12408&pid=ibotta&btn_ref=srctok-XXX',
+            'https://seatgeek.com/bloop?a=2&aid=12408&pid=button&btn_ref=srctok-XXX',
         }
       );
     });

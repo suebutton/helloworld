@@ -3,7 +3,6 @@ const assert = require('assert');
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
 const EBAGS_ORG_ID = 'org-67cb320e6548dfb3';
-const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
 const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
 
 describe('lib/kokiri/builders/ebags', function() {
@@ -12,11 +11,6 @@ describe('lib/kokiri/builders/ebags', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: EBAGS_ORG_ID,
-      },
-      {
-        status: 'approved',
-        audience: IBOTTA_ORG_ID,
         organization: EBAGS_ORG_ID,
       },
       {
@@ -30,28 +24,18 @@ describe('lib/kokiri/builders/ebags', function() {
       {
         id: '12345',
         organization: EBAGS_ORG_ID,
-        default_value: 'ibotta',
+        default_value: 'button',
         name: 'utmcampaign',
       },
       {
         id: '54321',
         organization: EBAGS_ORG_ID,
-        default_value: 'BTNIB',
+        default_value: 'BTNBN',
         name: 'sourceid',
       },
     ];
 
     const partnerValues = [
-      {
-        partner_parameter: '12345',
-        organization: IBOTTA_ORG_ID,
-        value: 'ibotta',
-      },
-      {
-        partner_parameter: '54321',
-        organization: IBOTTA_ORG_ID,
-        value: 'BTNIB',
-      },
       {
         partner_parameter: '12345',
         organization: SHOPKICK_ORG_ID,
@@ -78,7 +62,7 @@ describe('lib/kokiri/builders/ebags', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://www.ebags.com?sourceid=BTNIB&btnpid=org-XXX&utm_campaign=ibotta&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
+          'https://www.ebags.com?sourceid=BTNBN&btnpid=org-XXX&utm_campaign=button&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
       });
     });
 
@@ -86,7 +70,7 @@ describe('lib/kokiri/builders/ebags', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://www.ebags.com?sourceid=BTNIB&btnpid=org-XXX&utm_campaign=ibotta&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
+          'https://www.ebags.com?sourceid=BTNBN&btnpid=org-XXX&utm_campaign=button&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
       });
     });
 
@@ -108,7 +92,7 @@ describe('lib/kokiri/builders/ebags', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.ebags.com?sourceid=BTNIB&btnpid=org-XXX&utm_campaign=ibotta&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
+            'https://www.ebags.com?sourceid=BTNBN&btnpid=org-XXX&utm_campaign=button&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
         }
       );
     });
@@ -136,7 +120,7 @@ describe('lib/kokiri/builders/ebags', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.ebags.com/item/p1297?a=2&sourceid=BTNIB&btnpid=org-XXX&utm_campaign=ibotta&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
+            'https://www.ebags.com/item/p1297?a=2&sourceid=BTNBN&btnpid=org-XXX&utm_campaign=button&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
         }
       );
     });
@@ -147,7 +131,7 @@ describe('lib/kokiri/builders/ebags', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://www.ebags.com?sourceid=BTNIB&btnpid=org-XXX&utm_campaign=ibotta&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
+          'https://www.ebags.com?sourceid=BTNBN&btnpid=org-XXX&utm_campaign=button&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
       });
     });
 
@@ -161,7 +145,7 @@ describe('lib/kokiri/builders/ebags', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.ebags.com/bloop?a=2&sourceid=BTNIB&btnpid=org-XXX&utm_campaign=ibotta&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
+            'https://www.ebags.com/bloop?a=2&sourceid=BTNBN&btnpid=org-XXX&utm_campaign=button&utm_source=button&utm_medium=affiliate&btn_ref=srctok-XXX',
         }
       );
     });
