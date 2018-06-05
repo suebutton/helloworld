@@ -4,7 +4,6 @@ const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
 const ASOS_ORG_ID = 'org-3a546af44d7a007f';
 const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
-const QUIDCO_ORG_ID = 'org-294d8a7f8adbd98f';
 
 describe('lib/kokiri/builders/asos', function() {
   beforeEach(function() {
@@ -17,11 +16,6 @@ describe('lib/kokiri/builders/asos', function() {
       {
         status: 'approved',
         audience: IBOTTA_ORG_ID,
-        organization: ASOS_ORG_ID,
-      },
-      {
-        status: 'approved',
-        audience: QUIDCO_ORG_ID,
         organization: ASOS_ORG_ID,
       },
     ];
@@ -78,13 +72,39 @@ describe('lib/kokiri/builders/asos', function() {
       );
     });
 
-    it('returns an app action with /us for a US publisher', function() {
+    it('returns an app action for a us path on a us publisher', function() {
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
+
+      assert.deepEqual(
+        builder.appAction({ pathname: '/us/men' }, 'ios', 'srctok-XXX'),
+        {
+          app_link: null,
+          browser_link:
+            'http://m.asos.com/us/men?affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for a US publisher', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
         browser_link: 'http://m.asos.com/us?affid=20578&btn_ref=srctok-XXX',
       });
+    });
+
+    it('returns an app action when passed a /usa link for a US publisher', function() {
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
+
+      assert.deepEqual(
+        builder.appAction({ pathname: '/usa' }, 'ios', 'srctok-XXX'),
+        {
+          app_link: null,
+          browser_link:
+            'http://m.asos.com/us/usa?affid=20578&btn_ref=srctok-XXX',
+        }
+      );
     });
   });
 
@@ -96,7 +116,7 @@ describe('lib/kokiri/builders/asos', function() {
       });
     });
 
-    it('returns a web action with /us for a US publisher', function() {
+    it('returns a web action for a US publisher', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(builder.webAction({}, 'ios', 'srctok-XXX'), {
