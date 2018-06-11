@@ -12,6 +12,7 @@ const {
   normalizeHostname,
   attributeLink,
   urlCacheKey,
+  orderedQuery,
 } = require('../../../lib/kokiri/lib');
 
 describe('lib/kokiri/lib', function() {
@@ -345,6 +346,36 @@ describe('lib/kokiri/lib', function() {
       assert.deepEqual(urlCacheKey('httppup.com'), 'httppup.com');
       assert.deepEqual(urlCacheKey(''), '');
       assert.deepEqual(urlCacheKey(null), null);
+    });
+  });
+
+  describe('#orderedQuery', function() {
+    it('returns a querystring with parameters in the order that they were passed', function() {
+      const query1 = {};
+      const query2 = { c: 3 };
+      assert.deepEqual(orderedQuery([query1]), '');
+      assert.deepEqual(orderedQuery([{ a: 'one' }]), '?a=one');
+      assert.deepEqual(orderedQuery([{ a: 1 }, { b: 2 }]), '?a=1&b=2');
+      assert.deepEqual(orderedQuery([{ a: 1 }, { b: 2 }, query1]), '?a=1&b=2');
+      assert.deepEqual(orderedQuery([query1, { a: 1 }, { b: 2 }]), '?a=1&b=2');
+      assert.deepEqual(orderedQuery([{ a: 1 }, query2]), '?a=1&c=3');
+      assert.deepEqual(orderedQuery([query2, { a: 1 }]), '?c=3&a=1');
+      assert.deepEqual(
+        orderedQuery([{ a: 1, b: 2 }, { c: 3 }]),
+        '?a=1&b=2&c=3'
+      );
+      assert.deepEqual(
+        orderedQuery([{ obla: 'dee' }, { obla: 'dah' }]),
+        '?obla=dee&obla=dah'
+      );
+      assert.deepEqual(
+        orderedQuery([
+          { url: 'https://usebutton.com' },
+          { username: 'test@usebutton.com' },
+          { password: 'pa$$w0rd&st3althy' },
+        ]),
+        '?url=https%3A%2F%2Fusebutton.com&username=test%40usebutton.com&password=pa%24%24w0rd%26st3althy'
+      );
     });
   });
 });
