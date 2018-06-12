@@ -23,7 +23,7 @@
   "author": "will@usebutton.com",
   "license": "UNLICENSED",
   "dependencies": {
-    "comstore-client": "https://button-archive.s3.amazonaws.com/npm/comstore-client-1.33.0.tgz",
+    "comstore-client": "https://button-archive.s3.amazonaws.com/npm/comstore-client-1.35.0.tgz",
     "koa-bodyparser": "^4.2.0",
     "koa-static": "^4.0.1",
     "libbtn": "https://button-archive.s3.amazonaws.com/npm/libbtn-2.15.0.tgz",

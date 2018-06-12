@@ -477,9 +477,9 @@ component-emitter@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
 
-"comstore-client@https://button-archive.s3.amazonaws.com/npm/comstore-client-1.33.0.tgz":
-  version "1.33.0"
-  resolved "https://button-archive.s3.amazonaws.com/npm/comstore-client-1.33.0.tgz#bd41e36961e9c83010b91c79440f3f3cf17ff8ff"
+"comstore-client@https://button-archive.s3.amazonaws.com/npm/comstore-client-1.35.0.tgz":
+  version "1.35.0"
+  resolved "https://button-archive.s3.amazonaws.com/npm/comstore-client-1.35.0.tgz#01769c3c3ef29d8d2d4f068c99000e26f39627ec"
   dependencies:
     btnschemas "https://button-archive.s3.amazonaws.com/npm/btnschemas-1.2.1.tgz"
     co "^4.6.0"
