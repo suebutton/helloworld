@@ -22,6 +22,11 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       },
       {
         status: 'approved',
+        audience: 'org-XXX',
+        organization: 'org-36467c8b060acf5a', // sears  staging
+      },
+      {
+        status: 'approved',
         audience: 'org-2d432a88b9bb8bda',
         organization: 'org-3acb6dc42678c843',
       },
@@ -189,6 +194,24 @@ describe('lib/kokiri/builders/commission-junction,', function() {
           app_link: null,
           browser_link:
             'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.stitchfix.com/a/b/c?ref=CJ1&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns app action with destination path for m.sears.com', function() {
+      const b = this.config.createBuilder('org-XXX', 'org-36467c8b060acf5a');
+      assert.deepEqual(
+        b.appAction(
+          {
+            url: 'https://m.sears.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.sears.com?ref=CJ1&btn_ref=srctok-XXX',
         }
       );
     });
