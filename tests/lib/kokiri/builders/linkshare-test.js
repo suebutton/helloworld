@@ -8,42 +8,52 @@ describe('lib/kokiri/builders/linkshare', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-6ef589c578ab8ac6',
+        organization: 'org-6ef589c578ab8ac6', // techarmor staging
       },
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-139f1edad7388c6a',
+        organization: 'org-139f1edad7388c6a', // gamestop staging
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
-        organization: 'org-6ef589c578ab8ac6',
+        audience: 'org-XXX',
+        organization: 'org-7bfb8e7a4771a0f6', // macys staging
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
-        organization: 'org-139f1edad7388c6a',
+        audience: 'org-4738195f8e741d19', // samsung
+        organization: 'org-7bfb8e7a4771a0f6', // macys staging
       },
       {
         status: 'approved',
-        audience: 'org-030575eddb72b4df',
-        organization: 'org-6ef589c578ab8ac6',
+        audience: 'org-2d432a88b9bb8bda', // ibotta
+        organization: 'org-6ef589c578ab8ac6', // techarmor staging
       },
       {
         status: 'approved',
-        audience: 'org-030575eddb72b4df',
-        organization: 'org-139f1edad7388c6a',
+        audience: 'org-2d432a88b9bb8bda', // ibotta
+        organization: 'org-139f1edad7388c6a', // gamestop staging
       },
       {
         status: 'approved',
-        audience: 'org-4738195f8e741d19',
-        organization: 'org-6ef589c578ab8ac6',
+        audience: 'org-030575eddb72b4df', // shopkick
+        organization: 'org-6ef589c578ab8ac6', // techarmor staging
       },
       {
         status: 'approved',
-        audience: 'org-4738195f8e741d19',
-        organization: 'org-139f1edad7388c6a',
+        audience: 'org-030575eddb72b4df', // shopkick
+        organization: 'org-139f1edad7388c6a', // gamestop staging
+      },
+      {
+        status: 'approved',
+        audience: 'org-4738195f8e741d19', // samsung
+        organization: 'org-6ef589c578ab8ac6', // techarmor staging
+      },
+      {
+        status: 'approved',
+        audience: 'org-4738195f8e741d19', // samsung
+        organization: 'org-139f1edad7388c6a', // gamestop staging
       },
     ];
 
@@ -56,6 +66,26 @@ describe('lib/kokiri/builders/linkshare', function() {
   });
 
   describe('#appAction', function() {
+    it('returns an app action for macys mobile site (m.macys.com)', function() {
+      const macysBuilder = this.config.createBuilder(
+        'org-4738195f8e741d19',
+        'org-7bfb8e7a4771a0f6'
+      );
+      assert.deepEqual(
+        macysBuilder.appAction(
+          {
+            url: 'http://m.macys.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=3184&murl=http%3A%2F%2Fm.macys.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
     it('returns an app action for gamestop from Samsung', function() {
       assert.deepEqual(
         this.builder.appAction(
