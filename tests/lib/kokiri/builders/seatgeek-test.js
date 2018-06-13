@@ -49,7 +49,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'seatgeek://?aid=12408&pid=button&btn_ref=srctok-XXX',
+        app_link: 'seatgeek://app?aid=12408&pid=button&btn_ref=srctok-XXX',
         browser_link:
           'https://seatgeek.com?aid=12408&pid=button&btn_ref=srctok-XXX',
       });
@@ -76,7 +76,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'seatgeek://?aid=12408&pid=button&btn_ref=srctok-XXX',
+          app_link: 'seatgeek://app?aid=12408&pid=button&btn_ref=srctok-XXX',
           browser_link:
             'https://seatgeek.com?aid=12408&pid=button&btn_ref=srctok-XXX',
         }
@@ -89,7 +89,7 @@ describe('lib/kokiri/builders/seatgeek', function() {
         SEATGEEK_ORG_ID
       );
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'seatgeek://?aid=12408&pid=shopkick&btn_ref=srctok-XXX',
+        app_link: 'seatgeek://app?aid=12408&pid=shopkick&btn_ref=srctok-XXX',
         browser_link:
           'https://seatgeek.com?aid=12408&pid=shopkick&btn_ref=srctok-XXX',
       });
