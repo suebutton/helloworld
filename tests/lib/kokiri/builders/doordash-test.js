@@ -21,14 +21,16 @@ describe('lib/kokiri/builders/doordash', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'doordash://doordash.com?btn_ref=srctok-XXX',
-        browser_link: 'https://www.doordash.com?btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.doordash.com?ignore_splash_experience=true&btn_ref=srctok-XXX',
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: 'doordash://doordash.com?btn_ref=srctok-XXX',
-        browser_link: 'https://www.doordash.com?btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.doordash.com?ignore_splash_experience=true&btn_ref=srctok-XXX',
       });
     });
 
@@ -37,7 +39,8 @@ describe('lib/kokiri/builders/doordash', function() {
         this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
         {
           app_link: null,
-          browser_link: 'https://www.doordash.com/bloop?btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.doordash.com/bloop?ignore_splash_experience=true&btn_ref=srctok-XXX',
         }
       );
     });
@@ -47,7 +50,8 @@ describe('lib/kokiri/builders/doordash', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'https://doordash.bttn.io?btn_ref=srctok-XXX',
-        browser_link: 'https://www.doordash.com?btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.doordash.com?ignore_splash_experience=true&btn_ref=srctok-XXX',
       });
     });
 
@@ -60,7 +64,8 @@ describe('lib/kokiri/builders/doordash', function() {
         ),
         {
           app_link: 'https://doordash.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
-          browser_link: 'https://www.doordash.com/bloop?a=2&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.doordash.com/bloop?a=2&ignore_splash_experience=true&btn_ref=srctok-XXX',
         }
       );
     });
