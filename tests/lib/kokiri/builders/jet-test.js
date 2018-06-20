@@ -240,6 +240,27 @@ describe('lib/kokiri/builders/jet', function() {
         }
       );
     });
+
+    it('returns a web action with adjusted path app link for android homepage', function() {
+      assert.deepEqual(this.builder.webAction({}, 'android', 'srctok-XXX'), {
+        app_link: 'https://jet.bttn.io/landing?btn_ref=srctok-XXX',
+        browser_link: 'https://www.jet.com?btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with destination with null app link for android', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/bloop', query: { a: 2 } },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link: 'https://www.jet.com/bloop?a=2&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   it('returns a destination from a url', function() {
