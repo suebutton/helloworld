@@ -222,7 +222,7 @@ describe('lib/kokiri/builders/jet', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://jet.bttn.io?btn_ref=srctok-XXX',
+        app_link: 'https://jet.bttn.io/home?btn_ref=srctok-XXX',
         browser_link: 'https://www.jet.com?btn_ref=srctok-XXX',
       });
     });
@@ -258,6 +258,57 @@ describe('lib/kokiri/builders/jet', function() {
         {
           app_link: null,
           browser_link: 'https://www.jet.com/bloop?a=2&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action with adjusted path app link for ios product pages', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname:
+              '/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://jet.bttn.io/product/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/product/0147dccdb5984ec5bbbcaa2cce33022e',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://jet.bttn.io/product/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/product/product/0147dccdb5984ec5bbbcaa2cce33022e',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://jet.bttn.io/product/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?btn_ref=srctok-XXX',
         }
       );
     });
