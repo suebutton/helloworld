@@ -140,7 +140,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8639622/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8822964/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_ref=srctok-XXX',
         }
       );
     });
