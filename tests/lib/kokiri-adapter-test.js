@@ -429,6 +429,12 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               },
             ],
           },
+          {
+            hostname: 'linksynergy.walmart.com',
+            pathname_ids: [],
+            query_ids: [],
+            query_url_keys: [{ key: 'murl' }],
+          },
         ],
       });
     });
