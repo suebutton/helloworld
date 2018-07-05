@@ -99,30 +99,10 @@ describe('lib/kokiri/builders/amazon', function() {
     });
 
     it('returns no app link for webview-only paths for Ibotta', function() {
-      assert.deepEqual(
-        this.builder.appAction(
-          {
-            pathname: '/gp/kindle/ku/gift_landing',
-            query: {},
-            hash: null,
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        {
-          app_link: null,
-          browser_link:
-            'https://www.amazon.com/gp/kindle/ku/gift_landing?tag=button&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
-        }
-      );
-    });
-
-    it('returns no app link for webview-only paths for Ibotta', function() {
       const builder = this.config.createBuilder(
         'org-2d432a88b9bb8bda',
         'org-3b6a623e75cc729c'
       );
-
       assert.deepEqual(
         builder.appAction(
           {
@@ -137,6 +117,38 @@ describe('lib/kokiri/builders/amazon', function() {
           app_link: null,
           browser_link:
             'https://www.amazon.com/gp/kindle/ku/gift_landing?tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+      assert.deepEqual(
+        builder.appAction(
+          {
+            pathname: '/gp/kindle/ku/gift_landing',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.amazon.com/gp/kindle/ku/gift_landing?tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+      assert.deepEqual(
+        builder.appAction(
+          {
+            pathname: '/primeday',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.amazon.com/primeday?tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
