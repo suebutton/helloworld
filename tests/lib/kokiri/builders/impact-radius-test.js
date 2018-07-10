@@ -18,7 +18,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-4c5c4337f5359c9f',
+        organization: 'org-22e0c0464157d00d',
       },
       {
         status: 'approved',
@@ -66,12 +66,12 @@ describe('lib/kokiri/builders/impact-radius', function() {
 
       assert.deepEqual(
         this.config
-          .createBuilder('org-XXX', 'org-4c5c4337f5359c9f')
+          .createBuilder('org-XXX', 'org-22e0c0464157d00d')
           .appAction({ url: 'https://merchant.com' }, 'ios', 'srctok-XXX'),
         {
           app_link: null,
           browser_link:
-            'http://janecom.7eer.net/c/415484/136645/2703?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fmerchant.com&btn_ref=srctok-XXX',
+            'http://mvmt.7eer.net/c/415484/222268/3856?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fmerchant.com&btn_ref=srctok-XXX',
         }
       );
 
@@ -136,12 +136,12 @@ describe('lib/kokiri/builders/impact-radius', function() {
 
       assert.deepEqual(
         this.config
-          .createBuilder('org-XXX', 'org-4c5c4337f5359c9f')
+          .createBuilder('org-XXX', 'org-22e0c0464157d00d')
           .webAction({ url: 'https://merchant.com' }, 'ios', 'srctok-XXX'),
         {
           app_link: null,
           browser_link:
-            'http://janecom.7eer.net/c/415484/136645/2703?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fmerchant.com&btn_ref=srctok-XXX',
+            'http://mvmt.7eer.net/c/415484/222268/3856?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fmerchant.com&btn_ref=srctok-XXX',
         }
       );
 
