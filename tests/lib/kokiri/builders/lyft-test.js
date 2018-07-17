@@ -230,23 +230,22 @@ describe('lib/kokiri/builders/lyft', function() {
         {
           app_link:
             'lyft://ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
         }
       );
     });
   });
-
   describe('#webAction', function() {
     it('returns a web action for iOS', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://lyft.bttn.io?btn_ref=srctok-XXX',
-        browser_link: null, //'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
+        app_link: null, // 'https://lyft.bttn.io?btn_ref=srctok-XXX',
+        browser_link: null, // 'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
       });
     });
     it('returns a web action for Android', function() {
       assert.deepEqual(this.builder.webAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'https://lyft.bttn.io?btn_ref=srctok-XXX',
-        browser_link: null, //'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
+        app_link: null, // 'https://lyft.bttn.io?btn_ref=srctok-XXX',
+        browser_link: null, // 'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
       });
     });
     it('returns a web action for standard lyft rides for iOS', function() {
@@ -261,8 +260,8 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://lyft.bttn.io/ridetype?id=lyft&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
         }
       );
     });
@@ -278,8 +277,42 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://lyft.bttn.io/ridetype?id=lyft&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
+        }
+      );
+    });
+    it('returns a web action for XL lyft rides on iOS', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/ride',
+            query: { id: 'lyft_xl' },
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft_xl&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
+        }
+      );
+    });
+    it('returns a web action for XL lyft rides on Android', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/ride',
+            query: { id: 'lyft_xl' },
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft_xl&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&btn_ref=srctok-XXX',
         }
       );
     });
@@ -299,9 +332,8 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
         }
       );
     });
@@ -321,9 +353,8 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&btn_ref=srctok-XXX',
         }
       );
     });
@@ -343,9 +374,8 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://lyft.bttn.io/ridetype?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
         }
       );
     });
@@ -365,9 +395,8 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://lyft.bttn.io/ridetype?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
         }
       );
     });
@@ -389,9 +418,8 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
         }
       );
     });
@@ -413,9 +441,8 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
-          browser_link: null, //'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          app_link: null, // 'https://lyft.bttn.io/ridetype?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
+          browser_link: null, // 'https://www.lyft.com/ride?id=lyft&pickup%5Blatitude%5D=37.777286&pickup%5Blongitude=-122.398096&destination%5Blatitude%5D=37.795923&destination%5Blongitude=-122.392052&btn_ref=srctok-XXX',
         }
       );
     });
