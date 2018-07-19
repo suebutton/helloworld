@@ -18,17 +18,17 @@ describe('lib/kokiri/builders/lyft', function() {
   });
 
   describe('#appAction', function() {
-    it('does not return an app action without the /ride path for iOS', function() {
+    it('returns an app action routing to home screen by default for iOS', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: null,
+        app_link: 'lyft://?btn_ref=srctok-XXX',
         browser_link: null,
       });
     });
-    it('does not return an app action with a non /ride path for Android', function() {
+    it('returns an app action routing to home screen for a non /ride path for Android', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: '/bloop',
+            pathname: 'bloop',
             query: { id: 'lyft' },
             hash: null,
           },
@@ -36,7 +36,7 @@ describe('lib/kokiri/builders/lyft', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link: 'lyft://?id=lyft&btn_ref=srctok-XXX',
           browser_link: null,
         }
       );
