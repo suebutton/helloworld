@@ -41,6 +41,40 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+    it('returns an app action routing to home screen for a /ride path without a valid "id" for Android', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: 'ride',
+            query: { id: 'bloop' },
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'lyft://?id=bloop&btn_ref=srctok-XXX',
+          browser_link: null,
+        }
+      );
+    });
+    it('returns an app action routing to home screen for a non /ride path for Android', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: 'bloop',
+            query: { id: 'lyft' },
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'lyft://?id=lyft&btn_ref=srctok-XXX',
+          browser_link: null,
+        }
+      );
+    });
     it('returns an app action for standard lyft rides on iOS', function() {
       assert.deepEqual(
         this.builder.appAction(
