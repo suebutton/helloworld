@@ -267,7 +267,7 @@ describe('lib/kokiri/builders/etsy', function() {
 
       assert.deepEqual(this.builder.webAction({}, 'android', 'srctok-XXX'), {
         app_link:
-          'https://etsy.bttn.io?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_fallback_exp=web&btn_ref=srctok-XXX',
+          'https://etsy.bttn.io?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
         browser_link:
           'https://www.etsy.com?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
       });
@@ -298,7 +298,7 @@ describe('lib/kokiri/builders/etsy', function() {
         ),
         {
           app_link:
-            'https://etsy.bttn.io/bloop?a=2&utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_fallback_exp=web&btn_ref=srctok-XXX',
+            'https://etsy.bttn.io/bloop?a=2&utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.etsy.com/bloop?a=2&utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
         }

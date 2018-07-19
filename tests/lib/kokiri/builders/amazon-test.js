@@ -151,6 +151,43 @@ describe('lib/kokiri/builders/amazon', function() {
             'https://www.amazon.com/primeday?tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
         }
       );
+      assert.deepEqual(
+        builder.appAction(
+          {
+            pathname: '/b/',
+            query: {
+              node: '17892399011',
+            },
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.amazon.com/b?node=17892399011&tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+      assert.deepEqual(
+        builder.appAction(
+          {
+            pathname: '/b',
+            query: {
+              node: '16090799011',
+              ref: 'frsh_tag_assoc',
+            },
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.amazon.com/b?node=16090799011&ref=frsh_tag_assoc&tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
     });
   });
 

@@ -18,11 +18,6 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-33fbd5f8fc3214c4', // stitch fix staging
-      },
-      {
-        status: 'approved',
-        audience: 'org-XXX',
         organization: 'org-36467c8b060acf5a', // sears  staging
       },
       {
@@ -176,24 +171,6 @@ describe('lib/kokiri/builders/commission-junction,', function() {
           app_link: null,
           browser_link:
             'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://gap.com/a/b/c?ref=CJ1&btn_ref=srctok-XXX',
-        }
-      );
-    });
-
-    it('returns app action with destination path for stitch fix ', function() {
-      const b = this.config.createBuilder('org-XXX', 'org-33fbd5f8fc3214c4');
-      assert.deepEqual(
-        b.appAction(
-          {
-            url: 'https://www.stitchfix.com/a/b/c',
-          },
-          'ios',
-          'srctok-XXX'
-        ),
-        {
-          app_link: null,
-          browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.stitchfix.com/a/b/c?ref=CJ1&btn_ref=srctok-XXX',
         }
       );
     });
