@@ -20,14 +20,14 @@ describe('lib/kokiri/builders/warby-parker', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'wp://warbyparker.com?btn_ref=srctok-XXX',
+        app_link: 'wp://?btn_ref=srctok-XXX',
         browser_link: 'https://www.warbyparker.com?btn_ref=srctok-XXX',
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'wp://warbyparker.com?btn_ref=srctok-XXX',
+        app_link: 'wp://?btn_ref=srctok-XXX',
         browser_link: 'https://www.warbyparker.com?btn_ref=srctok-XXX',
       });
     });
