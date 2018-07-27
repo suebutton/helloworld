@@ -33,10 +33,10 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
-    "eslint": "^3.18.0",
-    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint": "^4",
+    "eslint-config-airbnb-base": "^11",
     "eslint-config-button-platform": "1.2.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "2.13",
     "eslint-plugin-mocha": "^4.9.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.1",
