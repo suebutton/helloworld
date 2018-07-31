@@ -11,4 +11,4 @@ ADD . /app/
 
 EXPOSE 3000
 
-CMD /bin/sh -c 'npm start 2>&1 | shiplogs'
+CMD /bin/sh -c 'npm start 2>&1 | shiplogs --follow'
