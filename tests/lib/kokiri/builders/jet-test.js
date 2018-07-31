@@ -269,6 +269,44 @@ describe('lib/kokiri/builders/jet', function() {
         }
       );
     });
+
+    it('returns an app action for backtoschool', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/shop/backtoschool/',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'jet://shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.jet.com/shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/shop/backtoschool/',
+            query: {},
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'jet://shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.jet.com/shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
