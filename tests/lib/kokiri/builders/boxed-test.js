@@ -50,7 +50,7 @@ describe('lib/kokiri/builders/boxed', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'boxedwholesale://boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+          'boxedwholesale://?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
         browser_link:
           'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
       });
@@ -71,7 +71,7 @@ describe('lib/kokiri/builders/boxed', function() {
         ),
         {
           app_link:
-            'boxedwholesale://boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+            'boxedwholesale://?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
         }
@@ -82,7 +82,7 @@ describe('lib/kokiri/builders/boxed', function() {
       const builder = this.config.createBuilder(SHOPKICK_ORG_ID, BOXED_ORG_ID);
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'boxedwholesale://boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=shopkick&btn_ref=srctok-XXX',
+          'boxedwholesale://?utm_source=button&utm_medium=affiliate&utm_campaign=shopkick&btn_ref=srctok-XXX',
         browser_link:
           'https://www.boxed.com?utm_source=button&utm_medium=affiliate&utm_campaign=shopkick&btn_ref=srctok-XXX',
       });
@@ -102,18 +102,19 @@ describe('lib/kokiri/builders/boxed', function() {
         ),
         {
           app_link:
-            'boxedwholesale://boxed.com/product/129/special-k-red-berries-cereal-37-oz.-2-bags?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+            'boxedwholesale://variants_gid/129?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.boxed.com/product/129/special-k-red-berries-cereal-37-oz.-2-bags?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
         }
       );
     });
 
-    it('returns a null app link for webview only paths', function() {
+    it('returns an app action for highlights', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
-            pathname: '/products/highlight/67/prince-spring',
+            pathname:
+              '/products/highlight/1020/deal-of-the-week-after-school-faves/',
             query: {},
             hash: null,
           },
@@ -121,9 +122,10 @@ describe('lib/kokiri/builders/boxed', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'boxedwholesale://highlights_gid/1020?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.boxed.com/products/highlight/67/prince-spring?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+            'https://www.boxed.com/products/highlight/1020/deal-of-the-week-after-school-faves?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
         }
       );
     });
@@ -139,7 +141,7 @@ describe('lib/kokiri/builders/boxed', function() {
         ),
         {
           app_link:
-            'boxedwholesale://boxed.com/products/category/137/lifestyle?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+            'boxedwholesale://categories_gid/137?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.boxed.com/products/category/137/lifestyle?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
         }
@@ -169,6 +171,57 @@ describe('lib/kokiri/builders/boxed', function() {
             'https://boxed.bttn.io/bloop?a=2&utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.boxed.com/bloop?a=2&utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for category page', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/products/category/234/apples' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://boxed.bttn.io/a/key_live_jcbQOz5vtceYbCgKcCDNqogjBEdqwmzl?feature=categories&gid=234&utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.boxed.com/products/category/234/apples?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for product page', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname:
+              '/product/3732/mms-chocolate-candies-85.23-oz.-fun-size-variety-pack',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://boxed.bttn.io/product/3732/mms-chocolate-candies-85.23-oz.-fun-size-variety-pack?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.boxed.com/product/3732/mms-chocolate-candies-85.23-oz.-fun-size-variety-pack?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for highlights page', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/products/highlight/999/deals/' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://boxed.bttn.io/a/key_live_jcbQOz5vtceYbCgKcCDNqogjBEdqwmzl?feature=highlights&gid=999&utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.boxed.com/products/highlight/999/deals?utm_source=button&utm_medium=affiliate&utm_campaign=button&btn_ref=srctok-XXX',
         }
       );
     });
