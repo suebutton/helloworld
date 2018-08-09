@@ -27,6 +27,12 @@ describe('lib/kokiri/builders/overstock', function() {
         default_value: 'Button',
         name: 'btn_aff',
       },
+      {
+        id: '11111',
+        organization: OVERSTOCK_ORG_ID,
+        default_value: '260521',
+        name: 'cid',
+      },
     ];
 
     const partnerValues = [
@@ -34,6 +40,11 @@ describe('lib/kokiri/builders/overstock', function() {
         partner_parameter: '12345',
         organization: SHOPKICK_ORG_ID,
         value: 'Shopkick',
+      },
+      {
+        partner_parameter: '11111',
+        organization: SHOPKICK_ORG_ID,
+        value: '276097',
       },
     ];
 
@@ -125,9 +136,9 @@ describe('lib/kokiri/builders/overstock', function() {
       );
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Shopkick&btn_ref=srctok-XXX',
+          'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=276097&btn_aff=Shopkick&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Shopkick&btn_ref=srctok-XXX',
+          'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=276097&btn_aff=Shopkick&btn_ref=srctok-XXX',
       });
     });
   });
