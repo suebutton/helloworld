@@ -189,6 +189,49 @@ describe('lib/kokiri/builders/amazon', function() {
         }
       );
     });
+
+    it('returns no app link for webview-only unlimted60 path for Ibotta', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/unlimited60',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.amazon.com/unlimited60?tag=button&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns no app link for webview-only unlimited 60 path for Ibotta', function() {
+      const builder = this.config.createBuilder(
+        'org-2d432a88b9bb8bda',
+        'org-3b6a623e75cc729c'
+      );
+
+      assert.deepEqual(
+        builder.appAction(
+          {
+            pathname: '/unlimited60',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.amazon.com/unlimited60?tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
