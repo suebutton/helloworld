@@ -372,6 +372,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
       assert.deepEqual(this.kokiriAdapter.sdkConfig('org-XXX'), {
         supported_hostnames: [
           { hostname: 'hotels.com' },
+          { hostname: 'au.hotels.com' },
+          { hostname: 'sg.hotels.com' },
           { hostname: 'uk.hotels.com' },
         ],
         supported_bttnio_subdomains: [
@@ -434,6 +436,102 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             pathname_ids: [],
             query_ids: [],
             query_url_keys: [{ key: 'murl' }],
+          },
+          {
+            hostname: 'anrdoezrs.net',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [
+                  {
+                    values: [],
+                  },
+                ],
+                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'dpbolvw.net',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [
+                  {
+                    values: [],
+                  },
+                ],
+                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'jdoqocy.com',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [
+                  {
+                    values: [],
+                  },
+                ],
+                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'kqzyfj.com',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [
+                  {
+                    values: [],
+                  },
+                ],
+                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'qksrv.net',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [
+                  {
+                    values: [],
+                  },
+                ],
+                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'tkqlhce.com',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [
+                  {
+                    values: [],
+                  },
+                ],
+                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
           },
         ],
       });
