@@ -304,6 +304,42 @@ describe('lib/kokiri/builders/etsy', function() {
         }
       );
     });
+
+    it('returns a web action for etsy.com/uk after stripping it from path ', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/uk',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com/uk?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for etsy.com/uk/... without stripping /uk from path ', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/uk/c',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io/uk/c?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com/uk/c?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   it('returns a destination from a url', function() {
