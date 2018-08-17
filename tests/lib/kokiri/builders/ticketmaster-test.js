@@ -21,14 +21,16 @@ describe('lib/kokiri/builders/ticketmaster', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'ticketmaster://?btn_ref=srctok-XXX',
-        browser_link: null,
+        browser_link:
+          'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=&btn_ref=srctok-XXX',
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: 'ticketmaster://?btn_ref=srctok-XXX',
-        browser_link: null,
+        browser_link:
+          'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=&btn_ref=srctok-XXX',
       });
     });
 
@@ -45,7 +47,8 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         ),
         {
           app_link: 'ticketmaster:///item/p1297?a=2&btn_ref=srctok-XXX',
-          browser_link: null,
+          browser_link:
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=&btn_ref=srctok-XXX',
         }
       );
 
@@ -61,7 +64,8 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         ),
         {
           app_link: 'ticketmaster://?btn_ref=srctok-XXX',
-          browser_link: null,
+          browser_link:
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=&btn_ref=srctok-XXX',
         }
       );
     });
@@ -71,14 +75,16 @@ describe('lib/kokiri/builders/ticketmaster', function() {
     it('returns a webAction for ios', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'https://ticketmaster.bttn.io?btn_ref=srctok-XXX',
-        browser_link: null,
+        browser_link:
+          'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=&btn_ref=srctok-XXX',
       });
     });
 
     it('returns a webAction for android', function() {
       assert.deepEqual(this.builder.webAction({}, 'android', 'srctok-XXX'), {
         app_link: 'https://ticketmaster.bttn.io?btn_ref=srctok-XXX',
-        browser_link: null,
+        browser_link:
+          'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=&btn_ref=srctok-XXX',
       });
     });
   });
