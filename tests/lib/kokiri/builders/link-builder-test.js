@@ -133,6 +133,44 @@ describe('lib/kokiri/builders/link-builder', function() {
     });
   });
 
+  describe('#attributeLink', function() {
+    it('adds Button attribution to a url by default', function() {
+      const url = 'https://merchant.com/1?product=123#anchor';
+
+      assert.deepEqual(
+        this.builder.attributeLink(url, 'srctok-XXX'),
+        'https://merchant.com/1?product=123&btn_ref=srctok-XXX#anchor'
+      );
+
+      assert.deepEqual(url, 'https://merchant.com/1?product=123#anchor');
+    });
+
+    it('doesnt add Button attribution to a url if configured not to', function() {
+      class AffiliateLinkBuilder extends LinkBuilder {}
+      AffiliateLinkBuilder.HasButtonAffiliation = false;
+
+      const nonButtonLinkBuilder = new AffiliateLinkBuilder(
+        {},
+        'org-XXX',
+        'org-YYY'
+      );
+
+      const url = 'https://merchant.com/1?product=123#anchor';
+
+      assert.deepEqual(
+        this.builder.attributeLink(url, 'srctok-XXX'),
+        'https://merchant.com/1?product=123&btn_ref=srctok-XXX#anchor'
+      );
+
+      assert.deepEqual(
+        nonButtonLinkBuilder.attributeLink(url, 'srctok-XXX'),
+        'https://merchant.com/1?product=123#anchor'
+      );
+
+      assert.deepEqual(url, 'https://merchant.com/1?product=123#anchor');
+    });
+  });
+
   describe('#getDestinationFromUrl', function() {
     it('defines a basic implementation of mapping a url to a destination', function() {
       assert.deepEqual(
