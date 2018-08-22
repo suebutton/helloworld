@@ -30,7 +30,7 @@ describe('lib/kokiri/builders/expedia', function() {
       {
         id: '12345',
         organization: EXPEDIA_ORG_ID,
-        default_value: 'US.NETWORK.BUTTON.300843',
+        default_value: '300843',
         name: 'affcid',
       },
     ];
@@ -39,12 +39,12 @@ describe('lib/kokiri/builders/expedia', function() {
       {
         partner_parameter: '12345',
         organization: SAMSUNG_ORG_ID,
-        value: 'US.NETWORK.BUTTON.123456',
+        value: '123456',
       },
       {
         partner_parameter: '12345',
         organization: TOPCASHBACKUK_ORG_ID,
-        value: 'UK.NETWORK.BUTTON.123456',
+        value: '123456',
       },
     ];
 
@@ -83,9 +83,21 @@ describe('lib/kokiri/builders/expedia', function() {
         ),
         {
           app_link:
-            'https://www.expedia.co.uk/mobile/deeplink?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk/mobile/deeplink?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.expedia.co.uk?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for .fr link', function() {
+      assert.deepEqual(
+        this.builder.appAction({ hostname: 'expedia.fr' }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'https://www.expedia.fr/mobile/deeplink?AFFCID=FR.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.expedia.fr?AFFCID=FR.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -100,9 +112,9 @@ describe('lib/kokiri/builders/expedia', function() {
         ),
         {
           app_link:
-            'https://www.expedia.co.uk/mobile/deeplink?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk/mobile/deeplink?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.expedia.co.uk?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -192,9 +204,9 @@ describe('lib/kokiri/builders/expedia', function() {
         ),
         {
           app_link:
-            'https://www.expedia.co.uk/mobile/deeplink/carsearch?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk/mobile/deeplink/carsearch?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.expedia.co.uk/car-hire?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk/car-hire?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
