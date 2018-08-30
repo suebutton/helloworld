@@ -27,7 +27,7 @@ describe('lib/kokiri/builders/tophatter', function() {
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link: 'tophatter://?btn_ref=srctok-XXX',
+        app_link: null,
         browser_link: 'https://www.tophatter.com?btn_ref=srctok-XXX',
       });
     });
@@ -72,7 +72,7 @@ describe('lib/kokiri/builders/tophatter', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'tophatter://catalogs?btn_ref=srctok-XXX',
+          app_link: null,
           browser_link: 'https://www.tophatter.com/catalogs?btn_ref=srctok-XXX',
         }
       );
@@ -109,7 +109,7 @@ describe('lib/kokiri/builders/tophatter', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'tophatter://live/free-shipping?btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://www.tophatter.com?categories=free-shipping&btn_ref=srctok-XXX',
         }
