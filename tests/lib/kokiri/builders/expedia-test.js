@@ -61,7 +61,7 @@ describe('lib/kokiri/builders/expedia', function() {
     it('returns an app action for .com link', function() {
       assert.deepEqual(
         this.builder.appAction(
-          { hostname: 'expedia.com' },
+          { hostname: 'www.expedia.com' },
           'ios',
           'srctok-XXX'
         ),
@@ -77,7 +77,7 @@ describe('lib/kokiri/builders/expedia', function() {
     it('returns an app action for .co.uk link', function() {
       assert.deepEqual(
         this.builder.appAction(
-          { hostname: 'expedia.co.uk' },
+          { hostname: 'www.expedia.co.uk' },
           'ios',
           'srctok-XXX'
         ),
