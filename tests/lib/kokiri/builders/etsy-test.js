@@ -305,7 +305,7 @@ describe('lib/kokiri/builders/etsy', function() {
       );
     });
 
-    it('returns a web action for etsy.com/uk after stripping it from path ', function() {
+    it('returns a web action for etsy.com/uk after stripping it from path for iOS', function() {
       assert.deepEqual(
         this.builder.webAction(
           {
@@ -337,6 +337,60 @@ describe('lib/kokiri/builders/etsy', function() {
             'https://etsy.bttn.io/uk/c?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.etsy.com/uk/c?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for etsy.com/ca after stripping it from path for iOS', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/ca',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com/ca?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for etsy.com/ca without stripping /ca from path for Android', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/ca',
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io/ca?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com/ca?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for etsy.com/ca/path/to/listing without stripping /ca from path ', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            pathname: '/ca/listing/9999/tacos',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io/ca/listing/9999/tacos?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com/ca/listing/9999/tacos?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
         }
       );
     });
