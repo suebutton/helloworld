@@ -179,16 +179,55 @@ describe('/lib/kokiri/kokiri-adapter', function() {
     it('returns redirect information about a link', function() {
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
-          'https://click.linksynergy.com?murl=https%3A%2F%2Fhotels.com/1/2',
+          'https://click.linksynergy.com/deeplink?murl=https%3A%2F%2Fhotels.com/1/2',
           'org-XXX'
         ),
         {
-          shouldRedirect: false,
-          cacheKey: 'click.linksynergy.com/',
+          shouldRedirect: true,
+          cacheKey:
+            'click.linksynergy.com/deeplink?murl=https%3A%2F%2Fhotels.com%2F1%2F2',
           affiliate: {
             hostname: 'click.linksynergy.com',
             display_name: 'Rakuten Linkshare',
-            query_url_keys: [{ key: 'murl' }, { key: 'url' }],
+            query_url_keys: [],
+          },
+        }
+      );
+    });
+
+    it('returns redirect information about a matching link', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://click.linksynergy.com/fs-bin/click?murl=https%3A%2F%2Fhotels.com/1/2',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey:
+            'click.linksynergy.com/fs-bin/click?murl=https%3A%2F%2Fhotels.com%2F1%2F2',
+          affiliate: {
+            hostname: 'click.linksynergy.com',
+            display_name: 'Rakuten Linkshare',
+            query_url_keys: [],
+          },
+        }
+      );
+    });
+
+    it('returns redirect information about a matching link and drops the correct parameter', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://click.linksynergy.com/fs-bin/click?murl=https%3A%2F%2Fhotels.com%2F1%2F2&u1=ebs1234',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey:
+            'click.linksynergy.com/fs-bin/click?murl=https%3A%2F%2Fhotels.com%2F1%2F2',
+          affiliate: {
+            hostname: 'click.linksynergy.com',
+            display_name: 'Rakuten Linkshare',
+            query_url_keys: [],
           },
         }
       );
@@ -197,17 +236,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
   describe('#linkAttributes', function() {
     it('returns attributes about an affiliate link', function() {
-      assert.deepEqual(
-        this.kokiriAdapter.linkAttributes(
-          'https://click.linksynergy.com?murl=https%3A%2F%2Fhotels.com/1/2',
-          'org-XXX'
-        ),
-        {
-          merchantId: 'org-3573c6b896624279',
-          approved: true,
-        }
-      );
-
       assert.deepEqual(
         this.kokiriAdapter.linkAttributes(
           'https://click.linksynergy.com',
@@ -383,9 +411,15 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         supported_affiliates: [
           {
             hostname: 'click.linksynergy.com',
-            query_url_keys: [{ key: 'murl' }, { key: 'url' }],
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+                regex: String.raw`^\/?(?:fs-bin\/click|deeplink)(?:$|\/.*)`,
+              },
+            ],
             query_ids: [],
-            pathname_ids: [],
+            query_url_keys: [],
           },
           {
             hostname: 'quidco.com',
@@ -433,20 +467,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           },
           {
             hostname: 'linksynergy.walmart.com',
-            pathname_ids: [],
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+                regex: String.raw`^\/?(?:fs-bin\/click|deeplink)(?:$|\/.*)`,
+              },
+            ],
             query_ids: [],
-            query_url_keys: [{ key: 'murl' }],
+            query_url_keys: [],
           },
           {
             hostname: 'anrdoezrs.net',
             pathname_ids: [
               {
                 guaranteed_action: false,
-                matches: [
-                  {
-                    values: [],
-                  },
-                ],
+                matches: [{ values: [] }],
                 regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
               },
             ],
@@ -458,11 +494,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             pathname_ids: [
               {
                 guaranteed_action: false,
-                matches: [
-                  {
-                    values: [],
-                  },
-                ],
+                matches: [{ values: [] }],
                 regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
               },
             ],
@@ -474,11 +506,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             pathname_ids: [
               {
                 guaranteed_action: false,
-                matches: [
-                  {
-                    values: [],
-                  },
-                ],
+                matches: [{ values: [] }],
                 regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
               },
             ],
@@ -490,11 +518,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             pathname_ids: [
               {
                 guaranteed_action: false,
-                matches: [
-                  {
-                    values: [],
-                  },
-                ],
+                matches: [{ values: [] }],
                 regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
               },
             ],
@@ -506,11 +530,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             pathname_ids: [
               {
                 guaranteed_action: false,
-                matches: [
-                  {
-                    values: [],
-                  },
-                ],
+                matches: [{ values: [] }],
                 regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
               },
             ],
@@ -522,11 +542,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             pathname_ids: [
               {
                 guaranteed_action: false,
-                matches: [
-                  {
-                    values: [],
-                  },
-                ],
+                matches: [{ values: [] }],
                 regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
               },
             ],
