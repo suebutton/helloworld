@@ -160,8 +160,23 @@ describe('lib/kokiri/builders/walmart', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://www.walmart.com?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+          'https://www.walmart.com/home?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
       });
+    });
+
+    it('returns a web action for ios product pages', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/ip/Time-and-Tru-Women-s-Mid-Boot/930124420' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.walmart.com/ip/Time-and-Tru-Women-s-Mid-Boot/930124420?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns a web action for android', function() {
