@@ -329,7 +329,42 @@ describe('lib/kokiri/lib', function() {
         'https://pavel.net?btn_ref=srctok-XXX#anchor'
       );
 
+      assert.deepEqual(
+        attributeLink('https://pavel.net/?btn_tkn=1#anchor', 'srctok-XXX'),
+        'https://pavel.net?btn_ref=srctok-XXX#anchor'
+      );
+
       assert.deepEqual(attributeLink(null, 'srctok-XXX'), null);
+    });
+
+    it('attributes a link using a different key merchants wont be sensitive to', function() {
+      assert.deepEqual(
+        attributeLink('https://pavel.net', 'srctok-XXX', false),
+        'https://pavel.net?btn_tkn=srctok-XXX'
+      );
+
+      assert.deepEqual(
+        attributeLink('https://pavel.net/1/2?a=1', 'srctok-XXX', false),
+        'https://pavel.net/1/2?a=1&btn_tkn=srctok-XXX'
+      );
+
+      assert.deepEqual(
+        attributeLink(
+          'https://pavel.net/?btn_ref=1#anchor',
+          'srctok-XXX',
+          false
+        ),
+        'https://pavel.net?btn_tkn=srctok-XXX#anchor'
+      );
+
+      assert.deepEqual(
+        attributeLink(
+          'https://pavel.net/?btn_tkn=1#anchor',
+          'srctok-XXX',
+          false
+        ),
+        'https://pavel.net?btn_tkn=srctok-XXX#anchor'
+      );
     });
   });
 

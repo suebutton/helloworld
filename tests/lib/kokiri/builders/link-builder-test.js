@@ -133,21 +133,30 @@ describe('lib/kokiri/builders/link-builder', function() {
     });
   });
 
-  describe('#attributeLink', function() {
+  describe(`#action`, function() {
     it('adds Button attribution to a url by default', function() {
-      const url = 'https://merchant.com/1?product=123#anchor';
+      const appLink = 'merchant:///1?product=123#anchor';
+      const browserLink = 'https://merchant.com/1?product=123#anchor';
 
       assert.deepEqual(
-        this.builder.attributeLink(url, 'srctok-XXX'),
-        'https://merchant.com/1?product=123&btn_ref=srctok-XXX#anchor'
+        this.builder.action(appLink, browserLink, 'srctok-XXX'),
+        {
+          app_link: 'merchant:///1?product=123&btn_ref=srctok-XXX#anchor',
+          browser_link:
+            'https://merchant.com/1?product=123&btn_ref=srctok-XXX#anchor',
+        }
       );
 
-      assert.deepEqual(url, 'https://merchant.com/1?product=123#anchor');
+      assert.deepEqual(appLink, 'merchant:///1?product=123#anchor');
+      assert.deepEqual(
+        browserLink,
+        'https://merchant.com/1?product=123#anchor'
+      );
     });
 
     it('doesnt add Button attribution to a url if configured not to', function() {
       class AffiliateLinkBuilder extends LinkBuilder {}
-      AffiliateLinkBuilder.HasButtonAffiliation = false;
+      AffiliateLinkBuilder.HasButtonAppAffiliation = false;
 
       const nonButtonLinkBuilder = new AffiliateLinkBuilder(
         {},
@@ -155,19 +164,44 @@ describe('lib/kokiri/builders/link-builder', function() {
         'org-YYY'
       );
 
-      const url = 'https://merchant.com/1?product=123#anchor';
+      const appLink = 'merchant:///1?product=123#anchor';
+      const browserLink = 'https://merchant.com/1?product=123#anchor';
 
       assert.deepEqual(
-        this.builder.attributeLink(url, 'srctok-XXX'),
-        'https://merchant.com/1?product=123&btn_ref=srctok-XXX#anchor'
+        this.builder.action(appLink, browserLink, 'srctok-XXX'),
+        {
+          app_link: 'merchant:///1?product=123&btn_ref=srctok-XXX#anchor',
+          browser_link:
+            'https://merchant.com/1?product=123&btn_ref=srctok-XXX#anchor',
+        }
       );
 
       assert.deepEqual(
-        nonButtonLinkBuilder.attributeLink(url, 'srctok-XXX'),
+        nonButtonLinkBuilder.action(appLink, browserLink, 'srctok-XXX'),
+        {
+          app_link: 'merchant:///1?product=123&btn_tkn=srctok-XXX#anchor',
+          browser_link:
+            'https://merchant.com/1?product=123&btn_ref=srctok-XXX#anchor',
+        }
+      );
+
+      AffiliateLinkBuilder.HasButtonAppAffiliation = true;
+      AffiliateLinkBuilder.HasButtonWebAffiliation = false;
+
+      assert.deepEqual(
+        nonButtonLinkBuilder.action(appLink, browserLink, 'srctok-XXX'),
+        {
+          app_link: 'merchant:///1?product=123&btn_ref=srctok-XXX#anchor',
+          browser_link:
+            'https://merchant.com/1?product=123&btn_tkn=srctok-XXX#anchor',
+        }
+      );
+
+      assert.deepEqual(appLink, 'merchant:///1?product=123#anchor');
+      assert.deepEqual(
+        browserLink,
         'https://merchant.com/1?product=123#anchor'
       );
-
-      assert.deepEqual(url, 'https://merchant.com/1?product=123#anchor');
     });
   });
 
