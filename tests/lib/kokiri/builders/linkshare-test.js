@@ -2,74 +2,79 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const TECHARMOR_ORG_ID = 'org-6ef589c578ab8ac6';
+const GAMESTOP_ORG_ID = 'org-139f1edad7388c6a';
+const MACYS_ORG_ID = 'org-7bfb8e7a4771a0f6';
+
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
+const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
+const SAMSUNG_ORG_ID = 'org-4738195f8e741d19';
+
 describe('lib/kokiri/builders/linkshare', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-6ef589c578ab8ac6', // techarmor staging
+        organization: TECHARMOR_ORG_ID,
       },
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-139f1edad7388c6a', // gamestop staging
+        organization: GAMESTOP_ORG_ID,
       },
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-7bfb8e7a4771a0f6', // macys staging
+        organization: MACYS_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-4738195f8e741d19', // samsung
-        organization: 'org-7bfb8e7a4771a0f6', // macys staging
+        audience: SAMSUNG_ORG_ID,
+        organization: MACYS_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda', // ibotta
-        organization: 'org-6ef589c578ab8ac6', // techarmor staging
+        audience: IBOTTA_ORG_ID,
+        organization: TECHARMOR_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda', // ibotta
-        organization: 'org-139f1edad7388c6a', // gamestop staging
+        audience: IBOTTA_ORG_ID,
+        organization: GAMESTOP_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-030575eddb72b4df', // shopkick
-        organization: 'org-6ef589c578ab8ac6', // techarmor staging
+        audience: SHOPKICK_ORG_ID,
+        organization: TECHARMOR_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-030575eddb72b4df', // shopkick
-        organization: 'org-139f1edad7388c6a', // gamestop staging
+        audience: SHOPKICK_ORG_ID,
+        organization: GAMESTOP_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-4738195f8e741d19', // samsung
-        organization: 'org-6ef589c578ab8ac6', // techarmor staging
+        audience: SAMSUNG_ORG_ID,
+        organization: TECHARMOR_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-4738195f8e741d19', // samsung
-        organization: 'org-139f1edad7388c6a', // gamestop staging
+        audience: SAMSUNG_ORG_ID,
+        organization: GAMESTOP_ORG_ID,
       },
     ];
 
     this.config = new KokiriConfig([], [], [], [], { approvals });
 
-    this.builder = this.config.createBuilder(
-      'org-030575eddb72b4df',
-      'org-139f1edad7388c6a'
-    );
+    this.builder = this.config.createBuilder(SHOPKICK_ORG_ID, GAMESTOP_ORG_ID);
   });
 
   describe('#appAction', function() {
     it('returns an app action for macys mobile site (m.macys.com)', function() {
       const macysBuilder = this.config.createBuilder(
-        'org-4738195f8e741d19',
-        'org-7bfb8e7a4771a0f6'
+        SAMSUNG_ORG_ID,
+        MACYS_ORG_ID
       );
       assert.deepEqual(
         macysBuilder.appAction(
@@ -120,8 +125,8 @@ describe('lib/kokiri/builders/linkshare', function() {
     });
     it('returns an app action for gamestop from ibotta', function() {
       const gamestopBuilder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-139f1edad7388c6a'
+        IBOTTA_ORG_ID,
+        GAMESTOP_ORG_ID
       );
 
       assert.deepEqual(
@@ -140,10 +145,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       );
     });
     it('returns an app action with destination', function() {
-      const b = this.config.createBuilder(
-        'org-030575eddb72b4df',
-        'org-6ef589c578ab8ac6'
-      );
+      const b = this.config.createBuilder(SHOPKICK_ORG_ID, TECHARMOR_ORG_ID);
       assert.deepEqual(
         b.appAction(
           {
@@ -206,7 +208,7 @@ describe('lib/kokiri/builders/linkshare', function() {
     });
 
     it('returns app action with null values if there is no org_id to id mapping', function() {
-      const b = this.config.createBuilder('org-XXX', 'org-6ef589c578ab8ac6');
+      const b = this.config.createBuilder('org-XXX', TECHARMOR_ORG_ID);
       assert.deepEqual(
         b.appAction(
           {
@@ -266,10 +268,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       );
     });
     it('returns a web action via ibotta', function() {
-      const b = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-6ef589c578ab8ac6'
-      );
+      const b = this.config.createBuilder(IBOTTA_ORG_ID, TECHARMOR_ORG_ID);
       assert.deepEqual(
         b.webAction({ url: 'https://techarmor.com' }, 'ios', 'srctok-XXX'),
         {
@@ -281,10 +280,7 @@ describe('lib/kokiri/builders/linkshare', function() {
     });
 
     it('returns a web action with destination', function() {
-      const b = this.config.createBuilder(
-        'org-030575eddb72b4df',
-        'org-6ef589c578ab8ac6'
-      );
+      const b = this.config.createBuilder(SHOPKICK_ORG_ID, TECHARMOR_ORG_ID);
       assert.deepEqual(
         b.webAction(
           { url: 'https://techarmor.com/bloop?a=2' },
@@ -303,8 +299,8 @@ describe('lib/kokiri/builders/linkshare', function() {
   describe('#destinationFromUrl', function() {
     it('returns a destination from a url', function() {
       this.builder = this.config.createBuilder(
-        'org-030575eddb72b4df',
-        'org-6ef589c578ab8ac6'
+        SHOPKICK_ORG_ID,
+        TECHARMOR_ORG_ID
       );
       assert.deepEqual(
         this.builder.destinationFromUrl('https://www.techarmor.com/iphone-7'),

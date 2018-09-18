@@ -2,44 +2,52 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const EXPRESS_ORG_ID = 'org-3acb6dc42678c843';
+const GAP_ORG_ID = 'org-319e4a77607c0ae6';
+const SEARS_ORG_ID = 'org-36467c8b060acf5a';
+
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
+const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
+const SAMSUNG_ORG_ID = 'org-4738195f8e741d19';
+
 describe('lib/kokiri/builders/commission-junction,', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-3acb6dc42678c843', // express staging
+        organization: EXPRESS_ORG_ID,
       },
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-319e4a77607c0ae6', // gap staging
+        organization: GAP_ORG_ID,
       },
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-36467c8b060acf5a', // sears  staging
+        organization: SEARS_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-2d432a88b9bb8bda',
-        organization: 'org-3acb6dc42678c843',
+        audience: IBOTTA_ORG_ID,
+        organization: EXPRESS_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-030575eddb72b4df',
-        organization: 'org-3acb6dc42678c843',
+        audience: SHOPKICK_ORG_ID,
+        organization: EXPRESS_ORG_ID,
       },
       {
         status: 'approved',
-        audience: 'org-4738195f8e741d19',
-        organization: 'org-3acb6dc42678c843',
+        audience: SAMSUNG_ORG_ID,
+        organization: EXPRESS_ORG_ID,
       },
     ];
 
     this.config = new KokiriConfig([], [], [], [], { approvals });
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-3acb6dc42678c843');
+    this.builder = this.config.createBuilder('org-XXX', EXPRESS_ORG_ID);
   });
 
   describe('#appAction', function() {
@@ -75,10 +83,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
     });
 
     it('returns an app action with publisher-specific parameters', function() {
-      const builder = this.config.createBuilder(
-        'org-2d432a88b9bb8bda',
-        'org-3acb6dc42678c843'
-      );
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, EXPRESS_ORG_ID);
 
       assert.deepEqual(
         builder.appAction(
@@ -96,10 +101,10 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       );
     });
 
-    it('returns an app action with Shopkick org-id instead of Ibottas', function() {
+    it('returns an app action for Shopkick instead of Ibotta', function() {
       const builder = this.config.createBuilder(
-        'org-030575eddb72b4df',
-        'org-3acb6dc42678c843'
+        SHOPKICK_ORG_ID,
+        EXPRESS_ORG_ID
       );
 
       assert.deepEqual(
@@ -118,11 +123,8 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       );
     });
 
-    it('returns an app action with Samsung org-id instead of Ibottas', function() {
-      const builder = this.config.createBuilder(
-        'org-4738195f8e741d19',
-        'org-3acb6dc42678c843'
-      );
+    it('returns an app action for Samsung instead of Ibotta', function() {
+      const builder = this.config.createBuilder(SAMSUNG_ORG_ID, EXPRESS_ORG_ID);
 
       assert.deepEqual(
         builder.appAction(
@@ -158,7 +160,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
     });
 
     it('returns app action with destination path for gap', function() {
-      const b = this.config.createBuilder('org-XXX', 'org-319e4a77607c0ae6');
+      const b = this.config.createBuilder('org-XXX', GAP_ORG_ID);
       assert.deepEqual(
         b.appAction(
           {
@@ -176,7 +178,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
     });
 
     it('returns app action with destination path for m.sears.com', function() {
-      const b = this.config.createBuilder('org-XXX', 'org-36467c8b060acf5a');
+      const b = this.config.createBuilder('org-XXX', SEARS_ORG_ID);
       assert.deepEqual(
         b.appAction(
           {
