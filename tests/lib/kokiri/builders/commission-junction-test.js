@@ -63,7 +63,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
       assert.deepEqual(
@@ -77,7 +77,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -96,7 +96,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8415784/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8415784/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -118,7 +118,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8639622/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8639622/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -137,7 +137,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8822964/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8822964/type/dlg/sid/srctok-XXX/https://www.express.com?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -154,7 +154,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com/a/b/c?ref=CJ1&btn_ref=srctok-XXX&foo=bar#123',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.express.com/a/b/c?ref=CJ1&btn_tkn=srctok-XXX&foo=bar#123',
         }
       );
     });
@@ -172,7 +172,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://gap.com/a/b/c?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://gap.com/a/b/c?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -190,7 +190,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.sears.com?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.sears.com?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -209,7 +209,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/http://merchant.net?ref=CJ1&btn_ref=srctok-XXX',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/http://merchant.net?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -226,7 +226,7 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         {
           app_link: null,
           browser_link:
-            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/http://merchant.com/1/2/3?ref=CJ1&btn_ref=srctok-XXX&a=2&b=3#anchor',
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/http://merchant.com/1/2/3?ref=CJ1&btn_tkn=srctok-XXX&a=2&b=3#anchor',
         }
       );
     });

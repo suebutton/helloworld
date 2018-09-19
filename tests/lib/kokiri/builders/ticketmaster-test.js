@@ -28,7 +28,7 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         {
           app_link: 'ticketmaster://?btn_ref=srctok-XXX',
           browser_link:
-            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_ref=srctok-XXX',
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -43,7 +43,7 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         {
           app_link: 'ticketmaster://?btn_ref=srctok-XXX',
           browser_link:
-            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_ref=srctok-XXX',
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -63,7 +63,7 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         {
           app_link: 'ticketmaster:///item/p1297?a=2&btn_ref=srctok-XXX',
           browser_link:
-            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com%2Fitem%2Fp1297%3Fa%3D2&btn_ref=srctok-XXX',
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com%2Fitem%2Fp1297%3Fa%3D2&btn_tkn=srctok-XXX',
         }
       );
 
@@ -81,7 +81,7 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         {
           app_link: 'ticketmaster://?btn_ref=srctok-XXX',
           browser_link:
-            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com%2Fitem%2Fp1297%3Fa%3D2&btn_ref=srctok-XXX',
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com%2Fitem%2Fp1297%3Fa%3D2&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -98,7 +98,7 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         {
           app_link: 'https://ticketmaster.bttn.io?btn_ref=srctok-XXX',
           browser_link:
-            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_ref=srctok-XXX',
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -113,7 +113,7 @@ describe('lib/kokiri/builders/ticketmaster', function() {
         {
           app_link: 'https://ticketmaster.bttn.io?btn_ref=srctok-XXX',
           browser_link:
-            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_ref=srctok-XXX',
+            'http://ticketmaster.evyy.net/c/415484/264167/4272?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fticketmaster.com&btn_tkn=srctok-XXX',
         }
       );
     });

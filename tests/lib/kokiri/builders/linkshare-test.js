@@ -87,7 +87,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=3184&murl=http%3A%2F%2Fm.macys.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=3184&murl=http%3A%2F%2Fm.macys.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -103,7 +103,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -119,7 +119,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -140,7 +140,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -157,7 +157,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=http%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=http%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
 
@@ -172,7 +172,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=http%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=http%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -249,7 +249,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=https%3A%2F%2Fgamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=https%3A%2F%2Fgamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -263,7 +263,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=https%3A%2F%2Fgamestop.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=https%3A%2F%2Fgamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -274,7 +274,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=38275&murl=https%3A%2F%2Ftecharmor.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -290,7 +290,7 @@ describe('lib/kokiri/builders/linkshare', function() {
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=https%3A%2F%2Ftecharmor.com%2Fbloop%3Fa%3D2&u1=srctok-XXX&btn_ref=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=https%3A%2F%2Ftecharmor.com%2Fbloop%3Fa%3D2&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
