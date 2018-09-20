@@ -2,19 +2,48 @@ const assert = require('assert');
 
 const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
+const APPLEMUSIC_ORG_ID = 'org-7e4081c0d88c5427';
+const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
+
 describe('lib/kokiri/builders/apple-music', function() {
   beforeEach(function() {
     const approvals = [
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: 'org-7e4081c0d88c5427',
+        organization: APPLEMUSIC_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: SHOPKICK_ORG_ID,
+        organization: APPLEMUSIC_ORG_ID,
       },
     ];
 
-    this.config = new KokiriConfig([], [], [], [], { approvals });
+    const partnerParameters = [
+      {
+        id: '12345',
+        organization: APPLEMUSIC_ORG_ID,
+        default_value: '1000lura',
+        name: 'at',
+      },
+    ];
 
-    this.builder = this.config.createBuilder('org-XXX', 'org-7e4081c0d88c5427');
+    const partnerValues = [
+      {
+        partner_parameter: '12345',
+        organization: SHOPKICK_ORG_ID,
+        value: '40balloons',
+      },
+    ];
+
+    this.config = new KokiriConfig([], [], [], [], {
+      approvals,
+      partnerParameters,
+      partnerValues,
+    });
+
+    this.builder = this.config.createBuilder('org-XXX', APPLEMUSIC_ORG_ID);
   });
 
   describe('#appAction', function() {
@@ -89,6 +118,43 @@ describe('lib/kokiri/builders/apple-music', function() {
         }
       );
     });
+
+    it('returns an app action with per-publisher tokens', function() {
+      const builder = this.config.createBuilder(
+        SHOPKICK_ORG_ID,
+        APPLEMUSIC_ORG_ID
+      );
+      assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
+        app_link:
+          'musics://geo.itunes.apple.com?at=40balloons&mt=1&app=music&ct=srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://itunes.apple.com?at=40balloons&mt=1&app=music&ct=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('overwrites incoming at token and returns an app action with per-publisher tokens', function() {
+      const builder = this.config.createBuilder(
+        SHOPKICK_ORG_ID,
+        APPLEMUSIC_ORG_ID
+      );
+      assert.deepEqual(
+        builder.appAction(
+          {
+            query: {
+              at: '100puppies',
+            },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'musics://geo.itunes.apple.com?at=40balloons&mt=1&app=music&ct=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://itunes.apple.com?at=40balloons&mt=1&app=music&ct=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
@@ -127,6 +193,18 @@ describe('lib/kokiri/builders/apple-music', function() {
         app_link: null,
         browser_link:
           'https://itunes.apple.com?at=1000lura&mt=1&app=music&ct=srctok-XXX&btn_ref=srctok-XXX',
+      });
+    });
+
+    it('returns a web action with per-publisher tokens', function() {
+      const builder = this.config.createBuilder(
+        SHOPKICK_ORG_ID,
+        APPLEMUSIC_ORG_ID
+      );
+      assert.deepEqual(builder.webAction({}, 'ios', 'srctok-XXX'), {
+        app_link: null,
+        browser_link:
+          'https://itunes.apple.com?at=40balloons&mt=1&app=music&ct=srctok-XXX&btn_ref=srctok-XXX',
       });
     });
   });
