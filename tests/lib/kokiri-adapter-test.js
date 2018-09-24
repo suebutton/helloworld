@@ -193,9 +193,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           },
         }
       );
-    });
 
-    it('returns redirect information about a matching link', function() {
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
           'https://click.linksynergy.com/fs-bin/click?murl=https%3A%2F%2Fhotels.com/1/2',
@@ -208,6 +206,87 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           affiliate: {
             hostname: 'click.linksynergy.com',
             display_name: 'Rakuten Linkshare',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://click.linksynergy.com/link?id=QFGLnEolOWg&offerid=426126&type=15&murl=https%3A%2F%2Fwww.walmart.com%2Fip%2FWomen-s-V-neck-Lightweight-T-Shirt%2F590765248&u1=.NTI3MjEtMTk0OA.47f52d26-b2d3-11e8-af3d-63a8c0f16a71',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey:
+            'click.linksynergy.com/link?id=QFGLnEolOWg&offerid=426126&type=15&murl=https%3A%2F%2Fwww.walmart.com%2Fip%2FWomen-s-V-neck-Lightweight-T-Shirt%2F590765248',
+          affiliate: {
+            hostname: 'click.linksynergy.com',
+            display_name: 'Rakuten Linkshare',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.anrdoezrs.net/click-46157-12264133',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'www.anrdoezrs.net/click-46157-12264133',
+          affiliate: {
+            hostname: 'anrdoezrs.net',
+            display_name: 'CJ',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.kqzyfj.com/click-8415784-10660208',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'www.kqzyfj.com/click-8415784-10660208',
+          affiliate: {
+            hostname: 'kqzyfj.com',
+            display_name: 'CJ',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.shareasale.com/r.cfm?u=687298&b=478961&m=47174&urllink=https%3A%2F%2Fwww.warbyparker.com%2Feyeglasses%2Fwomen%2Feugene-small%2Frosewood-tortoise&afftrack=.MTY1MzcyLTE5NDg.491a539b-b2c8-11e8-b31a-4f869940b2fe',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: false,
+          cacheKey: 'www.shareasale.com/r.cfm',
+          affiliate: {
+            hostname: 'shareasale.com',
+            display_name: 'ShareASale',
+            query_url_keys: [{ key: 'urllink' }],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.awin1.com/pclick.php?p=6078106925&a=136348&m=6220&clickref=.MjQzODk1LTE5NDg.dd6a8db8-b2ce-11e8-bd5d-a567e761c230',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'www.awin1.com/pclick.php?p=6078106925&a=136348&m=6220',
+          affiliate: {
+            hostname: 'awin1.com',
+            display_name: 'Awin',
             query_url_keys: [],
           },
         }
@@ -228,6 +307,88 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             hostname: 'click.linksynergy.com',
             display_name: 'Rakuten Linkshare',
             query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.shareasale.com/r.cfm?u=687298&b=478961&m=47174&urllink=https%3A%2F%2Fwww.warbyparker.com%2Feyeglasses%2Fwomen%2Feugene-small%2Frosewood-tortoise&afftrack=.MTY1MzcyLTE5NDg.491a539b-b2c8-11e8-b31a-4f869940b2fe',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: false,
+          cacheKey: 'www.shareasale.com/r.cfm',
+          affiliate: {
+            hostname: 'shareasale.com',
+            display_name: 'ShareASale',
+            query_url_keys: [{ key: 'urllink' }],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.awin1.com/pclick.php?p=6078106925&a=136348&m=6220&clickref=.MjQzODk1LTE5NDg.dd6a8db8-b2ce-11e8-bd5d-a567e761c230',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'www.awin1.com/pclick.php?p=6078106925&a=136348&m=6220',
+          affiliate: {
+            hostname: 'awin1.com',
+            display_name: 'Awin',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.anrdoezrs.net/click-46157-12264133?sid=ebs18885910e',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'www.anrdoezrs.net/click-46157-12264133',
+          affiliate: {
+            hostname: 'anrdoezrs.net',
+            display_name: 'CJ',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.kqzyfj.com/click-8415784-10660208?sid=ebs1891031sbe',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'www.kqzyfj.com/click-8415784-10660208',
+          affiliate: {
+            hostname: 'kqzyfj.com',
+            display_name: 'CJ',
+            query_url_keys: [],
+          },
+        }
+      );
+    });
+
+    it('does not return a link when a query URL key is not present', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'http://www.shareasale.com/m-pr.cfm?merchantID=47174&userID=687298&productID=553241839&afftrack=.MjU4NDItMA.66b141bc-b2c8-11e8-bbfa-db2bdbc42f8',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: false,
+          cacheKey: 'www.shareasale.com/m-pr.cfm',
+          affiliate: {
+            hostname: 'shareasale.com',
+            display_name: 'ShareASale',
+            query_url_keys: [{ key: 'urllink' }],
           },
         }
       );
@@ -415,7 +576,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?(?:fs-bin\/click|deeplink)(?:$|\/.*)`,
+                regex: String.raw`^\/?(?:fs-bin\/click|deeplink|link)(?:$|\/.*)`,
               },
             ],
             query_ids: [],
@@ -471,7 +632,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?(?:fs-bin\/click|deeplink)(?:$|\/.*)`,
+                regex: String.raw`^\/?(?:fs-bin\/click|deeplink|link)(?:$|\/.*)`,
               },
             ],
             query_ids: [],
@@ -483,7 +644,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -495,7 +656,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -507,7 +668,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -519,7 +680,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -531,7 +692,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -543,7 +704,25 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`(?:^|\/)click-[0-9]+-[0-9]+.*`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'shareasale.com',
+            pathname_ids: [],
+            query_ids: [],
+            query_url_keys: [{ key: 'urllink' }],
+          },
+          {
+            hostname: 'awin1.com',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+                regex: String.raw`^\/?(?:cread|pclick)\.php(?:$|\/.*)`,
               },
             ],
             query_ids: [],
