@@ -254,6 +254,42 @@ describe('lib/kokiri/builders/etsy', function() {
         }
       );
     });
+
+    it('returns an app action for etsy.ca', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'www.etsy.ca',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'etsy://?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'http://www.etsy.ca?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for an untested hostname', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'www.etsy.nz',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'etsy://?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
@@ -394,6 +430,42 @@ describe('lib/kokiri/builders/etsy', function() {
         }
       );
     });
+
+    it('returns a web action for etsy.ca', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            hostname: 'www.etsy.ca',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'http://www.etsy.ca?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for an untested hostname', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          {
+            hostname: 'www.etsy.nz',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   it('returns a destination from a url', function() {
@@ -402,6 +474,7 @@ describe('lib/kokiri/builders/etsy', function() {
         'https://www.etsy.com/gizmos?utm_campaign=BESTORNAMENTS'
       ),
       {
+        hostname: 'www.etsy.com',
         pathname: '/gizmos',
         query: { utm_campaign: 'BESTORNAMENTS' },
         hash: null,
@@ -409,6 +482,7 @@ describe('lib/kokiri/builders/etsy', function() {
     );
 
     assert.deepEqual(this.builder.destinationFromUrl(''), {
+      hostname: null,
       pathname: null,
       query: {},
       hash: null,
