@@ -44,12 +44,19 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
 
   describe('#appAction', function() {
     it('returns an app action', function() {
-      assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
-        browser_link:
-          'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
-      });
+      assert.deepEqual(
+        this.builder.appAction(
+          { hostname: 'www.hotels.com' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns an app action with a publisher-specific attribution id', function() {
@@ -58,18 +65,22 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         'org-3573c6b896624279'
       );
 
-      assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00695.019.srctok-XXX&btn_ref=srctok-XXX',
-        browser_link:
-          'https://www.hotels.com?rffrid=aff.hcom.US.049.000.00695.019.srctok-XXX&btn_ref=srctok-XXX',
-      });
+      assert.deepEqual(
+        builder.appAction({ hostname: 'www.hotels.com' }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00695.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hotels.com?rffrid=aff.hcom.US.049.000.00695.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns an app action to hotel details', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/ho212522/the-taj-mahal-palace-mumbai-mumbai-india/',
           },
           'ios',
@@ -86,6 +97,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/ho212522',
           },
           'ios',
@@ -102,6 +114,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/ho212522',
             query: { a: 2 },
           },
@@ -121,6 +134,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/de172809/hotels-zurich-switzerland/',
           },
           'ios',
@@ -137,6 +151,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/de172809',
           },
           'ios',
@@ -153,6 +168,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/de172809',
             query: { a: 2 },
           },
@@ -172,6 +188,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/hotel/details.html',
             query: {
               'q-check-out': '2017-06-25',
@@ -193,6 +210,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/hotel/details.html',
             query: {
               'q-check-out': '2017-06-25',
@@ -216,6 +234,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/search.do',
             query: { 'destination-id': '172809' },
           },
@@ -233,6 +252,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/search.do',
             query: { 'destination-id': '172809' },
           },
@@ -252,6 +272,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/hotel-deals',
           },
           'ios',
@@ -268,6 +289,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/hotel-deals/',
           },
           'ios',
@@ -284,6 +306,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/hotel-dealsz/',
           },
           'ios',
@@ -301,6 +324,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/bloop/2',
             query: { a: true },
             hash: 'anchor',
@@ -318,6 +342,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             pathname: '/bloop/2',
             query: { a: true },
             hash: 'anchor',
@@ -337,6 +362,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
+            hostname: 'www.hotels.com',
             query: { rffrid: 'pavel' },
           },
           'ios',
@@ -350,22 +376,83 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         }
       );
     });
+
+    it('returns an app action for non-www hotels.com link', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'hotels.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for uk links', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'uk.hotels.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://uk.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for au links', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'au.hotels.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://au.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
     it('returns a web action', function() {
-      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
-        browser_link:
-          'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
-      });
+      assert.deepEqual(
+        this.builder.webAction(
+          { hostname: 'www.hotels.com' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns a web action with destination', function() {
       assert.deepEqual(
         this.builder.webAction(
-          { pathname: '/bloop', query: { a: 2 } },
+          { hostname: 'www.hotels.com', pathname: '/bloop', query: { a: 2 } },
           'ios',
           'srctok-XXX'
         ),
@@ -383,19 +470,55 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         rffrid: 'pavel',
       };
 
-      assert.deepEqual(this.builder.webAction({ query }, 'ios', 'srctok-XXX'), {
+      assert.deepEqual(
+        this.builder.webAction(
+          { hostname: 'www.hotels.com', query },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+  });
+
+  it('returns a web action for a non www link', function() {
+    assert.deepEqual(
+      this.builder.webAction({ hostname: 'hotels.com' }, 'ios', 'srctok-XXX'),
+      {
         app_link:
           'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
-      });
-    });
+          'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
+
+  it('returns a web action for a UK link', function() {
+    assert.deepEqual(
+      this.builder.webAction(
+        { hostname: 'uk.hotels.com' },
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link:
+          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://uk.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
   });
 
   it('returns a destination from a url', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl('https://www.hotels.com/1/2?q=2#anchor'),
       {
+        hostname: 'www.hotels.com',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -403,6 +526,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
     );
 
     assert.deepEqual(this.builder.destinationFromUrl(''), {
+      hostname: null,
       pathname: null,
       query: {},
       hash: null,

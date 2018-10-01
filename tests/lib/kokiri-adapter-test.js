@@ -562,6 +562,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         supported_hostnames: [
           { hostname: 'hotels.com' },
           { hostname: 'au.hotels.com' },
+          { hostname: 'es.hotels.com' },
+          { hostname: 'fr.hotels.com' },
           { hostname: 'sg.hotels.com' },
           { hostname: 'uk.hotels.com' },
         ],
@@ -755,7 +757,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           app_link:
             'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
@@ -774,7 +776,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           app_link:
             'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }),
         web_action: null,
       };
@@ -926,7 +928,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           app_link:
             'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
@@ -948,7 +950,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             app_link:
               'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
             browser_link:
-              'https://www.hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+              'https://hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           }),
         }
       );
