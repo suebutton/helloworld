@@ -1,4 +1,4 @@
-FROM docker.button-internal.com/node-baseimage:git-fd031b3
+FROM docker.button-internal.com/node-baseimage:git-8df1116
 MAINTAINER Will Myers <will@usebutton.com>
 
 RUN mkdir /app
@@ -11,4 +11,4 @@ ADD . /app/
 
 EXPOSE 3000
 
-CMD /bin/sh -c 'npm start 2>&1 | shiplogs --follow'
+CMD ["/usr/local/bin/yarn", "start"]
