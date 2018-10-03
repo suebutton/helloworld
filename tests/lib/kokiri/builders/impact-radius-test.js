@@ -8,6 +8,7 @@ const MVMT_ORG_ID = 'org-22e0c0464157d00d';
 const BACKCOUNTRY_ORG_ID = 'org-3bec3b5c0cac44ad';
 const HOUZZ_ORG_ID = 'org-03418dec42db44bc';
 const COST_PLUS_WORLD_MARKET_ORG_ID = 'org-7c42436567440f84';
+const ADVANCE_AUTO_PARTS_ORG_ID = 'org-77cd55d02f3aa0fa';
 
 const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
 const SAMSUNG_ORG_ID = 'org-4738195f8e741d19';
@@ -45,6 +46,11 @@ describe('lib/kokiri/builders/impact-radius', function() {
         status: 'approved',
         audience: 'org-XXX',
         organization: COST_PLUS_WORLD_MARKET_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: ADVANCE_AUTO_PARTS_ORG_ID,
       },
       {
         status: 'approved',
@@ -139,6 +145,51 @@ describe('lib/kokiri/builders/impact-radius', function() {
           app_link: null,
           browser_link:
             'http://cost-plus-world-market.evyy.net/c/415484/84047/2148?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.worldmarket.com&btn_tkn=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.config
+          .createBuilder('org-XXX', ADVANCE_AUTO_PARTS_ORG_ID)
+          .appAction(
+            { url: 'https://www.advanceautoparts.com' },
+            'ios',
+            'srctok-XXX'
+          ),
+        {
+          app_link: null,
+          browser_link:
+            'http://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.config
+          .createBuilder('org-XXX', ADVANCE_AUTO_PARTS_ORG_ID)
+          .appAction(
+            { url: 'https://shop.advanceautoparts.com' },
+            'ios',
+            'srctok-XXX'
+          ),
+        {
+          app_link: null,
+          browser_link:
+            'http://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.config
+          .createBuilder('org-XXX', ADVANCE_AUTO_PARTS_ORG_ID)
+          .appAction(
+            { url: 'https://advanceautoparts.com' },
+            'ios',
+            'srctok-XXX'
+          ),
+        {
+          app_link: null,
+          browser_link:
+            'http://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
         }
       );
     });
