@@ -218,6 +218,24 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         }
       );
     });
+
+    it('returns app action with destination path for oldnavy.gap.com', function() {
+      const b = this.config.createBuilder('org-XXX', OLDNAVY_ORG_ID);
+      assert.deepEqual(
+        b.appAction(
+          {
+            url: 'https://www.oldnavy.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://oldnavy.gap.com?ref=CJ1&btn_tkn=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
