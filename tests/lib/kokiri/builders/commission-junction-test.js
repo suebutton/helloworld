@@ -5,6 +5,7 @@ const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 const EXPRESS_ORG_ID = 'org-3acb6dc42678c843';
 const GAP_ORG_ID = 'org-319e4a77607c0ae6';
 const SEARS_ORG_ID = 'org-36467c8b060acf5a';
+const OLDNAVY_ORG_ID = 'org-430deef57127f23a';
 
 const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
 const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
@@ -27,6 +28,11 @@ describe('lib/kokiri/builders/commission-junction,', function() {
         status: 'approved',
         audience: 'org-XXX',
         organization: SEARS_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: OLDNAVY_ORG_ID,
       },
       {
         status: 'approved',
@@ -191,6 +197,24 @@ describe('lib/kokiri/builders/commission-junction,', function() {
           app_link: null,
           browser_link:
             'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://www.sears.com?ref=CJ1&btn_tkn=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns app action with destination path for oldnavy.gap.com', function() {
+      const b = this.config.createBuilder('org-XXX', OLDNAVY_ORG_ID);
+      assert.deepEqual(
+        b.appAction(
+          {
+            url: 'https://oldnavy.com',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'http://www.anrdoezrs.net/links/8395017/type/dlg/sid/srctok-XXX/https://oldnavy.gap.com?ref=CJ1&btn_tkn=srctok-XXX',
         }
       );
     });
