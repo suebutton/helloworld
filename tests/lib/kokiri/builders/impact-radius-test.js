@@ -6,7 +6,7 @@ const TARGET_ORG_ID = 'org-24621b367f4280bc';
 const KOHLS_ORG_ID = 'org-2ef55bcceba936bf';
 const MVMT_ORG_ID = 'org-22e0c0464157d00d';
 const BACKCOUNTRY_ORG_ID = 'org-3bec3b5c0cac44ad';
-const HOUZZ_ORG_ID = 'org-03418dec42db44bc';
+const ENTERPRISE_ORG_ID = 'org-299546bbc4e4986b';
 const COST_PLUS_WORLD_MARKET_ORG_ID = 'org-7c42436567440f84';
 const ADVANCE_AUTO_PARTS_ORG_ID = 'org-77cd55d02f3aa0fa';
 
@@ -40,7 +40,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
       {
         status: 'approved',
         audience: 'org-XXX',
-        organization: HOUZZ_ORG_ID,
+        organization: ENTERPRISE_ORG_ID,
       },
       {
         status: 'approved',
@@ -124,12 +124,16 @@ describe('lib/kokiri/builders/impact-radius', function() {
 
       assert.deepEqual(
         this.config
-          .createBuilder('org-XXX', HOUZZ_ORG_ID)
-          .appAction({ url: 'https://www.houzz.com' }, 'ios', 'srctok-XXX'),
+          .createBuilder('org-XXX', ENTERPRISE_ORG_ID)
+          .appAction(
+            { url: 'https://www.enterprise.com' },
+            'ios',
+            'srctok-XXX'
+          ),
         {
           app_link: null,
           browser_link:
-            'http://hpn.houzz.com/c/415484/372747/5454?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.houzz.com&btn_tkn=srctok-XXX',
+            'http://partners.enterprise.com/c/415484/304337/4720?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.enterprise.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -274,12 +278,16 @@ describe('lib/kokiri/builders/impact-radius', function() {
 
       assert.deepEqual(
         this.config
-          .createBuilder('org-XXX', HOUZZ_ORG_ID)
-          .webAction({ url: 'https://www.houzz.com' }, 'ios', 'srctok-XXX'),
+          .createBuilder('org-XXX', ENTERPRISE_ORG_ID)
+          .webAction(
+            { url: 'https://www.enterprise.com' },
+            'ios',
+            'srctok-XXX'
+          ),
         {
           app_link: null,
           browser_link:
-            'http://hpn.houzz.com/c/415484/372747/5454?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.houzz.com&btn_tkn=srctok-XXX',
+            'http://partners.enterprise.com/c/415484/304337/4720?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.enterprise.com&btn_tkn=srctok-XXX',
         }
       );
 
