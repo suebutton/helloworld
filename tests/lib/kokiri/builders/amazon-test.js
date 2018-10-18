@@ -164,7 +164,8 @@ describe('lib/kokiri/builders/amazon', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'com.amazon.mobile.shopping.web://www.amazon.com/b?node=17892399011&tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.amazon.com/b?node=17892399011&tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -183,7 +184,8 @@ describe('lib/kokiri/builders/amazon', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'com.amazon.mobile.shopping.web://www.amazon.com/b?node=16090799011&ref=frsh_tag_assoc&tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.amazon.com/b?node=16090799011&ref=frsh_tag_assoc&tag=ibotta09-20&ascsubtag=srctok-XXX&btn_ref=srctok-XXX',
         }
