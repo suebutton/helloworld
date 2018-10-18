@@ -24,6 +24,7 @@ describe('lib/kokiri/builders/lyft', function() {
         browser_link: null,
       });
     });
+
     it('returns an app action routing to home screen for a non /ride path for Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -41,6 +42,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action routing to home screen for a /ride path without a valid "id" for Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -58,6 +60,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action routing to home screen for a non /ride path for Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -75,6 +78,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides on iOS', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -92,6 +96,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides on Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -109,6 +114,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for premier lyft rides on iOS', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -126,6 +132,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for plus lyft rides on Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -143,6 +150,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides with pickup location on iOS', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -165,6 +173,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides with pickup location on Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -187,6 +196,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides with destination location on iOS', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -209,6 +219,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides with destination location on Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -231,6 +242,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides with pickup location & destination location on iOS', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -255,6 +267,7 @@ describe('lib/kokiri/builders/lyft', function() {
         }
       );
     });
+
     it('returns an app action for standard lyft rides with pickup location & destination location on Android', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -280,6 +293,7 @@ describe('lib/kokiri/builders/lyft', function() {
       );
     });
   });
+
   describe('#webAction', function() {
     it('returns null for web action for iOS', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {

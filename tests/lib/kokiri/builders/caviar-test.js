@@ -126,25 +126,4 @@ describe('lib/kokiri/builders/caviar', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.trycaviar.com/san-francisco/1428-haight-patio-cafe-and-creperie-2575?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/san-francisco/1428-haight-patio-cafe-and-creperie-2575',
-        query: {
-          utm_campaign: 'BEST OIL',
-        },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

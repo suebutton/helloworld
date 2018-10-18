@@ -142,23 +142,4 @@ describe('lib/kokiri/builders/drizly', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.drizly.com/kendall-jackson-chardonnay/p1297?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/kendall-jackson-chardonnay/p1297',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

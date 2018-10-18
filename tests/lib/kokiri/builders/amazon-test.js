@@ -273,26 +273,4 @@ describe('lib/kokiri/builders/amazon', function() {
       });
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.amazon.com/pet-shops-dogs-cats-hamsters-kittens/b/ref=nav_shopall_ps?ie=UTF8&node=2619533011'
-      ),
-      {
-        pathname: '/pet-shops-dogs-cats-hamsters-kittens/b/ref=nav_shopall_ps',
-        query: {
-          ie: 'UTF8',
-          node: '2619533011',
-        },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

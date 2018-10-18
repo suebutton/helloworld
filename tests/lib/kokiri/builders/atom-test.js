@@ -125,25 +125,4 @@ describe('lib/kokiri/builders/atom', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.atomtickets.com/movies/the-fate-of-the-furious/209338?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/movies/the-fate-of-the-furious/209338',
-        query: {
-          utm_campaign: 'BEST OIL',
-        },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

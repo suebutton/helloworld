@@ -467,25 +467,4 @@ describe('lib/kokiri/builders/etsy', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.etsy.com/gizmos?utm_campaign=BESTORNAMENTS'
-      ),
-      {
-        hostname: 'www.etsy.com',
-        pathname: '/gizmos',
-        query: { utm_campaign: 'BESTORNAMENTS' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      hostname: null,
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

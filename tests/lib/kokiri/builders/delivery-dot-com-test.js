@@ -64,15 +64,4 @@ describe('lib/kokiri/builders/delivery-dot-com', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl('https://delivery.com/1/2?q=2#anchor'),
-      {
-        pathname: '/1/2',
-        query: { q: '2' },
-        hash: '#anchor',
-      }
-    );
-  });
 });

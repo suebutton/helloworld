@@ -86,23 +86,4 @@ describe('lib/kokiri/builders/hungryhouse', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.hungryhouse.co.uk/italian-pizza?utm_campaign=BESTPIZZA#menu'
-      ),
-      {
-        pathname: '/italian-pizza',
-        query: { utm_campaign: 'BESTPIZZA' },
-        hash: '#menu',
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

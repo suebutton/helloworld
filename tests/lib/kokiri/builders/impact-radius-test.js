@@ -307,26 +307,4 @@ describe('lib/kokiri/builders/impact-radius', function() {
       );
     });
   });
-
-  describe('destinationFromUrl', function() {
-    it('returns a destination from a url', function() {
-      assert.deepEqual(
-        this.config
-          .createBuilder('org-XXX', COST_PLUS_WORLD_MARKET_ORG_ID)
-          .destinationFromUrl('https://www.target.com/iphone-7'),
-        {
-          url: 'https://www.target.com/iphone-7',
-        }
-      );
-
-      assert.deepEqual(
-        this.config
-          .createBuilder('org-XXX', COST_PLUS_WORLD_MARKET_ORG_ID)
-          .destinationFromUrl(''),
-        {
-          url: '',
-        }
-      );
-    });
-  });
 });

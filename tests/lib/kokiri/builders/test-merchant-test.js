@@ -46,23 +46,4 @@ describe('lib/kokiri/builders/test-merchant', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'http://lb-test-merchant-ecs-staging-1764591536.us-west-2.elb.amazonaws.com/items/p1297?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/items/p1297',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

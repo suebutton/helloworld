@@ -218,19 +218,4 @@ describe('lib/kokiri/builders/apple-retail', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.apple.com/shop/accessories/all-accessories/beats?q=2#anchor'
-      ),
-      {
-        pathname: '/shop/accessories/all-accessories/beats',
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-    });
-  });
 });

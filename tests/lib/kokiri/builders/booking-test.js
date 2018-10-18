@@ -138,23 +138,4 @@ describe('lib/kokiri/builders/booking', function() {
       });
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.booking.com/hotel/us/tuscan-inn.html?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/hotel/us/tuscan-inn.html',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

@@ -24,12 +24,14 @@ describe('lib/kokiri/builders/houzz', function() {
         browser_link: 'https://www.houzz.com?btn_ref=srctok-XXX',
       });
     });
+
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: 'houzz://?btn_ref=srctok-XXX',
         browser_link: 'https://www.houzz.com?btn_ref=srctok-XXX',
       });
     });
+
     it('returns no app action for a non-supported app path', function() {
       assert.deepEqual(
         this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
@@ -39,6 +41,7 @@ describe('lib/kokiri/builders/houzz', function() {
         }
       );
     });
+
     it('returns no app action for android for unsupported path', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -75,27 +78,6 @@ describe('lib/kokiri/builders/houzz', function() {
           browser_link: 'https://www.houzz.com/bloop?a=2&btn_ref=srctok-XXX',
         }
       );
-    });
-  });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.houzz.com/bloop?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/bloop',
-        query: {
-          utm_campaign: 'BEST OIL',
-        },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
     });
   });
 });

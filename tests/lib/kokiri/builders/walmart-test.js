@@ -234,23 +234,4 @@ describe('lib/kokiri/builders/walmart', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.walmart.com/ip/12345678?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/ip/12345678',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

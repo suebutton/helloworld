@@ -208,23 +208,4 @@ describe('lib/kokiri/builders/apple-music', function() {
       });
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.itunes.com/us/album/21/id420075073?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/us/album/21/id420075073',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

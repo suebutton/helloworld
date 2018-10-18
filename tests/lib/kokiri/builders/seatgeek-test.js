@@ -218,26 +218,4 @@ describe('lib/kokiri/builders/seatgeek', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.seatgeek.com/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname:
-          '/real-madrid-c-f-vs-manchester-united-f-c-tickets/european-soccer/2017-07-23-2-pm/3817032',
-        query: {
-          utm_campaign: 'BEST OIL',
-        },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

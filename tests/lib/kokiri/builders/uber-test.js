@@ -75,31 +75,4 @@ describe('lib/kokiri/builders/uber/', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.uber.com/?action=setPickup&pickup%5Blatitude%5D=40.7382752&pickup%5Blongitude%5D=-73.9822849&dropoff%5Blatitude%5D=40.7530763&dropoff%5Blongitude%5D=-74.0069671&pickup%5Bnickname%5D=start&dropoff%5Bnickname%5D=end'
-      ),
-      {
-        pathname: '/',
-        query: {
-          action: 'setPickup',
-          'pickup[latitude]': '40.7382752',
-          'pickup[longitude]': '-73.9822849',
-          'dropoff[latitude]': '40.7530763',
-          'dropoff[longitude]': '-74.0069671',
-          'pickup[nickname]': 'start',
-          'dropoff[nickname]': 'end',
-        },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

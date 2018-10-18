@@ -150,23 +150,4 @@ describe('lib/kokiri/builders/hoteltonight', function() {
       });
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://hoteltonight.com/bloop?utm_campaign=BESTSLEEP#sleep'
-      ),
-      {
-        pathname: '/bloop',
-        query: { utm_campaign: 'BESTSLEEP' },
-        hash: '#sleep',
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

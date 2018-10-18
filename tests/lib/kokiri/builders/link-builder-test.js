@@ -59,12 +59,16 @@ describe('lib/kokiri/builders/link-builder', function() {
   describe('#destinationFromUrl', function() {
     it('returns a destination from a url', function() {
       assert.deepEqual(this.builder.destinationFromUrl('https://bloop.net'), {
+        url: 'https://bloop.net',
+        hostname: 'bloop.net',
         pathname: '/',
         query: {},
         hash: null,
       });
 
       assert.deepEqual(this.builder.destinationFromUrl(''), {
+        url: '',
+        hostname: null,
         pathname: null,
         query: {},
         hash: null,
@@ -73,6 +77,8 @@ describe('lib/kokiri/builders/link-builder', function() {
       assert.deepEqual(
         this.builder.destinationFromUrl('https://bloop.net/1/2?q=2#anchor'),
         {
+          url: 'https://bloop.net/1/2?q=2#anchor',
+          hostname: 'bloop.net',
           pathname: '/1/2',
           query: { q: '2' },
           hash: '#anchor',
@@ -84,6 +90,8 @@ describe('lib/kokiri/builders/link-builder', function() {
       assert.deepEqual(
         this.builder.destinationFromUrl('https://bloop.bttn.io/1/2?q=2#anchor'),
         {
+          url: 'http://bloop.com/1/2?q=2#anchor',
+          hostname: 'bloop.com',
           pathname: '/1/2',
           query: { q: '2' },
           hash: '#anchor',
@@ -95,6 +103,8 @@ describe('lib/kokiri/builders/link-builder', function() {
           'https://track.bttn.io/bloop/1/2?q=2#anchor'
         ),
         {
+          url: 'http://bloop.com/1/2?q=2#anchor',
+          hostname: 'bloop.com',
           pathname: '/1/2',
           query: { q: '2' },
           hash: '#anchor',
@@ -108,6 +118,8 @@ describe('lib/kokiri/builders/link-builder', function() {
           'https://linksynergy.com?url=https%3A%2F%2Fbloop.net%2F1%2F2%3Fq%3D2%23anchor'
         ),
         {
+          url: 'https://bloop.net/1/2?q=2#anchor',
+          hostname: 'bloop.net',
           pathname: '/1/2',
           query: { q: '2' },
           hash: '#anchor',
@@ -119,6 +131,8 @@ describe('lib/kokiri/builders/link-builder', function() {
           'https://linksynergy.com/1/2/3?id=bloop'
         ),
         {
+          url: 'http://bloop.com/bleep',
+          hostname: 'bloop.com',
           pathname: '/bleep',
           query: {},
           hash: null,
@@ -126,6 +140,8 @@ describe('lib/kokiri/builders/link-builder', function() {
       );
 
       assert.deepEqual(this.builder.destinationFromUrl(''), {
+        url: '',
+        hostname: null,
         pathname: null,
         query: {},
         hash: null,
@@ -212,6 +228,8 @@ describe('lib/kokiri/builders/link-builder', function() {
           'https://www.pavel.net/1/2?q=a#hash'
         ),
         {
+          url: 'https://www.pavel.net/1/2?q=a#hash',
+          hostname: 'www.pavel.net',
           pathname: '/1/2',
           query: { q: 'a' },
           hash: '#hash',

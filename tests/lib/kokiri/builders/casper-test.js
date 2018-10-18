@@ -39,25 +39,4 @@ describe('lib/kokiri/builders/casper', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.casper.com/bloop?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/bloop',
-        query: {
-          utm_campaign: 'BEST OIL',
-        },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

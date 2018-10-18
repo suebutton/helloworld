@@ -390,6 +390,7 @@ describe('lib/kokiri/builders/ebay', function() {
         'https://ebay.com/1/2?q=2&mpre=http%3A%2F%2Fwww.ebay.com#anchor'
       ),
       {
+        url: 'https://ebay.com/1/2?q=2&mpre=http%3A%2F%2Fwww.ebay.com#anchor',
         hostname: 'ebay.com',
         pathname: '/1/2',
         query: { q: '2', mpre: 'http://www.ebay.com' },
@@ -402,6 +403,8 @@ describe('lib/kokiri/builders/ebay', function() {
         'https://www.ebay.co.uk/1/2?q=2&mpre=http%3A%2F%2Fwww.ebay.com#anchor'
       ),
       {
+        url:
+          'https://www.ebay.co.uk/1/2?q=2&mpre=http%3A%2F%2Fwww.ebay.com#anchor',
         hostname: 'www.ebay.co.uk',
         pathname: '/1/2',
         query: { q: '2', mpre: 'http://www.ebay.com' },
@@ -416,6 +419,7 @@ describe('lib/kokiri/builders/ebay', function() {
         'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
+        url: 'http://www.ebay.com/1/2?q=2#anchor',
         hostname: 'www.ebay.com',
         pathname: '/1/2',
         query: { q: '2' },
@@ -428,6 +432,7 @@ describe('lib/kokiri/builders/ebay', function() {
         'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX'
       ),
       {
+        url: 'https://ebay.com',
         hostname: 'ebay.com',
         pathname: '/',
         query: {},
@@ -440,6 +445,7 @@ describe('lib/kokiri/builders/ebay', function() {
         'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.co.uk%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
+        url: 'http://www.ebay.co.uk/1/2?q=2#anchor',
         hostname: 'www.ebay.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
@@ -448,6 +454,7 @@ describe('lib/kokiri/builders/ebay', function() {
     );
 
     assert.deepEqual(this.builder.destinationFromUrl(''), {
+      url: '',
       hostname: null,
       pathname: null,
       query: {},

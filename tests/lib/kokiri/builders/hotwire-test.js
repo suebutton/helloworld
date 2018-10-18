@@ -158,25 +158,5 @@ describe('lib/kokiri/builders/hotwire', function() {
         }
       );
     });
-    it('returns a destination from a url', function() {
-      assert.deepEqual(
-        this.builder.destinationFromUrl(
-          'https://www.hotwire.com/car-rentals?utm_campaign=BEST%20OIL'
-        ),
-        {
-          pathname: '/car-rentals',
-          query: { utm_campaign: 'BEST OIL' },
-          hash: null,
-          url: 'https://www.hotwire.com/car-rentals?utm_campaign=BEST%20OIL',
-        }
-      );
-
-      assert.deepEqual(this.builder.destinationFromUrl(''), {
-        pathname: null,
-        query: {},
-        hash: null,
-        url: '',
-      });
-    });
   });
 });

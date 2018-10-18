@@ -295,23 +295,4 @@ describe('lib/kokiri/builders/linkshare', function() {
       );
     });
   });
-
-  describe('#destinationFromUrl', function() {
-    it('returns a destination from a url', function() {
-      this.builder = this.config.createBuilder(
-        SHOPKICK_ORG_ID,
-        TECHARMOR_ORG_ID
-      );
-      assert.deepEqual(
-        this.builder.destinationFromUrl('https://www.techarmor.com/iphone-7'),
-        {
-          url: 'https://www.techarmor.com/iphone-7',
-        }
-      );
-
-      assert.deepEqual(this.builder.destinationFromUrl(''), {
-        url: '',
-      });
-    });
-  });
 });

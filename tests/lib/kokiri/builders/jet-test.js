@@ -443,23 +443,4 @@ describe('lib/kokiri/builders/jet', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/product/0147dccdb5984ec5bbbcaa2cce33022e',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

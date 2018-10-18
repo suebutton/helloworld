@@ -81,23 +81,4 @@ describe('lib/kokiri/builders/1800flowers', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.1800flowers.com/items/p1297?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/items/p1297',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

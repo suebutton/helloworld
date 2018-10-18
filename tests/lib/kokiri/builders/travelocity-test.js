@@ -313,28 +313,5 @@ describe('lib/kokiri/builders/travelocity', function() {
           'https://www.travelocity.com?AFFCID=TRAVELOCITY-US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
       });
     });
-
-    it('returns a destination from a US url', function() {
-      assert.deepEqual(
-        this.builder.destinationFromUrl(
-          'https://www.travelocity.com/hotels/us/tuscan-inn.html?utm_campaign=BEST%20OIL'
-        ),
-        {
-          hostname: 'www.travelocity.com',
-          pathname: '/hotels/us/tuscan-inn.html',
-          query: { utm_campaign: 'BEST OIL' },
-          hash: null,
-        }
-      );
-    });
-
-    it('returns a destination from a blank url', function() {
-      assert.deepEqual(this.builder.destinationFromUrl(''), {
-        hostname: null,
-        pathname: null,
-        query: {},
-        hash: null,
-      });
-    });
   });
 });

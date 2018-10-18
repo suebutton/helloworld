@@ -118,25 +118,4 @@ describe('lib/kokiri/builders/ticketmaster', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://ticketmaster.com/items/p1297?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/items/p1297',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-        url: 'https://ticketmaster.com/items/p1297?utm_campaign=BEST%20OIL',
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-      url: '',
-    });
-  });
 });

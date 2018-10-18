@@ -513,23 +513,4 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       }
     );
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl('https://www.hotels.com/1/2?q=2#anchor'),
-      {
-        hostname: 'www.hotels.com',
-        pathname: '/1/2',
-        query: { q: '2' },
-        hash: '#anchor',
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      hostname: null,
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

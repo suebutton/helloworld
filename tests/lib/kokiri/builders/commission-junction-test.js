@@ -273,19 +273,4 @@ describe('lib/kokiri/builders/commission-junction,', function() {
       );
     });
   });
-
-  describe('destinationFromUrl', function() {
-    it('returns a destination from a url', function() {
-      assert.deepEqual(
-        this.builder.destinationFromUrl('https://www.techarmor.com/iphone-7'),
-        {
-          url: 'https://www.techarmor.com/iphone-7',
-        }
-      );
-
-      assert.deepEqual(this.builder.destinationFromUrl(''), {
-        url: '',
-      });
-    });
-  });
 });

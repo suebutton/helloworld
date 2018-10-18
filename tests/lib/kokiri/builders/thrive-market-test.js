@@ -119,23 +119,4 @@ describe('lib/kokiri/builders/thrive-market', function() {
       });
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.thrivemarket.com/pet-shops-dogs?woof=true'
-      ),
-      {
-        pathname: '/pet-shops-dogs',
-        query: { woof: 'true' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

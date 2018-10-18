@@ -503,6 +503,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon.com/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor'
       ),
       {
+        url:
+          'https://groupon.com/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor',
         hostname: 'groupon.com',
         pathname: '/1/2',
         query: { q: '2', url: 'https://www.groupon.co.uk' },
@@ -515,6 +517,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon.co.uk/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor'
       ),
       {
+        url:
+          'https://groupon.co.uk/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor',
         hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2', url: 'https://www.groupon.co.uk' },
@@ -527,6 +531,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon.fr/1/2?q=2&url=https%3A%2F%2Fwww.groupon.fr#anchor'
       ),
       {
+        url:
+          'https://groupon.fr/1/2?q=2&url=https%3A%2F%2Fwww.groupon.fr#anchor',
         hostname: 'groupon.fr',
         pathname: '/1/2',
         query: { q: '2', url: 'https://www.groupon.fr' },
@@ -539,7 +545,9 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://www.groupon.co.uk/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor'
       ),
       {
-        hostname: 'groupon.co.uk',
+        url:
+          'https://www.groupon.co.uk/1/2?q=2&url=https%3A%2F%2Fwww.groupon.co.uk#anchor',
+        hostname: 'www.groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2', url: 'https://www.groupon.co.uk' },
         hash: '#anchor',
@@ -551,7 +559,8 @@ describe('lib/kokiri/builders/groupon', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl('https://groupon.bttn.io/1/2?q=2#anchor'),
       {
-        hostname: 'groupon.com',
+        url: 'http://www.groupon.com/1/2?q=2#anchor',
+        hostname: 'www.groupon.com',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -561,7 +570,8 @@ describe('lib/kokiri/builders/groupon', function() {
     assert.deepEqual(
       this.builder.destinationFromUrl('https://groupon.bttn.io/1/2?q=2#anchor'),
       {
-        hostname: 'groupon.com',
+        url: 'http://www.groupon.com/1/2?q=2#anchor',
+        hostname: 'www.groupon.com',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -573,7 +583,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://track.bttn.io/groupon/1/2?q=2#anchor'
       ),
       {
-        hostname: 'groupon.com',
+        url: 'http://www.groupon.com/1/2?q=2#anchor',
+        hostname: 'www.groupon.com',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -585,6 +596,7 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon-uk.bttn.io/1/2?q=2#anchor'
       ),
       {
+        url: 'http://groupon.co.uk/1/2?q=2#anchor',
         hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
@@ -597,6 +609,7 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon-au.bttn.io/1/2?q=2#anchor'
       ),
       {
+        url: 'http://groupon.com.au/1/2?q=2#anchor',
         hostname: 'groupon.com.au',
         pathname: '/1/2',
         query: { q: '2' },
@@ -609,6 +622,7 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://groupon-uk.bttn.io/1/2?q=2#anchor'
       ),
       {
+        url: 'http://groupon.co.uk/1/2?q=2#anchor',
         hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
@@ -621,6 +635,7 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://track.bttn.io/groupon-uk/1/2?q=2#anchor'
       ),
       {
+        url: 'http://groupon.co.uk/1/2?q=2#anchor',
         hostname: 'groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
@@ -635,7 +650,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://t.groupon.co.uk/r?tsToken=UK_AFF_0_209099_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
-        hostname: 'groupon.co.uk',
+        url: 'https://www.groupon.co.uk/1/2?q=2#anchor',
+        hostname: 'www.groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -647,7 +663,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://t.groupon.com.au/r?tsToken=AU_AFF_0_209099_533_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.com.au%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
-        hostname: 'groupon.com.au',
+        url: 'https://www.groupon.com.au/1/2?q=2#anchor',
+        hostname: 'www.groupon.com.au',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -659,7 +676,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://t.groupon.fr/r?tsToken=FR_AFF_0_209099_512_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.fr%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
-        hostname: 'groupon.fr',
+        url: 'https://www.groupon.fr/1/2?q=2#anchor',
+        hostname: 'www.groupon.fr',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -671,7 +689,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://tracking.groupon.com/r?tsToken=UK_AFF_0_209099_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
-        hostname: 'groupon.com',
+        url: 'https://www.groupon.co.uk/1/2?q=2#anchor',
+        hostname: 'www.groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -683,7 +702,8 @@ describe('lib/kokiri/builders/groupon', function() {
         'https://www.tracking.groupon.com/r?tsToken=UK_AFF_0_209099_531_0&sid=srctok-XXX&url=https%3A%2F%2Fwww.groupon.co.uk%2F1%2F2%3Fq%3D2%23anchor'
       ),
       {
-        hostname: 'groupon.com',
+        url: 'https://www.groupon.co.uk/1/2?q=2#anchor',
+        hostname: 'www.groupon.co.uk',
         pathname: '/1/2',
         query: { q: '2' },
         hash: '#anchor',
@@ -691,10 +711,11 @@ describe('lib/kokiri/builders/groupon', function() {
     );
 
     assert.deepEqual(this.builder.destinationFromUrl(''), {
+      url: '',
       pathname: null,
       query: {},
       hash: null,
-      hostname: '',
+      hostname: null,
     });
   });
 });

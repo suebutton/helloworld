@@ -258,23 +258,4 @@ describe('lib/kokiri/builders/boxed', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.boxed.com/products/category/137/lifestyle/?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/products/category/137/lifestyle/',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });

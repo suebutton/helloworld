@@ -91,23 +91,4 @@ describe('lib/kokiri/builders/modcloth', function() {
       );
     });
   });
-
-  it('returns a destination from a url', function() {
-    assert.deepEqual(
-      this.builder.destinationFromUrl(
-        'https://www.modcloth.com/shop/pants/?utm_campaign=BEST%20OIL'
-      ),
-      {
-        pathname: '/shop/pants/',
-        query: { utm_campaign: 'BEST OIL' },
-        hash: null,
-      }
-    );
-
-    assert.deepEqual(this.builder.destinationFromUrl(''), {
-      pathname: null,
-      query: {},
-      hash: null,
-    });
-  });
 });
