@@ -4,6 +4,7 @@ const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
 const EBAY_ORG_ID = 'org-5d63b849c1d24db2';
 const SHOPKICK_ORG_ID = 'org-030575eddb72b4df';
+const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
 
 describe('lib/kokiri/builders/ebay', function() {
   beforeEach(function() {
@@ -16,6 +17,11 @@ describe('lib/kokiri/builders/ebay', function() {
       {
         status: 'approved',
         audience: SHOPKICK_ORG_ID,
+        organization: EBAY_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: IBOTTA_ORG_ID,
         organization: EBAY_ORG_ID,
       },
     ];
@@ -45,6 +51,16 @@ describe('lib/kokiri/builders/ebay', function() {
         partner_parameter: '54321',
         value: '5338106664',
         organization: SHOPKICK_ORG_ID,
+      },
+      {
+        partner_parameter: '12345',
+        value: '5575211063',
+        organization: IBOTTA_ORG_ID,
+      },
+      {
+        partner_parameter: '54321',
+        value: '5337936547',
+        organization: IBOTTA_ORG_ID,
       },
     ];
 
@@ -184,6 +200,102 @@ describe('lib/kokiri/builders/ebay', function() {
       const builder = this.config.createBuilder(SHOPKICK_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(
         builder.appAction({ hostname: 'www.ebay.com' }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575309782%26campid%3D5338106664%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575309782&campid=5338106664&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for Ibotta when Campaign ID is passed in the incoming URL', function() {
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
+      assert.deepEqual(
+        builder.appAction(
+          {
+            hostname: 'www.ebay.com',
+            query: {
+              campid: '123',
+            },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D123%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=123&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action with Ibotta default Par Par value when Campaign ID is not passed in the incoming URL', function() {
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
+      assert.deepEqual(
+        builder.appAction({ hostname: 'www.ebay.com' }, 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action with Ibotta default Par Par value when Campaign ID passed, but with a non-whitelisted value in the incoming URL', function() {
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
+      assert.deepEqual(
+        builder.appAction(
+          { hostname: 'www.ebay.com', query: { campid: '987' } },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action with Ibotta default Par Par value when non-Campaign ID key is passed in the incoming URL', function() {
+      const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
+      assert.deepEqual(
+        builder.appAction(
+          {
+            hostname: 'www.ebay.com',
+            query: {
+              pub: 'pavel',
+            },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action without pass through Campaign ID value for publisher not in whitelist', function() {
+      const builder = this.config.createBuilder(SHOPKICK_ORG_ID, EBAY_ORG_ID);
+      assert.deepEqual(
+        builder.appAction(
+          {
+            hostname: 'www.ebay.com',
+            query: {
+              campid: '123',
+            },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link:
             'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575309782%26campid%3D5338106664%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
