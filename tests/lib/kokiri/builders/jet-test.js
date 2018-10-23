@@ -307,6 +307,61 @@ describe('lib/kokiri/builders/jet', function() {
         }
       );
     });
+
+    it('returns an app action for category page', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/c/category/subcategory/getting/crazy',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'jet://c/category/subcategory/getting/crazy?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.jet.com/c/category/subcategory/getting/crazy?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/c/category/subcategory/getting/crazy/android',
+            query: { experienceId: 100 },
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'jet://c/category/subcategory/getting/crazy/android?experienceId=100&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.jet.com/c/category/subcategory/getting/crazy/android?experienceId=100&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/c/category/subcategory/getting/crazy/android',
+            query: {},
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.jet.com/c/category/subcategory/getting/crazy/android?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
