@@ -291,6 +291,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           },
         }
       );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://hpn.houzz.com/c/10579/413871/5454?SubID1=ebs1988675508sbe',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'hpn.houzz.com/c/10579/413871/5454?',
+          affiliate: {
+            hostname: 'hpn.houzz.com',
+            display_name: 'Impact Radius',
+            query_url_keys: [],
+          },
+        }
+      );
     });
 
     it('returns redirect information about a matching link and drops the correct parameter', function() {
@@ -725,6 +741,18 @@ describe('/lib/kokiri/kokiri-adapter', function() {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
                 regex: String.raw`^\/?(?:cread|pclick)\.php(?:$|\/.*)`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'hpn.houzz.com',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+                regex: String.raw`^\/?c\/[0-9]+\/[0-9]+\/[0-9]+(?:$|\/)`,
               },
             ],
             query_ids: [],
