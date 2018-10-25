@@ -32,17 +32,17 @@ describe('lib/kokiri/builders/houzz', function() {
       });
     });
 
-    it('returns no app action for a non-supported app path', function() {
+    it('returns an app action for any path', function() {
       assert.deepEqual(
         this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
         {
-          app_link: null,
+          app_link: 'houzz:///bloop?btn_ref=srctok-XXX',
           browser_link: 'https://www.houzz.com/bloop?btn_ref=srctok-XXX',
         }
       );
     });
 
-    it('returns no app action for android for unsupported path', function() {
+    it('returns an app action for android for any path', function() {
       assert.deepEqual(
         this.builder.appAction(
           { pathname: '/dogs-of-button' },
@@ -50,7 +50,7 @@ describe('lib/kokiri/builders/houzz', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link: 'houzz:///dogs-of-button?btn_ref=srctok-XXX',
           browser_link:
             'https://www.houzz.com/dogs-of-button?btn_ref=srctok-XXX',
         }
