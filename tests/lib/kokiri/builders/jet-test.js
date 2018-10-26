@@ -326,7 +326,9 @@ describe('lib/kokiri/builders/jet', function() {
             'https://www.jet.com/c/category/subcategory/getting/crazy?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         }
       );
+    });
 
+    it('returns no app action for category page on android', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
@@ -338,8 +340,7 @@ describe('lib/kokiri/builders/jet', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'jet://c/category/subcategory/getting/crazy/android?experienceId=100&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://www.jet.com/c/category/subcategory/getting/crazy/android?experienceId=100&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         }
