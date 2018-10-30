@@ -262,6 +262,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
+          'http://www.jdoqocy.com/click-46157-13482117-1539120008000?sid=ebs1998890988sbe',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'www.jdoqocy.com/click-46157-13482117-1539120008000',
+          affiliate: {
+            hostname: 'jdoqocy.com',
+            display_name: 'CJ',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
           'http://www.shareasale.com/r.cfm?u=687298&b=478961&m=47174&urllink=https%3A%2F%2Fwww.warbyparker.com%2Feyeglasses%2Fwomen%2Feugene-small%2Frosewood-tortoise&afftrack=.MTY1MzcyLTE5NDg.491a539b-b2c8-11e8-b31a-4f869940b2fe',
           'org-XXX'
         ),
@@ -662,7 +678,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:-[0-9]+)?(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -674,7 +690,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:-[0-9]+)?(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -686,7 +702,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:-[0-9]+)?(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -698,7 +714,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:-[0-9]+)?(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -710,7 +726,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:-[0-9]+)?(?:$|\/)`,
               },
             ],
             query_ids: [],
@@ -722,7 +738,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:$|\/)`,
+                regex: String.raw`^\/?click-[0-9]+-[0-9]+(?:-[0-9]+)?(?:$|\/)`,
               },
             ],
             query_ids: [],
