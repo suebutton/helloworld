@@ -145,8 +145,7 @@ describe('lib/kokiri/builders/jet', function() {
           'srctok-XXX'
         ),
         {
-          app_link:
-            'jet://product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          app_link: null,
           browser_link:
             'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         }
