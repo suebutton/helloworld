@@ -158,9 +158,10 @@ describe('lib/kokiri/builders/walmart', function() {
   describe('#webAction', function() {
     it('returns a web action for ios', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: null,
+        app_link:
+          'https://walmart.bttn.io?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.walmart.com/home?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+          'https://www.walmart.com?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
       });
     });
 
@@ -172,7 +173,8 @@ describe('lib/kokiri/builders/walmart', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'https://walmart.bttn.io/ip/Time-and-Tru-Women-s-Mid-Boot/930124420?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
           browser_link:
             'https://www.walmart.com/ip/Time-and-Tru-Women-s-Mid-Boot/930124420?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
@@ -212,7 +214,8 @@ describe('lib/kokiri/builders/walmart', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'https://walmart.bttn.io?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
           browser_link:
             'https://www.walmart.com/cp/smart-home/122987?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
@@ -227,7 +230,8 @@ describe('lib/kokiri/builders/walmart', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'https://walmart.bttn.io/bloop?a=2&sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
           browser_link:
             'https://www.walmart.com/bloop?a=2&sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
