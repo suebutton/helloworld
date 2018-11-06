@@ -21,7 +21,7 @@ describe('lib/kokiri/builders/cheapoair', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'fpinapp://cheapoair?FpAffiliate=Button&t=f&tt=1&btn_ref=srctok-XXX',
+          'fpinapp://cheapoair/remotesearchhandler?FpAffiliate=Button&t=f&tt=1&btn_ref=srctok-XXX',
         browser_link:
           'https://m.cheapoair.com?FpAffiliate=Button&btn_ref=srctok-XXX',
       });
@@ -69,7 +69,7 @@ describe('lib/kokiri/builders/cheapoair', function() {
       );
     });
 
-    it('returns null app action with unsupported destination', function() {
+    it('returns app action for unsupported destination', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
@@ -81,7 +81,8 @@ describe('lib/kokiri/builders/cheapoair', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'fpinapp://cheapoair/remotesearchhandler?FpAffiliate=Button&t=f&tt=1&btn_ref=srctok-XXX',
           browser_link:
             'https://m.cheapoair.com/hotels?FpAffiliate=Button&btn_ref=srctok-XXX',
         }
