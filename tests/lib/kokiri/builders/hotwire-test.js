@@ -55,7 +55,7 @@ describe('lib/kokiri/builders/hotwire', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'hotwireapp://?nwid=Bt&siteid=007&btn_ref=srctok-XXX',
+          app_link: 'hotwireapp://?nwid=Bt&siteID=007&btn_ref=srctok-XXX',
           browser_link:
             'http://partners.hotwire.com/c/415484/205226/3435?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.hotwire.com&btn_tkn=srctok-XXX',
         }
@@ -70,7 +70,7 @@ describe('lib/kokiri/builders/hotwire', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'hotwireapp://?nwid=Bt&siteid=007&btn_ref=srctok-XXX',
+          app_link: 'hotwireapp://?nwid=Bt&siteID=007&btn_ref=srctok-XXX',
           browser_link:
             'http://partners.hotwire.com/c/415484/205226/3435?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.hotwire.com&btn_tkn=srctok-XXX',
         }
@@ -96,15 +96,15 @@ describe('lib/kokiri/builders/hotwire', function() {
       assert.deepEqual(
         this.builder.appAction(
           this.builder.getDestinationFromUrl(
-            'https://www.hotwire.com?siteid=doughnuts&nwid=apples'
+            'https://www.hotwire.com?siteID=doughnuts&nwid=apples'
           ),
           'ios',
           'srctok-XXX'
         ),
         {
-          app_link: 'hotwireapp://?siteid=007&nwid=Bt&btn_ref=srctok-XXX',
+          app_link: 'hotwireapp://?siteID=007&nwid=Bt&btn_ref=srctok-XXX',
           browser_link:
-            'http://partners.hotwire.com/c/415484/205226/3435?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.hotwire.com%3Fsiteid%3Ddoughnuts%26nwid%3Dapples&btn_tkn=srctok-XXX',
+            'http://partners.hotwire.com/c/415484/205226/3435?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.hotwire.com%3FsiteID%3Ddoughnuts%26nwid%3Dapples&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -118,7 +118,7 @@ describe('lib/kokiri/builders/hotwire', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'hotwireapp://?nwid=Bt&siteid=100&btn_ref=srctok-XXX',
+          app_link: 'hotwireapp://?nwid=Bt&siteID=100&btn_ref=srctok-XXX',
           browser_link:
             'http://partners.hotwire.com/c/415484/205226/3435?subId1=srctok-XXX&subId2=org-2d432a88b9bb8bda&sharedid=org-2d432a88b9bb8bda&u=https%3A%2F%2Fwww.hotwire.com&btn_tkn=srctok-XXX',
         }
@@ -136,7 +136,7 @@ describe('lib/kokiri/builders/hotwire', function() {
         ),
         {
           app_link:
-            'https://hotwire.bttn.io?nwid=Bt&siteid=007&btn_ref=srctok-XXX',
+            'https://hotwire.bttn.io?nwid=Bt&siteID=007&btn_ref=srctok-XXX',
           browser_link:
             'http://partners.hotwire.com/c/415484/205226/3435?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.hotwire.com&btn_tkn=srctok-XXX',
         }
@@ -152,7 +152,7 @@ describe('lib/kokiri/builders/hotwire', function() {
         ),
         {
           app_link:
-            'https://hotwire.bttn.io?nwid=Bt&siteid=007&btn_ref=srctok-XXX',
+            'https://hotwire.bttn.io?nwid=Bt&siteID=007&btn_ref=srctok-XXX',
           browser_link:
             'http://partners.hotwire.com/c/415484/205226/3435?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.hotwire.com&btn_tkn=srctok-XXX',
         }
