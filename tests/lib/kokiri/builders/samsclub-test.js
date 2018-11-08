@@ -80,6 +80,45 @@ describe('lib/kokiri/builders/samsclub', function() {
         }
       );
     });
+
+    it('returns no app action for product on ios', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/sams/red-delicious-apples-12-pack/prod20181218.ip',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://m.samsclub.com/sams/red-delicious-apples-12-pack/prod20181218.ip?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for product on android', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/sams/red-delicious-apples-12-pack/prod20181218.ip',
+            query: {},
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://app.samsclub.com/product?id=prod20181218&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.samsclub.com/sams/red-delicious-apples-12-pack/prod20181218.ip?btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
