@@ -230,6 +230,56 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
+          'https://prf.hn/click/camref:1011l4Qa/pubref:ebs2001612267sbe/creativeref:1101l28938',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'prf.hn/creativeref:1101l28938',
+          affiliate: {
+            hostname: 'prf.hn',
+            display_name: 'PHG',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://prf.hn/click/camref:1011l4Qa/pubref:ebs2001654246sbe/destination:https%3A%2F%2Fwww.expedia.com%2Fg%2Fu%2Fcalifornia',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey:
+            'prf.hn/destination:https%3A%2F%2Fwww.expedia.com%2Fg%2Fu%2Fcalifornia',
+          affiliate: {
+            hostname: 'prf.hn',
+            display_name: 'PHG',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://aos.prf.hn/click/camref:1011l4Qa/pubref:ebs2001654240sbe/destination:https%3A%2F%2Fwww.expedia.com%2Fg%2Fu%2Fcruisedeals',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey:
+            'aos.prf.hn/destination:https%3A%2F%2Fwww.expedia.com%2Fg%2Fu%2Fcruisedeals',
+          affiliate: {
+            hostname: 'aos.prf.hn',
+            display_name: 'PHG',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
           'http://www.anrdoezrs.net/click-46157-12264133',
           'org-XXX'
         ),
@@ -625,6 +675,30 @@ describe('/lib/kokiri/kokiri-adapter', function() {
                 regex: String.raw`(?:^|\/)(?:\w{1,}-)?visit\/(\d{1,})(?:$|\/.*)`,
                 guaranteed_action: true,
                 matches: [{ values: ['244'] }],
+              },
+            ],
+          },
+          {
+            hostname: 'prf.hn',
+            query_url_keys: [],
+            query_ids: [],
+            pathname_ids: [
+              {
+                regex: String.raw`(?:^|\/)click\/camref:[^/]+\/pubref:[^/]+\/(?:creativeref|destination):.+`,
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+              },
+            ],
+          },
+          {
+            hostname: 'aos.prf.hn',
+            query_url_keys: [],
+            query_ids: [],
+            pathname_ids: [
+              {
+                regex: String.raw`(?:^|\/)click\/camref:[^/]+\/pubref:[^/]+\/(?:creativeref|destination):.+`,
+                guaranteed_action: false,
+                matches: [{ values: [] }],
               },
             ],
           },
