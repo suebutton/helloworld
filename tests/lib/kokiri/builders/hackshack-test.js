@@ -29,14 +29,14 @@ describe('lib/kokiri/builders/hackshack', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'hackshack://?btn_ref=srctok-XXX',
-        browser_link: 'https://hackshack.app?btn_ref=srctok-XXX',
+        browser_link: 'https://www.hackshack.app?btn_ref=srctok-XXX',
       });
     });
 
     it('returns an app action for android', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: 'hackshack://?btn_ref=srctok-XXX',
-        browser_link: 'https://hackshack.app?btn_ref=srctok-XXX',
+        browser_link: 'https://www.hackshack.app?btn_ref=srctok-XXX',
       });
     });
 
@@ -45,7 +45,7 @@ describe('lib/kokiri/builders/hackshack', function() {
         this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
         {
           app_link: 'hackshack:///bloop?btn_ref=srctok-XXX',
-          browser_link: 'https://hackshack.app/bloop?btn_ref=srctok-XXX',
+          browser_link: 'https://www.hackshack.app/bloop?btn_ref=srctok-XXX',
         }
       );
     });
@@ -55,7 +55,7 @@ describe('lib/kokiri/builders/hackshack', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: 'https://hackshack.bttn.io?btn_ref=srctok-XXX',
-        browser_link: 'https://hackshack.app?btn_ref=srctok-XXX',
+        browser_link: 'https://www.hackshack.app?btn_ref=srctok-XXX',
       });
     });
 
@@ -68,7 +68,8 @@ describe('lib/kokiri/builders/hackshack', function() {
         ),
         {
           app_link: 'https://hackshack.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
-          browser_link: 'https://hackshack.app/bloop?a=2&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.hackshack.app/bloop?a=2&btn_ref=srctok-XXX',
         }
       );
     });
