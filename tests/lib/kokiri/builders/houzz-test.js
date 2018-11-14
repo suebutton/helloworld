@@ -61,7 +61,8 @@ describe('lib/kokiri/builders/houzz', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://houzz.bttn.io?btn_ref=srctok-XXX',
+        app_link:
+          'https://houzz.bttn.io?btn_fallback_exp=web&btn_ref=srctok-XXX',
         browser_link: 'https://www.houzz.com?btn_ref=srctok-XXX',
       });
     });
@@ -74,7 +75,8 @@ describe('lib/kokiri/builders/houzz', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://houzz.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
+          app_link:
+            'https://houzz.bttn.io/bloop?a=2&btn_fallback_exp=web&btn_ref=srctok-XXX',
           browser_link: 'https://www.houzz.com/bloop?a=2&btn_ref=srctok-XXX',
         }
       );
