@@ -381,7 +381,7 @@ describe('lib/kokiri/builders/ebay', function() {
       );
     });
 
-    it('returns no app action for web pages only links', function() {
+    it('returns homepage app action for non product, non item links', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
@@ -392,9 +392,27 @@ describe('lib/kokiri/builders/ebay', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Frpp%252Fcomputers-networking&btn_ref=srctok-XXX',
           browser_link:
             'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Frpp%2Fcomputers-networking&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            hostname: 'www.ebay.com',
+            pathname: '/rpp/eBay-today/VQ-110118-Fall-Garage-Holiday',
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Frpp%252FeBay-today%252FVQ-110118-Fall-Garage-Holiday&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Frpp%2FeBay-today%2FVQ-110118-Fall-Garage-Holiday&btn_ref=srctok-XXX',
         }
       );
     });
