@@ -56,6 +56,20 @@ describe('lib/kokiri/builders/houzz', function() {
         }
       );
     });
+
+    it('returns an app action for UK TLD', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          { hostname: 'www.houzz.co.uk' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'houzz://?btn_ref=srctok-XXX',
+          browser_link: 'https://www.houzz.co.uk?btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
@@ -65,6 +79,20 @@ describe('lib/kokiri/builders/houzz', function() {
           'https://houzz.bttn.io?btn_fallback_exp=web&btn_ref=srctok-XXX',
         browser_link: 'https://www.houzz.com?btn_ref=srctok-XXX',
       });
+    });
+
+    it('returns a web action for UK TLD', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { hostname: 'www.houzz.co.uk' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'https://houzz.bttn.io?btn_fallback_exp=web&btn_ref=srctok-XXX',
+          browser_link: 'https://www.houzz.co.uk?btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns a web action with destination', function() {
