@@ -366,6 +366,44 @@ describe('lib/kokiri/lib', function() {
         'https://pavel.net?btn_tkn=srctok-XXX#anchor'
       );
     });
+
+    it('preserves ordering if the link is already attributed', function() {
+      assert.deepEqual(
+        attributeLink(
+          'https://pavel.net?btn_ref=1234&a=2&b=3',
+          'srctok-XXX',
+          true
+        ),
+        'https://pavel.net?btn_ref=srctok-XXX&a=2&b=3'
+      );
+
+      assert.deepEqual(
+        attributeLink(
+          'https://pavel.net?a=2&btn_ref=1234&b=3',
+          'srctok-XXX',
+          true
+        ),
+        'https://pavel.net?a=2&btn_ref=srctok-XXX&b=3'
+      );
+
+      assert.deepEqual(
+        attributeLink(
+          'https://pavel.net?a=2&b=3&btn_ref=1234',
+          'srctok-XXX',
+          true
+        ),
+        'https://pavel.net?a=2&b=3&btn_ref=srctok-XXX'
+      );
+
+      assert.deepEqual(
+        attributeLink(
+          'https://pavel.net?a=2&b=3&btn_tkn=1234&btn_ref=1234',
+          'srctok-XXX',
+          true
+        ),
+        'https://pavel.net?a=2&b=3&btn_ref=srctok-XXX'
+      );
+    });
   });
 
   describe('#urlCacheKey', function() {
