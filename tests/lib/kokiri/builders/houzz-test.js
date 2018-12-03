@@ -89,7 +89,8 @@ describe('lib/kokiri/builders/houzz', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://houzz.bttn.io?btn_fallback_exp=web&btn_ref=srctok-XXX',
+          app_link:
+            'https://houzz.bttn.io?btn_fallback_exp=web&btn_ref=srctok-XXX',
           browser_link: 'https://www.houzz.co.uk?btn_ref=srctok-XXX',
         }
       );
