@@ -50,7 +50,7 @@ describe('lib/kokiri/builders/zulily', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'zulily://action.show/newToday?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
+          'zulily://action.show/view/newToday?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
         browser_link:
           'https://www.zulily.com?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
       });
@@ -77,7 +77,7 @@ describe('lib/kokiri/builders/zulily', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, ZULILY_ORG_ID);
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'zulily://action.show/newToday?tid=33175671_srctok-XXX_org-2d432a88b9bb8bda_ibotta_&btn_ref=srctok-XXX',
+          'zulily://action.show/view/newToday?tid=33175671_srctok-XXX_org-2d432a88b9bb8bda_ibotta_&btn_ref=srctok-XXX',
         browser_link:
           'https://www.zulily.com?tid=33175671_srctok-XXX_org-2d432a88b9bb8bda_ibotta_&btn_ref=srctok-XXX',
       });
