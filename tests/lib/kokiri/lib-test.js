@@ -10,6 +10,7 @@ const {
   isHostnameMatch,
   isArrayMatch,
   normalizeHostname,
+  normalizeUrl,
   attributeLink,
   urlCacheKey,
   orderedQuery,
@@ -299,6 +300,20 @@ describe('lib/kokiri/lib', function() {
         normalizeHostname('www.BLEEP.www.BLEEP.bloop.com'),
         'bleep.www.bleep.bloop.com'
       );
+    });
+  });
+
+  describe('#normalizeUrl', function() {
+    it('prepends a protocol if not specified', function() {
+      assert.deepEqual(normalizeUrl('http://bleep.com'), 'http://bleep.com');
+
+      assert.deepEqual(
+        normalizeUrl('http://www.bleep.com'),
+        'http://www.bleep.com'
+      );
+
+      assert.deepEqual(normalizeUrl('bleep.com'), 'https://bleep.com');
+      assert.deepEqual(normalizeUrl('bleep'), 'https://bleep');
     });
   });
 
