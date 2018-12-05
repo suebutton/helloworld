@@ -202,7 +202,8 @@ describe('lib/kokiri/builders/zulily', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: null,
+        app_link:
+          'https://zulily.bttn.io/action.show/view/newToday?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
         browser_link:
           'https://www.zulily.com?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
       });
@@ -230,7 +231,8 @@ describe('lib/kokiri/builders/zulily', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'https://zulily.bttn.io/action.show/product?productId=0000&eventId=2012&tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
           browser_link:
             'https://www.zulily.com/p/2012-0000.html?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
         }
@@ -240,7 +242,8 @@ describe('lib/kokiri/builders/zulily', function() {
       assert.deepEqual(
         this.builder.webAction({ pathname: '/girls' }, 'ios', 'srctok-XXX'),
         {
-          app_link: null,
+          app_link:
+            'https://zulily.bttn.io/action.show/view/category/girls?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
           browser_link:
             'https://www.zulily.com/girls?tid=33175671_srctok-XXX_org-XXX_button_&btn_ref=srctok-XXX',
         }
