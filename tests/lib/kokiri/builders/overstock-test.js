@@ -59,42 +59,49 @@ describe('lib/kokiri/builders/overstock', function() {
 
   describe('#appAction', function() {
     it('returns an app action', function() {
-      assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
-        browser_link:
-          'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
-      });
-    });
-
-    it('returns an app action for android', function() {
-      assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
-        app_link:
-          'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
-        browser_link:
-          'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
-      });
-    });
-
-    it('returns empty app action for non home page requests and browser action overrides affliaition parameters', function() {
       assert.deepEqual(
         this.builder.appAction(
-          {
-            pathname: '/item/p1297',
-            query: {
-              a: 2,
-              siteId: 'pavel',
-              SID: 'pavel',
-              CID: 'pavel',
-              btn_aff: 'pavel',
-            },
-            hash: null,
-          },
+          this.builder.getDestinationFromUrl('https://www.overstock.com'),
           'ios',
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for android', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          this.builder.getDestinationFromUrl('https://www.overstock.com'),
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns empty app action for non home page requests and browser action overrides affiliation parameters', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          this.builder.getDestinationFromUrl(
+            'https://www.overstock.com/item/p1297?a=2&siteId=pavel&SID=pavel&CID=pavel&btn_aff=pavel'
+          ),
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ostk://www.overstock.com/item/p1297?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.overstock.com/item/p1297?a=2&siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
         }
@@ -104,19 +111,9 @@ describe('lib/kokiri/builders/overstock', function() {
     it('returns app action overriding affiliation parameters', function() {
       assert.deepEqual(
         this.builder.appAction(
-          {
-            query: {
-              a: 2,
-              siteId: 'pavel',
-              SID: 'pavel',
-              CID: 'pavel',
-              PID: 'pavel',
-              AID: 'pavel',
-              affproviderId: 'pavel',
-              btn_aff: 'pavel',
-            },
-            hash: null,
-          },
+          this.builder.getDestinationFromUrl(
+            'https://www.overstock.com?a=2&siteId=pavel&SID=pavel&CID=pavel&PID=pavel&AID=pavel&affproviderId=pavel&btn_aff=pavel'
+          ),
           'ios',
           'srctok-XXX'
         ),
@@ -134,34 +131,69 @@ describe('lib/kokiri/builders/overstock', function() {
         SHOPKICK_ORG_ID,
         OVERSTOCK_ORG_ID
       );
-      assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=276097&btn_aff=Shopkick&btn_ref=srctok-XXX',
-        browser_link:
-          'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=276097&btn_aff=Shopkick&btn_ref=srctok-XXX',
-      });
+      assert.deepEqual(
+        builder.appAction(
+          this.builder.getDestinationFromUrl('https://www.overstock.com'),
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ostk://www.overstock.com/home?PID=12345&AID=55555&affproviderId=4&CID=276097&btn_aff=Shopkick&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=276097&btn_aff=Shopkick&btn_ref=srctok-XXX',
+        }
+      );
     });
   });
 
   describe('#webAction', function() {
     it('returns a web action', function() {
-      assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link:
-          'https://overstock.bttn.io/home?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
-        browser_link:
-          'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
-      });
+      assert.deepEqual(
+        this.builder.webAction(
+          this.builder.getDestinationFromUrl('https://www.overstock.com'),
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://overstock.bttn.io/home?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.overstock.com?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for a product page', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          this.builder.getDestinationFromUrl(
+            'https://www.overstock.com/Jewelry-Watches/4/store.html'
+          ),
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://overstock.bttn.io/Jewelry-Watches/4/store.html?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.overstock.com/Jewelry-Watches/4/store.html?siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
+        }
+      );
     });
 
     it('returns a web action with destination', function() {
       assert.deepEqual(
         this.builder.webAction(
-          { pathname: '/bloop', query: { a: 2 } },
+          this.builder.getDestinationFromUrl(
+            'https://www.overstock.com/bloop?a=2'
+          ),
           'ios',
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'https://overstock.bttn.io/bloop?PID=12345&AID=55555&affproviderId=4&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.overstock.com/bloop?a=2&siteId=4&SID=srctok-XXX&CID=260521&btn_aff=Button&btn_ref=srctok-XXX',
         }
