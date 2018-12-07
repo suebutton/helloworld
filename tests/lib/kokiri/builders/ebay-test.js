@@ -69,14 +69,15 @@ describe('lib/kokiri/builders/ebay', function() {
       partnerParameters,
       partnerValues,
     });
+
     this.builder = this.config.createBuilder('org-XXX', EBAY_ORG_ID);
   });
 
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          { hostname: 'www.ebay.com' },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com',
           'ios',
           'srctok-XXX'
         ),
@@ -91,7 +92,11 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action with no www', function() {
       assert.deepEqual(
-        this.builder.appAction({ hostname: 'ebay.co.uk' }, 'ios', 'srctok-XXX'),
+        this.builder.appActionFromUrl(
+          'https://ebay.co.uk',
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link:
             'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F710-53481-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Febay.co.uk&btn_ref=srctok-XXX',
@@ -103,21 +108,27 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action with a non-.com TLD not in our allowable list', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          { hostname: 'www.ebay.usa' },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.usa',
           'ios',
           'srctok-XXX'
         ),
         {
-          app_link: null,
-          browser_link: null,
+          app_link:
+            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action with no www', function() {
       assert.deepEqual(
-        this.builder.appAction({ hostname: 'ebay.co.uk' }, 'ios', 'srctok-XXX'),
+        this.builder.appActionFromUrl(
+          'https://ebay.co.uk',
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link:
             'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F710-53481-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Febay.co.uk&btn_ref=srctok-XXX',
@@ -129,8 +140,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action with non-.com TLD', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          { hostname: 'www.ebay.co.uk' },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.co.uk',
           'ios',
           'srctok-XXX'
         ),
@@ -145,7 +156,11 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action for m.ebay.com links', function() {
       assert.deepEqual(
-        this.builder.appAction({ hostname: 'm.ebay.com' }, 'ios', 'srctok-XXX'),
+        this.builder.appActionFromUrl(
+          'https://m.ebay.com',
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link:
             'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
@@ -157,8 +172,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action for m.ebay.co.uk links', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          { hostname: 'm.ebay.co.uk' },
+        this.builder.appActionFromUrl(
+          'https://m.ebay.co.uk',
           'ios',
           'srctok-XXX'
         ),
@@ -173,17 +188,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action overriding affiliation parameters', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            query: {
-              ff3: 'pavel',
-              toolid: 'pavel',
-              pub: 'pavel',
-              campid: 'pavel',
-              customid: 'pavel',
-            },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com?ff3=pavel&toolid=pavel&pub=pavel&campid=pavel&customid=pavel',
           'ios',
           'srctok-XXX'
         ),
@@ -199,7 +205,7 @@ describe('lib/kokiri/builders/ebay', function() {
     it('returns an app action with per-publisher tokens', function() {
       const builder = this.config.createBuilder(SHOPKICK_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(
-        builder.appAction({ hostname: 'www.ebay.com' }, 'ios', 'srctok-XXX'),
+        builder.appActionFromUrl('https://www.ebay.com', 'ios', 'srctok-XXX'),
         {
           app_link:
             'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575309782%26campid%3D5338106664%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
@@ -212,13 +218,8 @@ describe('lib/kokiri/builders/ebay', function() {
     it('returns an app action for Ibotta when Campaign ID is passed in the incoming URL', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(
-        builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            query: {
-              campid: '5338414862',
-            },
-          },
+        builder.appActionFromUrl(
+          'https://www.ebay.com?campid=5338414862',
           'ios',
           'srctok-XXX'
         ),
@@ -234,7 +235,7 @@ describe('lib/kokiri/builders/ebay', function() {
     it('returns an app action with Ibotta default Par Par value when Campaign ID is not passed in the incoming URL', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(
-        builder.appAction({ hostname: 'www.ebay.com' }, 'ios', 'srctok-XXX'),
+        builder.appActionFromUrl('https://www.ebay.com', 'ios', 'srctok-XXX'),
         {
           app_link:
             'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com&btn_ref=srctok-XXX',
@@ -247,8 +248,8 @@ describe('lib/kokiri/builders/ebay', function() {
     it('returns an app action with Ibotta default Par Par value when Campaign ID passed, but with a non-whitelisted value in the incoming URL', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(
-        builder.appAction(
-          { hostname: 'www.ebay.com', query: { campid: '987' } },
+        builder.appActionFromUrl(
+          'https://www.ebay.com?campid=987',
           'ios',
           'srctok-XXX'
         ),
@@ -264,13 +265,8 @@ describe('lib/kokiri/builders/ebay', function() {
     it('returns an app action with Ibotta default Par Par value when non-Campaign ID key is passed in the incoming URL', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(
-        builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            query: {
-              pub: 'pavel',
-            },
-          },
+        builder.appActionFromUrl(
+          'https://www.ebay.com?pub=pavel',
           'ios',
           'srctok-XXX'
         ),
@@ -286,13 +282,8 @@ describe('lib/kokiri/builders/ebay', function() {
     it('returns an app action without pass through Campaign ID value for publisher not in whitelist', function() {
       const builder = this.config.createBuilder(SHOPKICK_ORG_ID, EBAY_ORG_ID);
       assert.deepEqual(
-        builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            query: {
-              campid: '5338414862',
-            },
-          },
+        builder.appActionFromUrl(
+          'https://www.ebay.com?campid=5338414862',
           'ios',
           'srctok-XXX'
         ),
@@ -307,13 +298,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action for product pages', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            pathname:
-              '/ctg/Secura-DuxTop-Black-Electric-Induction-Cooktop-/140654293',
-            query: { _pcatid: 57 },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/ctg/Secura-DuxTop-Black-Electric-Induction-Cooktop-/140654293?_pcatid=57',
           'ios',
           'srctok-XXX'
         ),
@@ -326,12 +312,8 @@ describe('lib/kokiri/builders/ebay', function() {
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            pathname: '/ctg/140654293',
-            query: { _pcatid: 57 },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/ctg/140654293?_pcatid=57',
           'ios',
           'srctok-XXX'
         ),
@@ -346,12 +328,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns an app action for item pages', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            pathname:
-              '/itm/Apple-iPhone-7-128GB-PRODUCT-RED-Special-Edition-USA-Model-WARRANTY-BRAND-NEW-/152522506551',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/itm/Apple-iPhone-7-128GB-PRODUCT-RED-Special-Edition-USA-Model-WARRANTY-BRAND-NEW-/152522506551',
           'ios',
           'srctok-XXX'
         ),
@@ -364,11 +342,8 @@ describe('lib/kokiri/builders/ebay', function() {
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            pathname: '/itm/152522506551',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/itm/152522506551',
           'ios',
           'srctok-XXX'
         ),
@@ -383,11 +358,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns homepage app action for non product, non item links', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            pathname: '/rpp/computers-networking',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/rpp/computers-networking',
           'ios',
           'srctok-XXX'
         ),
@@ -400,11 +372,8 @@ describe('lib/kokiri/builders/ebay', function() {
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.ebay.com',
-            pathname: '/rpp/eBay-today/VQ-110118-Fall-Garage-Holiday',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/rpp/eBay-today/VQ-110118-Fall-Garage-Holiday',
           'ios',
           'srctok-XXX'
         ),
@@ -421,8 +390,8 @@ describe('lib/kokiri/builders/ebay', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          { hostname: 'www.ebay.com' },
+        this.builder.webActionFromUrl(
+          'https://www.ebay.com',
           'ios',
           'srctok-XXX'
         ),
@@ -436,8 +405,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns a web action with non-.com TLD', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          { hostname: 'www.ebay.co.uk' },
+        this.builder.webActionFromUrl(
+          'https://www.ebay.co.uk',
           'ios',
           'srctok-XXX'
         ),
@@ -451,18 +420,11 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns a web action with no www', function() {
       assert.deepEqual(
-        this.builder.webAction({ hostname: 'ebay.co.uk' }, 'ios', 'srctok-XXX'),
-        {
-          app_link: null,
-          browser_link:
-            'https://rover.ebay.com/rover/1/710-53481-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Febay.co.uk&btn_ref=srctok-XXX',
-        }
-      );
-    });
-
-    it('returns a web action with no www', function() {
-      assert.deepEqual(
-        this.builder.webAction({ hostname: 'ebay.co.uk' }, 'ios', 'srctok-XXX'),
+        this.builder.webActionFromUrl(
+          'https://ebay.co.uk',
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
@@ -473,12 +435,8 @@ describe('lib/kokiri/builders/ebay', function() {
 
     it('returns a web action with destination', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          {
-            hostname: 'www.ebay.com',
-            pathname: '/bloop',
-            query: { a: 2 },
-          },
+        this.builder.webActionFromUrl(
+          'https://www.ebay.com/bloop?a=2',
           'ios',
           'srctok-XXX'
         ),
@@ -491,17 +449,9 @@ describe('lib/kokiri/builders/ebay', function() {
     });
 
     it('returns a web action with affiliation parameters protected', function() {
-      const query = {
-        ff3: 'pavel',
-        toolid: 'pavel',
-        pub: 'pavel',
-        campid: 'pavel',
-        customid: 'pavel',
-      };
-
       assert.deepEqual(
-        this.builder.webAction(
-          { hostname: 'www.ebay.com', query },
+        this.builder.webActionFromUrl(
+          'https://www.ebay.com?ff3=pavel&toolid=pavel&pub=pavel&campid=pavel&customid=pavel',
           'ios',
           'srctok-XXX'
         ),
