@@ -132,6 +132,45 @@ describe('lib/kokiri/builders/walmart', function() {
       );
     });
 
+    it('returns an app action with collection link on iOS', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/col/123456789',
+            query: {},
+            hash: null,
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'walmart://col/123456789?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.walmart.com/col/123456789?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a null app link for collection links on android', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/col/123456789',
+            query: {},
+            hash: null,
+          },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://www.walmart.com/col/123456789?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action with query parameters', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -202,6 +241,22 @@ describe('lib/kokiri/builders/walmart', function() {
             'https://walmart.bttn.io/home?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
           browser_link:
             'https://www.walmart.com/cp/smart-home/122987?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for a collection link', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/col/123456789' },
+          'android',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://walmart.bttn.io/col/123456789?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.walmart.com/col/123456789?sourceid=button-attribution-token--srctok-XXX&wmlspartner=btnntwk&affcmpid=2030436372&tmode=0000&veh=aff&btn_ref=srctok-XXX',
         }
       );
     });
