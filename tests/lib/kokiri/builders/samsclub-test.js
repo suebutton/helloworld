@@ -18,9 +18,9 @@ describe('lib/kokiri/builders/samsclub', function() {
   });
 
   describe('#appAction', function() {
-    it('returns no app action on ios', function() {
+    it('returns an app action on ios', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: null,
+        app_link: 'https://app.samsclub.com/home?btn_ref=srctok-XXX',
         browser_link: 'https://m.samsclub.com?btn_ref=srctok-XXX',
       });
     });
@@ -42,7 +42,7 @@ describe('lib/kokiri/builders/samsclub', function() {
       );
     });
 
-    it('returns no app action for category on ios', function() {
+    it('returns an app action for category on ios', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
@@ -54,7 +54,8 @@ describe('lib/kokiri/builders/samsclub', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'https://app.samsclub.com/category?id=4567&btn_ref=srctok-XXX',
           browser_link:
             'https://m.samsclub.com/sams/glimmer-shimmer-unicorn-toys/4567.cp?btn_ref=srctok-XXX',
         }
@@ -81,7 +82,7 @@ describe('lib/kokiri/builders/samsclub', function() {
       );
     });
 
-    it('returns no app action for product on ios', function() {
+    it('returns an app action for product on ios', function() {
       assert.deepEqual(
         this.builder.appAction(
           {
@@ -93,7 +94,8 @@ describe('lib/kokiri/builders/samsclub', function() {
           'srctok-XXX'
         ),
         {
-          app_link: null,
+          app_link:
+            'https://app.samsclub.com/product?id=prod20181218&btn_ref=srctok-XXX',
           browser_link:
             'https://m.samsclub.com/sams/red-delicious-apples-12-pack/prod20181218.ip?btn_ref=srctok-XXX',
         }
@@ -119,9 +121,7 @@ describe('lib/kokiri/builders/samsclub', function() {
         }
       );
     });
-  });
 
-  describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link: null,
