@@ -830,7 +830,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
               {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
-                regex: String.raw`^\/?(?:cread|pclick)\.php(?:$|\/.*)`,
+                regex: String.raw`^\/?(?:cread|pclick|awclick)\.php(?:$|\/.*)`,
               },
             ],
             query_ids: [],
