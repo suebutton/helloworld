@@ -370,18 +370,66 @@ describe('lib/kokiri/builders/ebay', function() {
             'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Frpp%2Fcomputers-networking&btn_ref=srctok-XXX',
         }
       );
+    });
 
+    it('returns an app action for category pages', function() {
       assert.deepEqual(
         this.builder.appActionFromUrl(
-          'https://www.ebay.com/rpp/eBay-today/VQ-110118-Fall-Garage-Holiday',
+          'https://www.ebay.com/b/Computers-Tablets-Network-Hardware/58058/bn_1865247',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'ebay://link?nav=home&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Frpp%252FeBay-today%252FVQ-110118-Fall-Garage-Holiday&btn_ref=srctok-XXX',
+            'ebay://link?nav=item.browse&categoryId=58058&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Fb%252FComputers-Tablets-Network-Hardware%252F58058%252Fbn_1865247&btn_ref=srctok-XXX',
           browser_link:
-            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Frpp%2FeBay-today%2FVQ-110118-Fall-Garage-Holiday&btn_ref=srctok-XXX',
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fb%2FComputers-Tablets-Network-Hardware%2F58058%2Fbn_1865247&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for event pages', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/rpp/sporting-goods-events/Save-on-Cycling',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=item.events&eventname=Save-on-Cycling&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Frpp%252Fsporting-goods-events%252FSave-on-Cycling&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Frpp%2Fsporting-goods-events%2FSave-on-Cycling&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for category pages without category id', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/b/Collectibles-Art/bn_7000259855',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=item.query&keywords=Collectibles%2BArt&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Fb%252FCollectibles-Art%252Fbn_7000259855&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fb%2FCollectibles-Art%2Fbn_7000259855&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.ebay.com/b/Collectibles-Art-Marvel/bn_7000259855',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'ebay://link?nav=item.query&keywords=Collectibles%2BArt%2BMarvel&referrer=https%3A%2F%2Frover.ebay.com%2Frover%2F1%2F711-53200-19255-0%2F1%3Fff3%3D4%26toolid%3D11800%26pub%3D5575211063%26campid%3D5337936547%26customid%3Dsrctok-XXX%26mpre%3Dhttp%253A%252F%252Fwww.ebay.com%252Fb%252FCollectibles-Art-Marvel%252Fbn_7000259855&btn_ref=srctok-XXX',
+          browser_link:
+            'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575211063&campid=5337936547&customid=srctok-XXX&mpre=http%3A%2F%2Fwww.ebay.com%2Fb%2FCollectibles-Art-Marvel%2Fbn_7000259855&btn_ref=srctok-XXX',
         }
       );
     });
