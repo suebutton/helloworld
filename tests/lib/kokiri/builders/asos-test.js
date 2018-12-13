@@ -106,6 +106,64 @@ describe('lib/kokiri/builders/asos', function() {
         }
       );
     });
+
+    it('returns an app action for product pages', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          { pathname: '/topcategory/subcategory/prd/1234' },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'asos://product?iid=1234&affid=20578&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/topcategory/subcategory/prd/1234?affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+    });
+    it('returns an app action for category pages', function() {
+      assert.deepEqual(
+        this.builder.appAction(
+          {
+            pathname: '/women/ctas/ss-fashion-trend-7/cat/',
+            query: { cid: 10987 },
+          },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'asos://category?cid=10987&affid=20578&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/women/ctas/ss-fashion-trend-7/cat?cid=10987&affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.asos.com/men/activewear/cat/?cid=26090',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'asos://category?cid=26090&affid=20578&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/men/activewear/cat?cid=26090&affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.asos.com/activewear/cat/?cid=26090',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'asos://category?cid=26090&affid=20578&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/activewear/cat?cid=26090&affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
