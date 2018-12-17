@@ -134,7 +134,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: 'asos://category?cid=10987&affid=20578&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/women/ctas/ss-fashion-trend-7/cat?cid=10987&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/women/ctas/ss-fashion-trend-7/cat/?cid=10987&affid=20578&btn_ref=srctok-XXX',
         }
       );
 
@@ -147,7 +147,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: 'asos://category?cid=26090&affid=20578&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/men/activewear/cat?cid=26090&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/men/activewear/cat/?cid=26090&affid=20578&btn_ref=srctok-XXX',
         }
       );
 
@@ -160,7 +160,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: 'asos://category?cid=26090&affid=20578&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/activewear/cat?cid=26090&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/activewear/cat/?cid=26090&affid=20578&btn_ref=srctok-XXX',
         }
       );
     });
