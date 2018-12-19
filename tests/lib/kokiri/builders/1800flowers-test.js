@@ -32,6 +32,21 @@ describe('lib/kokiri/builders/1800flowers', function() {
       });
     });
 
+    it('returns an app action for christmasflowers page', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.1800flowers.com/christmasflowers',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://m.www.1800flowers.com/christmasflowers?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns a product app action with destination', function() {
       assert.deepEqual(
         this.builder.appAction(
@@ -69,6 +84,21 @@ describe('lib/kokiri/builders/1800flowers', function() {
         {
           app_link: null,
           browser_link: 'https://m.www.1800flowers.com?btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns a web action for christmasflowers page', function() {
+      assert.deepEqual(
+        this.builder.webAction(
+          { pathname: '/christmasflowers', query: null },
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://m.www.1800flowers.com/christmasflowers?btn_ref=srctok-XXX',
         }
       );
     });
