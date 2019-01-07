@@ -63,7 +63,11 @@ describe('lib/kokiri/builders/asos', function() {
 
     it('returns an app action for a non-supported app path', function() {
       assert.deepEqual(
-        this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
+        this.builder.appActionFromUrl(
+          'https://asos.com/bloop',
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
@@ -76,7 +80,11 @@ describe('lib/kokiri/builders/asos', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(
-        builder.appAction({ pathname: '/us/men' }, 'ios', 'srctok-XXX'),
+        builder.appActionFromUrl(
+          'https://asos.com/us/men',
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
@@ -98,7 +106,7 @@ describe('lib/kokiri/builders/asos', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(
-        builder.appAction({ pathname: '/usa' }, 'ios', 'srctok-XXX'),
+        builder.appActionFromUrl('https://asos.com/usa', 'ios', 'srctok-XXX'),
         {
           app_link: null,
           browser_link:
@@ -109,8 +117,8 @@ describe('lib/kokiri/builders/asos', function() {
 
     it('returns an app action for product pages', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          { pathname: '/topcategory/subcategory/prd/1234' },
+        this.builder.appActionFromUrl(
+          'https://asos.com/topcategory/subcategory/prd/1234',
           'ios',
           'srctok-XXX'
         ),
@@ -121,13 +129,26 @@ describe('lib/kokiri/builders/asos', function() {
         }
       );
     });
+
+    it('returns an app action for product pages with locale in the path', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://asos.com/us/topcategory/subcategory/prd/1234',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'asos://product?iid=1234&affid=20578&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/us/topcategory/subcategory/prd/1234?affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action for category pages', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            pathname: '/women/ctas/ss-fashion-trend-7/cat/',
-            query: { cid: 10987 },
-          },
+        this.builder.appActionFromUrl(
+          'https://asos.com/women/ctas/ss-fashion-trend-7/cat/?cid=10987',
           'ios',
           'srctok-XXX'
         ),
@@ -163,6 +184,22 @@ describe('lib/kokiri/builders/asos', function() {
             'https://m.asos.com/activewear/cat/?cid=26090&affid=20578&btn_ref=srctok-XXX',
         }
       );
+
+      it('returns an app action for category pages with locale in the path', function() {
+        assert.deepEqual(
+          this.builder.appActionFromUrl(
+            'https://asos.com/us/women/ctas/ss-fashion-trend-7/cat/?cid=10987',
+            'ios',
+            'srctok-XXX'
+          ),
+          {
+            app_link:
+              'asos://category?cid=10987&affid=20578&btn_ref=srctok-XXX',
+            browser_link:
+              'https://m.asos.com/us/women/ctas/ss-fashion-trend-7/cat/?cid=10987&affid=20578&btn_ref=srctok-XXX',
+          }
+        );
+      });
     });
   });
 
@@ -185,8 +222,8 @@ describe('lib/kokiri/builders/asos', function() {
 
     it('returns a web action with destination', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          { pathname: '/bloop', query: { a: 2 } },
+        this.builder.webActionFromUrl(
+          'https://asos.com/bloop?a=2',
           'ios',
           'srctok-XXX'
         ),
@@ -202,8 +239,8 @@ describe('lib/kokiri/builders/asos', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
       assert.deepEqual(
-        builder.webAction(
-          { pathname: '/bloop', query: { a: 2 } },
+        builder.webActionFromUrl(
+          'https://asos.com/bloop?a=2',
           'ios',
           'srctok-XXX'
         ),
