@@ -31,14 +31,14 @@ describe('lib/kokiri/builders/jet', function() {
         app_link:
           'jet://home?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
       });
 
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link:
           'jet://open?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
       });
     });
 
@@ -60,7 +60,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://home?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -71,7 +71,7 @@ describe('lib/kokiri/builders/jet', function() {
         app_link:
           'jet://home?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-030575eddb72b4df&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-030575eddb72b4df&btn_ref=srctok-XXX',
+          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-030575eddb72b4df&jcmp=afl%3Abtn%3Aorg-030575eddb72b4df%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
       });
     });
 
@@ -90,7 +90,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -108,7 +108,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -129,7 +129,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -147,7 +147,7 @@ describe('lib/kokiri/builders/jet', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -166,7 +166,7 @@ describe('lib/kokiri/builders/jet', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.jet.com/promotions?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/promotions?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -186,7 +186,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://jet.com/search?term=adidas&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/search?term=adidas&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/search?term=adidas&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -204,7 +204,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://search?term=adidas&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/search?term=adidas&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/search?term=adidas&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -226,7 +226,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?utm_campaign=BEST%20OIL&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?utm_campaign=BEST%20OIL&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?utm_campaign=BEST%20OIL&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -246,7 +246,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://shop/uniquelyj?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/shop/uniquelyj?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/shop/uniquelyj?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -264,7 +264,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://shop/uniquelyj?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/shop/uniquelyj?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/shop/uniquelyj?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -284,7 +284,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -302,7 +302,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/shop/backtoschool?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -322,7 +322,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'jet://c/category/subcategory/getting/crazy?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/c/category/subcategory/getting/crazy?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/c/category/subcategory/getting/crazy?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -341,7 +341,7 @@ describe('lib/kokiri/builders/jet', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.jet.com/c/category/subcategory/getting/crazy/android?experienceId=100&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/c/category/subcategory/getting/crazy/android?experienceId=100&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -358,7 +358,7 @@ describe('lib/kokiri/builders/jet', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.jet.com/c/category/subcategory/getting/crazy/android?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/c/category/subcategory/getting/crazy/android?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -370,7 +370,7 @@ describe('lib/kokiri/builders/jet', function() {
         app_link:
           'https://jet.bttn.io/home?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
       });
     });
 
@@ -392,7 +392,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'https://jet.bttn.io/home?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -403,7 +403,7 @@ describe('lib/kokiri/builders/jet', function() {
         app_link:
           'https://jet.bttn.io/home?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-030575eddb72b4df&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-030575eddb72b4df&btn_ref=srctok-XXX',
+          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-030575eddb72b4df&jcmp=afl%3Abtn%3Aorg-030575eddb72b4df%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
       });
     });
 
@@ -418,7 +418,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'https://jet.bttn.io/bloop?a=2&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/bloop?a=2&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/bloop?a=2&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -428,7 +428,7 @@ describe('lib/kokiri/builders/jet', function() {
         app_link:
           'https://jet.bttn.io/landing?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
       });
     });
 
@@ -442,7 +442,7 @@ describe('lib/kokiri/builders/jet', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.jet.com/bloop?a=2&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/bloop?a=2&pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
@@ -461,7 +461,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'https://jet.bttn.io/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/Shout-Color-Catcher-Dye-Trapping-Sheet-72-Loads/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -477,7 +477,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'https://jet.bttn.io/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
 
@@ -493,7 +493,7 @@ describe('lib/kokiri/builders/jet', function() {
           app_link:
             'https://jet.bttn.io/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'https://www.jet.com/product/product/0147dccdb5984ec5bbbcaa2cce33022e?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
         }
       );
     });
