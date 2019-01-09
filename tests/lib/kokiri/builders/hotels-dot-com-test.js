@@ -21,7 +21,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       {
         id: '12345',
         organization: 'org-3573c6b896624279',
-        default_value: 'aff.hcom.GL.049.000.00699.019',
+        default_value: 'aff.hcom.US.049.000.00699.019',
         name: 'rffrid-prefix',
       },
     ];
@@ -45,16 +45,16 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          { hostname: 'www.hotels.com' },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -66,7 +66,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       );
 
       assert.deepEqual(
-        builder.appAction({ hostname: 'www.hotels.com' }, 'ios', 'srctok-XXX'),
+        builder.appActionFromUrl('https://www.hotels.com', 'ios', 'srctok-XXX'),
         {
           app_link:
             'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00695.019.srctok-XXX&btn_ref=srctok-XXX',
@@ -78,355 +78,299 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
 
     it('returns an app action to hotel details', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/ho212522/the-taj-mahal-palace-mumbai-mumbai-india/',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/ho212522/the-taj-mahal-palace-mumbai-mumbai-india/',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/PPCHotelDetails?hotelid=212522&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/PPCHotelDetails?hotelid=212522&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/ho212522/the-taj-mahal-palace-mumbai-mumbai-india?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/ho212522/the-taj-mahal-palace-mumbai-mumbai-india?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/ho212522',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/ho212522',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/PPCHotelDetails?hotelid=212522&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/PPCHotelDetails?hotelid=212522&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/ho212522?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/ho212522?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/ho212522',
-            query: { a: 2 },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/ho212522?a=2',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/PPCHotelDetails?a=2&hotelid=212522&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/PPCHotelDetails?a=2&hotelid=212522&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/ho212522?a=2&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/ho212522?a=2&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action to a destination', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/de172809/hotels-zurich-switzerland/',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/de172809/hotels-zurich-switzerland/',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/PPCSearch?destinationid=172809&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/PPCSearch?destinationid=172809&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/de172809/hotels-zurich-switzerland?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/de172809/hotels-zurich-switzerland?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/de172809',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/de172809',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/PPCSearch?destinationid=172809&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/PPCSearch?destinationid=172809&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/de172809?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/de172809?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/de172809',
-            query: { a: 2 },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/de172809?a=2',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/PPCSearch?a=2&destinationid=172809&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/PPCSearch?a=2&destinationid=172809&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/de172809?a=2&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/de172809?a=2&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action to a venue page', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/hotel/details.html',
-            query: {
-              'q-check-out': '2017-06-25',
-              'q-check-in': '2017-06-24',
-              'hotel-id': '446763',
-            },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/hotel/details.html',
-            query: {
-              'q-check-out': '2017-06-25',
-              'q-check-in': '2017-06-24',
-              'hotel-id': '446763',
-            },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/hotel/details.html?q-check-out=2017-06-25&q-check-in=2017-06-24&hotel-id=446763&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action to a search results page', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/search.do',
-            query: { 'destination-id': '172809' },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/search.do?destination-id=172809',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/search.do',
-            query: { 'destination-id': '172809' },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/search.do?destination-id=172809',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/search.do?destination-id=172809&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action to a search results page', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/hotel-deals',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/hotel-deals',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/hotel-deals?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/hotel-deals?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/hotel-deals?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/hotel-deals?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/hotel-deals/',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/hotel-deals/',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com/hotel-deals?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com/hotel-deals?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/hotel-deals?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/hotel-deals?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/hotel-dealsz/',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/hotel-dealsz/',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://www.hotels.com/hotel-dealsz?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/hotel-dealsz?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action with pass-through destination for unknown app paths', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/bloop/2',
-            query: { a: true },
-            hash: 'anchor',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/bloop/2?a=true#anchor',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://www.hotels.com/bloop/2?a=true&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX#anchor',
+            'https://www.hotels.com/bloop/2?a=true&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX#anchor',
         }
       );
 
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            pathname: '/bloop/2',
-            query: { a: true },
-            hash: 'anchor',
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com/bloop/2?a=true#anchor',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://www.hotels.com/bloop/2?a=true&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX#anchor',
+            'https://www.hotels.com/bloop/2?a=true&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX#anchor',
         }
       );
     });
 
     it('returns an app action with overwritten affiliation parameters', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'www.hotels.com',
-            query: { rffrid: 'pavel' },
-          },
+        this.builder.appActionFromUrl(
+          'https://www.hotels.com?rffrid=pavel',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action for non-www hotels.com link', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'hotels.com',
-          },
+        this.builder.appActionFromUrl(
+          'https://hotels.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action for uk links', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'uk.hotels.com',
-          },
+        this.builder.appActionFromUrl(
+          'https://uk.hotels.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://uk.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://uk.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns an app action for au links', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          {
-            hostname: 'au.hotels.com',
-          },
+        this.builder.appActionFromUrl(
+          'https://au.hotels.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://au.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://au.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for Brazil links', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://hoteis.com',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://hoteis.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -435,52 +379,48 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          { hostname: 'www.hotels.com' },
+        this.builder.webActionFromUrl(
+          'https://www.hotels.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns a web action with destination', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          { hostname: 'www.hotels.com', pathname: '/bloop', query: { a: 2 } },
+        this.builder.webActionFromUrl(
+          'https://www.hotels.com/bloop?a=2',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://hotels.bttn.io/bloop?a=2&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.bttn.io/bloop?a=2&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com/bloop?a=2&rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com/bloop?a=2&rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
 
     it('returns a web action protecting affiliation parameters', function() {
-      const query = {
-        rffrid: 'pavel',
-      };
-
       assert.deepEqual(
-        this.builder.webAction(
-          { hostname: 'www.hotels.com', query },
+        this.builder.webActionFromUrl(
+          'https://www.hotels.com?rffrid=pavel',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -488,28 +428,39 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
 
   it('returns a web action for a non www link', function() {
     assert.deepEqual(
-      this.builder.webAction({ hostname: 'hotels.com' }, 'ios', 'srctok-XXX'),
+      this.builder.webActionFromUrl('https://hotels.com', 'ios', 'srctok-XXX'),
       {
         app_link:
-          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
       }
     );
   });
 
   it('returns a web action for a UK link', function() {
     assert.deepEqual(
-      this.builder.webAction(
-        { hostname: 'uk.hotels.com' },
+      this.builder.webActionFromUrl(
+        'https://uk.hotels.com',
         'ios',
         'srctok-XXX'
       ),
       {
         app_link:
-          'https://hotels.bttn.io?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://uk.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://uk.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
+  it('returns a web action for a Brazil link', function() {
+    assert.deepEqual(
+      this.builder.webActionFromUrl('https://hoteis.com', 'ios', 'srctok-XXX'),
+      {
+        app_link:
+          'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://hoteis.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
       }
     );
   });

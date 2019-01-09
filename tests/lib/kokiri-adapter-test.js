@@ -65,7 +65,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         {
           organization: 'org-3573c6b896624279',
           name: 'rffrid-prefix',
-          default_value: 'aff.hcom.GL.049.000.00699.019',
+          default_value: 'aff.hcom.US.049.000.00699.019',
         },
       ],
     ]);
@@ -642,11 +642,20 @@ describe('/lib/kokiri/kokiri-adapter', function() {
     it('returns an sdk config', function() {
       assert.deepEqual(this.kokiriAdapter.sdkConfig('org-XXX'), {
         supported_hostnames: [
+          { hostname: 'hoteis.com' },
           { hostname: 'hotels.com' },
           { hostname: 'au.hotels.com' },
+          { hostname: 'ca.hotels.com' },
+          { hostname: 'ch.hotels.com' },
+          { hostname: 'de.hotels.com' },
           { hostname: 'es.hotels.com' },
+          { hostname: 'fi.hotels.com' },
           { hostname: 'fr.hotels.com' },
+          { hostname: 'ie.hotels.com' },
+          { hostname: 'it.hotels.com' },
+          { hostname: 'se.hotels.com' },
           { hostname: 'sg.hotels.com' },
+          { hostname: 'sv.hotels.com' },
           { hostname: 'uk.hotels.com' },
         ],
         supported_bttnio_subdomains: [
@@ -873,9 +882,9 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
@@ -892,9 +901,9 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         universal_link: null,
         app_action: JSON.stringify({
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://hotels.com?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }),
         web_action: null,
       };
@@ -1044,9 +1053,9 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         ),
         {
           app_link:
-            'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.bttn.io/bloop?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hotels.com/bloop?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
 
@@ -1066,9 +1075,9 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           app_action: null,
           web_action: JSON.stringify({
             app_link:
-              'https://hotels.bttn.io/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+              'https://hotels.bttn.io/bloop?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
             browser_link:
-              'https://hotels.com/bloop?rffrid=aff.hcom.GL.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+              'https://hotels.com/bloop?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           }),
         }
       );
