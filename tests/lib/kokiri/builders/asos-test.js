@@ -102,6 +102,20 @@ describe('lib/kokiri/builders/asos', function() {
       });
     });
 
+    it('returns an app action for an AU homepage link', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://asos.com/au',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
+          browser_link: 'https://m.asos.com/au?affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action when passed a /usa link for a US publisher', function() {
       const builder = this.config.createBuilder(IBOTTA_ORG_ID, ASOS_ORG_ID);
 
