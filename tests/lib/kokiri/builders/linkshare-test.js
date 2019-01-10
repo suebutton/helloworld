@@ -78,48 +78,42 @@ describe('lib/kokiri/builders/linkshare', function() {
       );
       assert.deepEqual(
         macysBuilder.appAction(
-          {
-            url: 'http://m.macys.com',
-          },
+          macysBuilder.getDestinationFromUrl('https://m.macys.com'),
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=3184&murl=http%3A%2F%2Fm.macys.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=3184&murl=https%3A%2F%2Fwww.macys.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
     it('returns an app action for gamestop from Samsung', function() {
       assert.deepEqual(
         this.builder.appAction(
-          {
-            url: 'http://www.gamestop.com',
-          },
+          this.builder.getDestinationFromUrl('https://www.gamestop.com'),
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=https%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
     it('returns an app action for gamestop from shopkick', function() {
       assert.deepEqual(
         this.builder.appAction(
-          {
-            url: 'http://www.gamestop.com',
-          },
+          this.builder.getDestinationFromUrl('https://www.gamestop.com'),
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=24348&murl=https%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -128,19 +122,16 @@ describe('lib/kokiri/builders/linkshare', function() {
         IBOTTA_ORG_ID,
         GAMESTOP_ORG_ID
       );
-
       assert.deepEqual(
         gamestopBuilder.appAction(
-          {
-            url: 'http://www.gamestop.com',
-          },
+          gamestopBuilder.getDestinationFromUrl('https://www.gamestop.com'),
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=24348&murl=http%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=BLquFtB2nfI&mid=24348&murl=https%3A%2F%2Fwww.gamestop.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -148,31 +139,27 @@ describe('lib/kokiri/builders/linkshare', function() {
       const b = this.config.createBuilder(SHOPKICK_ORG_ID, TECHARMOR_ORG_ID);
       assert.deepEqual(
         b.appAction(
-          {
-            url: 'http://www.techarmor.com',
-          },
+          b.getDestinationFromUrl('https://www.techarmor.com'),
           'ios',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=http%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=https%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
 
       assert.deepEqual(
         b.appAction(
-          {
-            url: 'http://www.techarmor.com',
-          },
+          b.getDestinationFromUrl('https://www.techarmor.com'),
           'android',
           'srctok-XXX'
         ),
         {
           app_link: null,
           browser_link:
-            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=http%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
+            'https://click.linksynergy.com/deeplink?id=gEO3*xWPBFA&mid=38275&murl=https%3A%2F%2Fwww.techarmor.com&u1=srctok-XXX&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -181,9 +168,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       this.builder.merchantId = 'org-XXX';
       assert.deepEqual(
         this.builder.appAction(
-          {
-            url: 'http://www.example.com',
-          },
+          this.builder.getDestinationFromUrl('https://www.example.com'),
           'ios',
           'srctok-XXX'
         ),
@@ -194,9 +179,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       );
       assert.deepEqual(
         this.builder.appAction(
-          {
-            url: 'http://www.example.com',
-          },
+          this.builder.getDestinationFromUrl('https://www.example.com'),
           'android',
           'srctok-XXX'
         ),
@@ -211,9 +194,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       const b = this.config.createBuilder('org-XXX', TECHARMOR_ORG_ID);
       assert.deepEqual(
         b.appAction(
-          {
-            url: 'http://www.example.com',
-          },
+          b.getDestinationFromUrl('https://www.example.com'),
           'ios',
           'srctok-XXX'
         ),
@@ -224,9 +205,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       );
       assert.deepEqual(
         b.appAction(
-          {
-            url: 'http://www.example.com',
-          },
+          b.getDestinationFromUrl('https://www.example.com'),
           'android',
           'srctok-XXX'
         ),
@@ -242,7 +221,7 @@ describe('lib/kokiri/builders/linkshare', function() {
     it('returns a web action via shopkick', function() {
       assert.deepEqual(
         this.builder.webAction(
-          { url: 'https://gamestop.com' },
+          this.builder.getDestinationFromUrl('https://gamestop.com'),
           'ios',
           'srctok-XXX'
         ),
@@ -256,7 +235,7 @@ describe('lib/kokiri/builders/linkshare', function() {
     it('returns a web action via Samsung', function() {
       assert.deepEqual(
         this.builder.webAction(
-          { url: 'https://gamestop.com' },
+          this.builder.getDestinationFromUrl('https://gamestop.com'),
           'ios',
           'srctok-XXX'
         ),
@@ -270,7 +249,11 @@ describe('lib/kokiri/builders/linkshare', function() {
     it('returns a web action via ibotta', function() {
       const b = this.config.createBuilder(IBOTTA_ORG_ID, TECHARMOR_ORG_ID);
       assert.deepEqual(
-        b.webAction({ url: 'https://techarmor.com' }, 'ios', 'srctok-XXX'),
+        b.webAction(
+          b.getDestinationFromUrl('https://techarmor.com'),
+          'ios',
+          'srctok-XXX'
+        ),
         {
           app_link: null,
           browser_link:
@@ -283,7 +266,7 @@ describe('lib/kokiri/builders/linkshare', function() {
       const b = this.config.createBuilder(SHOPKICK_ORG_ID, TECHARMOR_ORG_ID);
       assert.deepEqual(
         b.webAction(
-          { url: 'https://techarmor.com/bloop?a=2' },
+          b.getDestinationFromUrl('https://techarmor.com/bloop?a=2'),
           'ios',
           'srctok-XXX'
         ),
