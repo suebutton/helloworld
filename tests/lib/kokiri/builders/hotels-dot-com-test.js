@@ -21,8 +21,8 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       {
         id: '12345',
         organization: 'org-3573c6b896624279',
-        default_value: 'aff.hcom.US.049.000.00699.019',
-        name: 'rffrid-prefix',
+        default_value: '00699.019',
+        name: 'rffrid-number',
       },
     ];
 
@@ -30,7 +30,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       {
         partner_parameter: '12345',
         organization: 'org-2d432a88b9bb8bda',
-        value: 'aff.hcom.US.049.000.00695.019',
+        value: '00695.019',
       },
     ];
 
@@ -284,7 +284,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       assert.deepEqual(
         this.builder.appActionFromUrl(
           'https://www.hotels.com/bloop/2?a=true#anchor',
-          'ios',
+          'android',
           'srctok-XXX'
         ),
         {
@@ -336,9 +336,9 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.UK.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://uk.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://uk.hotels.com?rffrid=aff.hcom.UK.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -352,9 +352,9 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.AU.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://au.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://au.hotels.com?rffrid=aff.hcom.AU.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -368,9 +368,9 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         ),
         {
           app_link:
-            'hotelsapp://www.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.BR.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://hoteis.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+            'https://hoteis.com?rffrid=aff.hcom.BR.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -447,9 +447,9 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       ),
       {
         app_link:
-          'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://hotels.bttn.io?rffrid=aff.hcom.UK.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://uk.hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://uk.hotels.com?rffrid=aff.hcom.UK.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
       }
     );
   });
@@ -458,9 +458,9 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       this.builder.webActionFromUrl('https://hoteis.com', 'ios', 'srctok-XXX'),
       {
         app_link:
-          'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://hotels.bttn.io?rffrid=aff.hcom.BR.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
-          'https://hoteis.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          'https://hoteis.com?rffrid=aff.hcom.BR.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
       }
     );
   });

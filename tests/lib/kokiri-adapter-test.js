@@ -64,8 +64,8 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         'a',
         {
           organization: 'org-3573c6b896624279',
-          name: 'rffrid-prefix',
-          default_value: 'aff.hcom.US.049.000.00699.019',
+          name: 'rffrid-number',
+          default_value: '00699.019',
         },
       ],
     ]);
@@ -653,7 +653,6 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           { hostname: 'fr.hotels.com' },
           { hostname: 'ie.hotels.com' },
           { hostname: 'it.hotels.com' },
-          { hostname: 'se.hotels.com' },
           { hostname: 'sg.hotels.com' },
           { hostname: 'sv.hotels.com' },
           { hostname: 'uk.hotels.com' },
