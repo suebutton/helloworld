@@ -280,12 +280,13 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
-          'http://www.anrdoezrs.net/click-46157-12264133',
+          'http://www.anrdoezrs.net/click-4441350-10668447?url=https%3A%2F%2Fwww.overstock.com%2FHome-Garden%2FMadison-Park-Lea-Dark-Blue-Accent-Chair%2F20219255%2Fproduct.html&sid=.Mjc0NjE1LTE5NDg.7754133a-177b-11e9-94b0-078901598fed',
           'org-XXX'
         ),
         {
           shouldRedirect: true,
-          cacheKey: 'www.anrdoezrs.net/click-46157-12264133',
+          cacheKey:
+            'www.anrdoezrs.net/click-4441350-10668447?url=https%3A%2F%2Fwww.overstock.com%2FHome-Garden%2FMadison-Park-Lea-Dark-Blue-Accent-Chair%2F20219255%2Fproduct.html',
           affiliate: {
             hostname: 'anrdoezrs.net',
             display_name: 'CJ',
@@ -296,12 +297,13 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
-          'http://www.kqzyfj.com/click-8415784-10660208',
+          'http://www.kqzyfj.com/click-4441350-10654383?url=https%3A%2F%2Fwww.overstock.com%2F10866197%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF&sid=.Mjc0NjE1LTE5NDg.2d698ec4-177a-11e9-9ca8-078901598fed',
           'org-XXX'
         ),
         {
           shouldRedirect: true,
-          cacheKey: 'www.kqzyfj.com/click-8415784-10660208',
+          cacheKey:
+            'www.kqzyfj.com/click-4441350-10654383?url=https%3A%2F%2Fwww.overstock.com%2F10866197%2Fproduct.html%3FTRACK%3Daffcjfeed%26CID%3D207442%26fp%3DF',
           affiliate: {
             hostname: 'kqzyfj.com',
             display_name: 'CJ',
@@ -312,12 +314,13 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
-          'http://www.jdoqocy.com/click-46157-13482117-1539120008000?sid=ebs1998890988sbe',
+          'http://www.jdoqocy.com/click-46157-13482117-1539120008000?testing=true&sid=ebs1998890988sbe',
           'org-XXX'
         ),
         {
           shouldRedirect: true,
-          cacheKey: 'www.jdoqocy.com/click-46157-13482117-1539120008000',
+          cacheKey:
+            'www.jdoqocy.com/click-46157-13482117-1539120008000?testing=true',
           affiliate: {
             hostname: 'jdoqocy.com',
             display_name: 'CJ',
@@ -432,7 +435,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         ),
         {
           shouldRedirect: true,
-          cacheKey: 'www.anrdoezrs.net/click-46157-12264133',
+          cacheKey: 'www.anrdoezrs.net/click-46157-12264133?',
           affiliate: {
             hostname: 'anrdoezrs.net',
             display_name: 'CJ',
@@ -448,7 +451,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
         ),
         {
           shouldRedirect: true,
-          cacheKey: 'www.kqzyfj.com/click-8415784-10660208',
+          cacheKey: 'www.kqzyfj.com/click-8415784-10660208?',
           affiliate: {
             hostname: 'kqzyfj.com',
             display_name: 'CJ',
