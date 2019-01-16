@@ -278,6 +278,38 @@ describe('lib/kokiri/builders/expedia', function() {
         }
       );
     });
+
+    it('returns an app action with for Hotel-Search', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com.sg/Hotel-Search?destination=Cambodia&startDate=06/02/2019&endDate=07/02/2019&adults=1&regionId=29&sort=price',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://www.expedia.com.sg/mobile/deeplink/Hotel-Search?destination=Cambodia&startDate=06%2F02%2F2019&endDate=07%2F02%2F2019&adults=1&regionId=29&sort=price&AFFCID=SG.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.expedia.com.sg/Hotel-Search?destination=Cambodia&startDate=06%2F02%2F2019&endDate=07%2F02%2F2019&adults=1&regionId=29&sort=price&AFFCID=SG.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for a specific Hotel', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com/Bodrum-Hotels-Ena-Boutique-Hotel.h3832311.Hotel-Information',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://www.expedia.com/mobile/deeplink/Bodrum-Hotels-Ena-Boutique-Hotel.h3832311.Hotel-Information?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.expedia.com/Bodrum-Hotels-Ena-Boutique-Hotel.h3832311.Hotel-Information?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
