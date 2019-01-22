@@ -347,6 +347,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
+          'https://redirect.viglink.com/?key=4f9aabd355fb32289803410c24d4d8e3&u=https%3A%2F%2Fwww.amazon.com%2FRoku-Premiere-HDR-Streaming-Player-Premium%2Fdp%2FB07HDBZN7Q%3Ftag%3Dcheapskate08-20&reaf=false&opt=false',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: false,
+          cacheKey: 'redirect.viglink.com/',
+          affiliate: {
+            hostname: 'redirect.viglink.com',
+            display_name: 'VigLink',
+            query_url_keys: [{ key: 'u' }],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
           'http://www.awin1.com/pclick.php?p=6078106925&a=136348&m=6220&clickref=.MjQzODk1LTE5NDg.dd6a8db8-b2ce-11e8-bd5d-a567e761c230',
           'org-XXX'
         ),
@@ -414,6 +430,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
 
       assert.deepEqual(
         this.kokiriAdapter.redirectAttributes(
+          'https://redirect.viglink.com/?key=4f9aabd355fb32289803410c24d4d8e3&u=https%3A%2F%2Fwww.amazon.com%2FRoku-Premiere-HDR-Streaming-Player-Premium%2Fdp%2FB07HDBZN7Q%3Ftag%3Dcheapskate08-20&reaf=false&opt=false',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: false,
+          cacheKey: 'redirect.viglink.com/',
+          affiliate: {
+            hostname: 'redirect.viglink.com',
+            display_name: 'VigLink',
+            query_url_keys: [{ key: 'u' }],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
           'http://www.awin1.com/pclick.php?p=6078106925&a=136348&m=6220&clickref=.MjQzODk1LTE5NDg.dd6a8db8-b2ce-11e8-bd5d-a567e761c230',
           'org-XXX'
         ),
@@ -474,6 +506,24 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             hostname: 'shareasale.com',
             display_name: 'ShareASale',
             query_url_keys: [{ key: 'urllink' }],
+          },
+        }
+      );
+    });
+
+    it('does not return a link when a query URL key is not present', function() {
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://redirect.viglink.com/?key=4f9aabd355fb32289803410c24d4d8e3&u=https%3A%2F%2Fwww.amazon.com%2FRoku-Premiere-HDR-Streaming-Player-Premium%2Fdp%2FB07HDBZN7Q%3Ftag%3Dcheapskate08-20&reaf=false&opt=false',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: false,
+          cacheKey: 'redirect.viglink.com/',
+          affiliate: {
+            hostname: 'redirect.viglink.com',
+            display_name: 'VigLink',
+            query_url_keys: [{ key: 'u' }],
           },
         }
       );
@@ -858,6 +908,12 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             ],
             query_ids: [],
             query_url_keys: [],
+          },
+          {
+            hostname: 'redirect.viglink.com',
+            pathname_ids: [],
+            query_ids: [],
+            query_url_keys: [{ key: 'u' }],
           },
         ],
       });
