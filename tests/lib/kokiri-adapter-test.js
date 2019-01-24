@@ -392,6 +392,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           },
         }
       );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://amzn.to/2RCnrmJ',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'amzn.to/2RCnrmJ',
+          affiliate: {
+            hostname: 'amzn.to',
+            display_name: 'Amazon Shortlink',
+            query_url_keys: [],
+          },
+        }
+      );
     });
 
     it('returns redirect information about a matching link and drops the correct parameter', function() {
@@ -487,6 +503,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           affiliate: {
             hostname: 'kqzyfj.com',
             display_name: 'CJ',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://amzn.to/2RCnrmJ',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'amzn.to/2RCnrmJ',
+          affiliate: {
+            hostname: 'amzn.to',
+            display_name: 'Amazon Shortlink',
             query_url_keys: [],
           },
         }
@@ -914,6 +946,18 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             pathname_ids: [],
             query_ids: [],
             query_url_keys: [{ key: 'u' }],
+          },
+          {
+            hostname: 'amzn.to',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+                regex: String.raw`^\/[a-zA-Z0-9]+`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
           },
         ],
       });
