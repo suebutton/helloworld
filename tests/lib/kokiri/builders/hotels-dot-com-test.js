@@ -15,6 +15,11 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         audience: 'org-2d432a88b9bb8bda',
         organization: 'org-3573c6b896624279',
       },
+      {
+        status: 'approved',
+        audience: 'org-11f5e62b4ebe0005',
+        organization: 'org-3573c6b896624279',
+      },
     ];
 
     const partnerParameters = [
@@ -39,6 +44,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       partnerParameters,
       partnerValues,
     });
+
     this.builder = this.config.createBuilder('org-XXX', 'org-3573c6b896624279');
   });
 
@@ -453,6 +459,7 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       }
     );
   });
+
   it('returns a web action for a Brazil link', function() {
     assert.deepEqual(
       this.builder.webActionFromUrl('https://hoteis.com', 'ios', 'srctok-XXX'),
@@ -461,6 +468,50 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
           'https://hotels.bttn.io?rffrid=aff.hcom.BR.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
         browser_link:
           'https://hoteis.com?rffrid=aff.hcom.BR.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
+
+  it('passes through rffrid for select publishers', function() {
+    const builder = this.config.createBuilder(
+      'org-11f5e62b4ebe0005',
+      'org-3573c6b896624279'
+    );
+
+    assert.deepEqual(
+      builder.webActionFromUrl(
+        'https://hotels.com?rffrid=whatever-we-want.kwrd=1234',
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link:
+          'https://hotels.bttn.io?rffrid=whatever-we-want.btn.kwrd%3D1234&btn_ref=srctok-XXX',
+        browser_link:
+          'https://hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+
+    assert.deepEqual(
+      builder.webActionFromUrl(
+        'https://hotels.com?rffrid=seven',
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link: 'https://hotels.bttn.io?rffrid=seven&btn_ref=srctok-XXX',
+        browser_link:
+          'https://hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+
+    assert.deepEqual(
+      builder.webActionFromUrl('https://hotels.com', 'ios', 'srctok-XXX'),
+      {
+        app_link:
+          'https://hotels.bttn.io?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://hotels.com?rffrid=aff.hcom.US.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
       }
     );
   });
