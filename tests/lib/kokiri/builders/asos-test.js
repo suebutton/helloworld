@@ -236,6 +236,22 @@ describe('lib/kokiri/builders/asos', function() {
       );
     });
 
+    it('returns an app action and strips out params that should be omitted', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://www.asos.fr/asos-design/asos-design-doudoune-oversize-noir/prd/9507157?CTARef=Saved+Items+Image&ranMID=35719&ranEAID=QFGLnEolOWg&ranSiteID=QFGLnEolOWg-E6i_2IUmJD1H_sb2myosCQ&utm_source=Affiliate&utm_medium=LinkShare&utm_content=USNetwork.1&utm_campaign=QFGLnEolOWg&link=15&promo=307314&source=linkshare&affid=2135&channelref=Affiliate&pubref=QFGLnEolOWg&siteID=QFGLnEolOWg-E6i_2IUmJD1H_sb2myosCQ',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'asos://product?CTARef=Saved%20Items%20Image&link=15&promo=307314&affid=20578&iid=9507157&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/fr/asos-design/asos-design-doudoune-oversize-noir/prd/9507157?CTARef=Saved%20Items%20Image&link=15&promo=307314&affid=20578&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action for product pages', function() {
       assert.deepEqual(
         this.builder.appActionFromUrl(
