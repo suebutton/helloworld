@@ -408,6 +408,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           },
         }
       );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://wclink.co/link/30702/150993/4/86799/?merchant=Amazon',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'wclink.co/link/30702',
+          affiliate: {
+            hostname: 'wclink.co',
+            display_name: 'Wirecutter',
+            query_url_keys: [],
+          },
+        }
+      );
     });
 
     it('returns redirect information about a matching link and drops the correct parameter', function() {
@@ -519,6 +535,22 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           affiliate: {
             hostname: 'amzn.to',
             display_name: 'Amazon Shortlink',
+            query_url_keys: [],
+          },
+        }
+      );
+
+      assert.deepEqual(
+        this.kokiriAdapter.redirectAttributes(
+          'https://wclink.co/link/30702/150993/4/86799/?merchant=Amazon',
+          'org-XXX'
+        ),
+        {
+          shouldRedirect: true,
+          cacheKey: 'wclink.co/link/30702',
+          affiliate: {
+            hostname: 'wclink.co',
+            display_name: 'Wirecutter',
             query_url_keys: [],
           },
         }
@@ -954,6 +986,18 @@ describe('/lib/kokiri/kokiri-adapter', function() {
                 guaranteed_action: false,
                 matches: [{ values: [] }],
                 regex: String.raw`^\/[a-zA-Z0-9]+`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
+          {
+            hostname: 'wclink.co',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+                regex: String.raw`^\/link\/[0-9]+`,
               },
             ],
             query_ids: [],
