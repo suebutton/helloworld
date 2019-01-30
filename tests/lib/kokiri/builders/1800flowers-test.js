@@ -64,6 +64,20 @@ describe('lib/kokiri/builders/1800flowers', function() {
         }
       );
     });
+
+    it('returns an app action for a pwa.www link', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://pwa.www.1800flowers.com',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: 'bestsellingflowers://?btn_ref=srctok-XXX',
+          browser_link: 'https://m.www.1800flowers.com?btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
