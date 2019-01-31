@@ -380,6 +380,22 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
         }
       );
     });
+
+    it('returns an app action for LATAM links', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://hoteles.com',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'hotelsapp://www.hotels.com?rffrid=aff.hcom.LM.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://hoteles.com?rffrid=aff.hcom.LM.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
