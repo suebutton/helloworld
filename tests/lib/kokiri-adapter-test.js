@@ -763,6 +763,7 @@ describe('/lib/kokiri/kokiri-adapter', function() {
           { hostname: 'pt.hoteis.com' },
           { hostname: 'hoteles.com' },
           { hostname: 'co.hoteles.com' },
+          { hostname: 'es.hoteles.com' },
           { hostname: 'hotels.com' },
           { hostname: 'at.hotels.com' },
           { hostname: 'au.hotels.com' },
