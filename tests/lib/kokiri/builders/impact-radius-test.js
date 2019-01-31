@@ -81,7 +81,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://goto.target.com/c/415484/81938/2092?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.target.com&btn_tkn=srctok-XXX',
+            'https://goto.target.com/c/415484/81938/2092?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.target.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -92,7 +92,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://kohls.sjv.io/c/415484/362118/5349?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.kohls.com&btn_tkn=srctok-XXX',
+            'https://kohls.sjv.io/c/415484/362118/5349?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.kohls.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -103,7 +103,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://mvmt.7eer.net/c/415484/222268/3856?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.mvmt.com&btn_tkn=srctok-XXX',
+            'https://mvmt.7eer.net/c/415484/222268/3856?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.mvmt.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -118,7 +118,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://backcountry.pxf.io/c/415484/358742/5311?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.backcountry.com&btn_tkn=srctok-XXX',
+            'https://backcountry.pxf.io/c/415484/358742/5311?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.backcountry.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -133,7 +133,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://partners.enterprise.com/c/415484/304337/4720?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.enterprise.com&btn_tkn=srctok-XXX',
+            'https://partners.enterprise.com/c/415484/304337/4720?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.enterprise.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -148,7 +148,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://cost-plus-world-market.evyy.net/c/415484/84047/2148?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.worldmarket.com&btn_tkn=srctok-XXX',
+            'https://cost-plus-world-market.evyy.net/c/415484/84047/2148?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.worldmarket.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -163,7 +163,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
+            'https://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -178,7 +178,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
+            'https://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -193,7 +193,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
+            'https://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -206,7 +206,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://goto.target.com/c/381635/81938/2092?subId1=srctok-XXX&subId2=org-7537ad90e42d2ec0&sharedid=org-7537ad90e42d2ec0&u=https%3A%2F%2Fwww.target.com&btn_tkn=srctok-XXX',
+            'https://goto.target.com/c/381635/81938/2092?subId1=srctok-XXX&subId2=org-7537ad90e42d2ec0&sharedid=org-7537ad90e42d2ec0&u=https%3A%2F%2Fwww.target.com&btn_tkn=srctok-XXX',
         }
       );
       assert.deepEqual(
@@ -220,7 +220,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://backcountry.pxf.io/c/415484/358742/5311?subId1=srctok-XXX&subId2=org-4738195f8e741d19&sharedid=org-4738195f8e741d19&u=https%3A%2F%2Fwww.backcountry.com&btn_tkn=srctok-XXX',
+            'https://backcountry.pxf.io/c/415484/358742/5311?subId1=srctok-XXX&subId2=org-4738195f8e741d19&sharedid=org-4738195f8e741d19&u=https%3A%2F%2Fwww.backcountry.com&btn_tkn=srctok-XXX',
         }
       );
     });
@@ -235,7 +235,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://goto.target.com/c/415484/81938/2092?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.target.com&btn_tkn=srctok-XXX',
+            'https://goto.target.com/c/415484/81938/2092?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.target.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -246,7 +246,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://kohls.sjv.io/c/415484/362118/5349?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.kohls.com&btn_tkn=srctok-XXX',
+            'https://kohls.sjv.io/c/415484/362118/5349?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.kohls.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -257,7 +257,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://mvmt.7eer.net/c/415484/222268/3856?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.mvmt.com&btn_tkn=srctok-XXX',
+            'https://mvmt.7eer.net/c/415484/222268/3856?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.mvmt.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -272,7 +272,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://backcountry.pxf.io/c/415484/358742/5311?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.backcountry.com&btn_tkn=srctok-XXX',
+            'https://backcountry.pxf.io/c/415484/358742/5311?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.backcountry.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -287,7 +287,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://partners.enterprise.com/c/415484/304337/4720?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.enterprise.com&btn_tkn=srctok-XXX',
+            'https://partners.enterprise.com/c/415484/304337/4720?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.enterprise.com&btn_tkn=srctok-XXX',
         }
       );
 
@@ -302,7 +302,7 @@ describe('lib/kokiri/builders/impact-radius', function() {
         {
           app_link: null,
           browser_link:
-            'http://cost-plus-world-market.evyy.net/c/415484/84047/2148?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.worldmarket.com&btn_tkn=srctok-XXX',
+            'https://cost-plus-world-market.evyy.net/c/415484/84047/2148?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.worldmarket.com&btn_tkn=srctok-XXX',
         }
       );
     });
