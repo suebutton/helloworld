@@ -27,6 +27,12 @@ describe('lib/kokiri/builders/warby-parker', function() {
         default_value: 'Button',
         name: 'utm_campaign',
       },
+      {
+        id: '2405',
+        organization: WARBYPARKER_ORG_ID,
+        default_value: 'CPA',
+        name: 'utm_content',
+      },
     ];
 
     const partnerValues = [
@@ -34,6 +40,11 @@ describe('lib/kokiri/builders/warby-parker', function() {
         partner_parameter: '12345',
         organization: SHOPKICK_ORG_ID,
         value: 'Shopkick',
+      },
+      {
+        partner_parameter: '2405',
+        organization: SHOPKICK_ORG_ID,
+        value: 'CPT',
       },
     ];
 
@@ -50,9 +61,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
     it('returns an app action on iOS', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'wp://app?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+          'wp://app?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
       });
     });
 
@@ -60,7 +71,7 @@ describe('lib/kokiri/builders/warby-parker', function() {
       assert.deepEqual(this.builder.appAction({}, 'android', 'srctok-XXX'), {
         app_link: null,
         browser_link:
-          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
       });
     });
 
@@ -73,9 +84,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
         ),
         {
           app_link:
-            'wp://app/sunglasses/women?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'wp://app/sunglasses/women?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.warbyparker.com/sunglasses/women?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'https://www.warbyparker.com/sunglasses/women?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
         }
       );
     });
@@ -89,9 +100,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
         ),
         {
           app_link:
-            'wp://app/eyeglasses/men/durand/deep-sea-blue-fade?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'wp://app/eyeglasses/men/durand/deep-sea-blue-fade?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.warbyparker.com/eyeglasses/men/durand/deep-sea-blue-fade?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'https://www.warbyparker.com/eyeglasses/men/durand/deep-sea-blue-fade?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
         }
       );
     });
@@ -106,7 +117,7 @@ describe('lib/kokiri/builders/warby-parker', function() {
         {
           app_link: null,
           browser_link:
-            'https://www.warbyparker.com/eyeglasses/men?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'https://www.warbyparker.com/eyeglasses/men?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
         }
       );
     });
@@ -116,9 +127,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
         this.builder.appAction({ pathname: '/bloop' }, 'ios', 'srctok-XXX'),
         {
           app_link:
-            'wp://app/bloop?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'wp://app/bloop?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.warbyparker.com/bloop?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'https://www.warbyparker.com/bloop?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
         }
       );
     });
@@ -130,9 +141,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
       );
       assert.deepEqual(builder.appAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'wp://app?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&btn_ref=srctok-XXX',
+          'wp://app?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&utm_content=CPT&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&btn_ref=srctok-XXX',
+          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&utm_content=CPT&btn_ref=srctok-XXX',
       });
     });
 
@@ -148,6 +159,7 @@ describe('lib/kokiri/builders/warby-parker', function() {
               utm_medium: 'pavel_affiliate',
               utm_source: 'pavel_source',
               utm_campaign: 'pavel_campaign',
+              utm_content: 'pavel_content',
             },
           },
           'ios',
@@ -155,9 +167,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
         ),
         {
           app_link:
-            'wp://app?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&btn_ref=srctok-XXX',
+            'wp://app?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&utm_content=CPT&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&btn_ref=srctok-XXX',
+            'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&utm_content=CPT&btn_ref=srctok-XXX',
         }
       );
     });
@@ -167,9 +179,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
     it('returns a web action on iOS', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://warbyparker.bttn.io/app?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+          'https://warbyparker.bttn.io/app?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
       });
     });
 
@@ -182,9 +194,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
         ),
         {
           app_link:
-            'https://warbyparker.bttn.io/app/bloop?a=2&utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'https://warbyparker.bttn.io/app/bloop?a=2&utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.warbyparker.com/bloop?a=2&utm_medium=affiliate&utm_source=Button&utm_campaign=Button&btn_ref=srctok-XXX',
+            'https://www.warbyparker.com/bloop?a=2&utm_medium=affiliate&utm_source=Button&utm_campaign=Button&utm_content=CPA&btn_ref=srctok-XXX',
         }
       );
     });
@@ -196,9 +208,9 @@ describe('lib/kokiri/builders/warby-parker', function() {
       );
       assert.deepEqual(builder.webAction({}, 'ios', 'srctok-XXX'), {
         app_link:
-          'https://warbyparker.bttn.io/app?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&btn_ref=srctok-XXX',
+          'https://warbyparker.bttn.io/app?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&utm_content=CPT&btn_ref=srctok-XXX',
         browser_link:
-          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&btn_ref=srctok-XXX',
+          'https://www.warbyparker.com?utm_medium=affiliate&utm_source=Button&utm_campaign=Shopkick&utm_content=CPT&btn_ref=srctok-XXX',
       });
     });
   });
