@@ -1,4 +1,6 @@
-FROM docker.button-internal.com/node-baseimage:git-8df1116
+# FROM docker.button-internal.com/node-baseimage:git-8df1116
+FROM node:8.15.0-alpine
+
 MAINTAINER Will Myers <will@usebutton.com>
 
 RUN mkdir /app
