@@ -51,8 +51,9 @@ describe('lib/kokiri/builders/asos', function() {
       assert.deepEqual(
         this.builder.appActionFromUrl('https://asos.com', 'ios', 'srctok-XXX'),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com?affid=20578&btn_ref=srctok-XXX',
+          app_link: 'asos://home?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -65,8 +66,9 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com?affid=20578&btn_ref=srctok-XXX',
+          app_link: 'asos://home?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -81,7 +83,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/bloop?affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/bloop?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -98,7 +100,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/us/men?affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/us/men?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
@@ -109,8 +111,10 @@ describe('lib/kokiri/builders/asos', function() {
       assert.deepEqual(
         builder.appActionFromUrl('https://us.asos.com/', 'ios', 'srctok-XXX'),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/us/?affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://home?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/us/?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
@@ -123,8 +127,9 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/au/?affid=20578&btn_ref=srctok-XXX',
+          app_link: 'asos://home?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/au/?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -137,8 +142,9 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/au?affid=20578&btn_ref=srctok-XXX',
+          app_link: 'asos://home?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/au?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -151,8 +157,9 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/fr/?affid=20578&btn_ref=srctok-XXX',
+          app_link: 'asos://home?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/fr/?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -166,9 +173,9 @@ describe('lib/kokiri/builders/asos', function() {
         ),
         {
           app_link:
-            'asos://product?iid=10396076&affid=20578&btn_ref=srctok-XXX',
+            'asos://product?iid=10396076&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/de/new-look/new-look-hallie-disco-jeans-mit-hohem-bund/prd/10396076?affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/de/new-look/new-look-hallie-disco-jeans-mit-hohem-bund/prd/10396076?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -181,8 +188,9 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/au?affid=20578&btn_ref=srctok-XXX',
+          app_link: 'asos://home?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/au?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -195,7 +203,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/us/usa?affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/us/usa?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
@@ -206,8 +214,10 @@ describe('lib/kokiri/builders/asos', function() {
       assert.deepEqual(
         builder.appActionFromUrl('https://asos.fr', 'ios', 'srctok-XXX'),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/fr/?affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://home?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/fr/?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
@@ -218,8 +228,10 @@ describe('lib/kokiri/builders/asos', function() {
       assert.deepEqual(
         builder.appActionFromUrl('https://asos.fr/us', 'ios', 'srctok-XXX'),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/us?affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://home?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/us?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
@@ -230,8 +242,10 @@ describe('lib/kokiri/builders/asos', function() {
       assert.deepEqual(
         builder.appActionFromUrl('https://au.asos.com/it', 'ios', 'srctok-XXX'),
         {
-          app_link: 'asos://home?affid=20578&btn_ref=srctok-XXX',
-          browser_link: 'https://m.asos.com/it?affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://home?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/it?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
@@ -245,9 +259,9 @@ describe('lib/kokiri/builders/asos', function() {
         ),
         {
           app_link:
-            'asos://product?CTARef=Saved%20Items%20Image&link=15&promo=307314&affid=20578&iid=9507157&btn_ref=srctok-XXX',
+            'asos://product?CTARef=Saved%20Items%20Image&link=15&promo=307314&affid=20578&iid=9507157&pubref=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/fr/asos-design/asos-design-doudoune-oversize-noir/prd/9507157?CTARef=Saved%20Items%20Image&link=15&promo=307314&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/fr/asos-design/asos-design-doudoune-oversize-noir/prd/9507157?CTARef=Saved%20Items%20Image&link=15&promo=307314&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -260,9 +274,10 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://product?iid=1234&affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://product?iid=1234&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/topcategory/subcategory/prd/1234?affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/topcategory/subcategory/prd/1234?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -275,9 +290,10 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://product?iid=1234&affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://product?iid=1234&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/us/topcategory/subcategory/prd/1234?affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/us/topcategory/subcategory/prd/1234?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -290,9 +306,10 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://category?cid=10987&affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://category?cid=10987&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/women/ctas/ss-fashion-trend-7/cat/?cid=10987&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/women/ctas/ss-fashion-trend-7/cat/?cid=10987&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
 
@@ -303,9 +320,10 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://category?cid=26090&affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://category?cid=26090&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/men/activewear/cat/?cid=26090&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/men/activewear/cat/?cid=26090&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
 
@@ -316,9 +334,10 @@ describe('lib/kokiri/builders/asos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'asos://category?cid=26090&affid=20578&btn_ref=srctok-XXX',
+          app_link:
+            'asos://category?cid=26090&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://m.asos.com/activewear/cat/?cid=26090&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/activewear/cat/?cid=26090&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
 
@@ -331,9 +350,9 @@ describe('lib/kokiri/builders/asos', function() {
           ),
           {
             app_link:
-              'asos://category?cid=10987&affid=20578&btn_ref=srctok-XXX',
+              'asos://category?cid=10987&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
             browser_link:
-              'https://m.asos.com/us/women/ctas/ss-fashion-trend-7/cat/?cid=10987&affid=20578&btn_ref=srctok-XXX',
+              'https://m.asos.com/us/women/ctas/ss-fashion-trend-7/cat/?cid=10987&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
           }
         );
       });
@@ -346,7 +365,8 @@ describe('lib/kokiri/builders/asos', function() {
         this.builder.webActionFromUrl('https://asos.com', 'ios', 'srctok-XXX'),
         {
           app_link: null,
-          browser_link: 'https://m.asos.com?affid=20578&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com?affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -358,7 +378,8 @@ describe('lib/kokiri/builders/asos', function() {
         builder.webActionFromUrl('https://asos.com', 'ios', 'srctok-XXX'),
         {
           app_link: null,
-          browser_link: 'https://m.asos.com/us/?affid=20578&btn_ref=srctok-XXX',
+          browser_link:
+            'https://m.asos.com/us/?affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
@@ -373,7 +394,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/bloop?a=2&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/bloop?a=2&affid=20578&pubref=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -390,7 +411,7 @@ describe('lib/kokiri/builders/asos', function() {
         {
           app_link: null,
           browser_link:
-            'https://m.asos.com/us/bloop?a=2&affid=20578&btn_ref=srctok-XXX',
+            'https://m.asos.com/us/bloop?a=2&affid=20578&pubref=org-2d432a88b9bb8bda&btn_ref=srctok-XXX',
         }
       );
     });
