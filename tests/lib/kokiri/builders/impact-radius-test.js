@@ -9,6 +9,8 @@ const BACKCOUNTRY_ORG_ID = 'org-3bec3b5c0cac44ad';
 const ENTERPRISE_ORG_ID = 'org-299546bbc4e4986b';
 const COST_PLUS_WORLD_MARKET_ORG_ID = 'org-7c42436567440f84';
 const ADVANCE_AUTO_PARTS_ORG_ID = 'org-77cd55d02f3aa0fa';
+const SUPER_CHEWER_ORG_ID = 'org-5e3b5b2c179441ab';
+const BARK_BOX_ORG_ID = 'org-6eada664b6b9c1ea';
 
 const IBOTTA_ORG_ID = 'org-2d432a88b9bb8bda';
 const SAMSUNG_ORG_ID = 'org-4738195f8e741d19';
@@ -51,6 +53,16 @@ describe('lib/kokiri/builders/impact-radius', function() {
         status: 'approved',
         audience: 'org-XXX',
         organization: ADVANCE_AUTO_PARTS_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: SUPER_CHEWER_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: 'org-XXX',
+        organization: BARK_BOX_ORG_ID,
       },
       {
         status: 'approved',
@@ -194,6 +206,32 @@ describe('lib/kokiri/builders/impact-radius', function() {
           app_link: null,
           browser_link:
             'https://advance-auto-parts.evyy.net/c/415484/89591/2190?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fshop.advanceautoparts.com&btn_tkn=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.config
+          .createBuilder('org-XXX', BARK_BOX_ORG_ID)
+          .appAction({ url: 'https://www.barkbox.com' }, 'ios', 'srctok-XXX'),
+        {
+          app_link: null,
+          browser_link:
+            'https://barkbox.evyy.net/c/415484/44431/1369?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.barkbox.com&btn_tkn=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        this.config
+          .createBuilder('org-XXX', SUPER_CHEWER_ORG_ID)
+          .appAction(
+            { url: 'https://www.superchewer.com' },
+            'ios',
+            'srctok-XXX'
+          ),
+        {
+          app_link: null,
+          browser_link:
+            'https://superchewer.7eer.net/c/415484/269883/4355?subId1=srctok-XXX&subId2=org-XXX&sharedid=org-XXX&u=https%3A%2F%2Fwww.barkbox.com%2Fsuper-chewer&btn_tkn=srctok-XXX',
         }
       );
     });
