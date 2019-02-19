@@ -50,7 +50,7 @@ describe('lib/kokiri/lib', function() {
         port: null,
         hostname: null,
         hash: null,
-        search: '',
+        search: null,
         query: {},
         pathname: 'wat',
         path: 'wat',

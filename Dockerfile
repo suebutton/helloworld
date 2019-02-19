@@ -1,5 +1,5 @@
 # FROM docker.button-internal.com/node-baseimage:git-8df1116
-FROM node:8.15.0-alpine
+FROM node:10.15.1-alpine
 
 MAINTAINER Will Myers <will@usebutton.com>
 
