@@ -2,16 +2,19 @@
 
 [DLC-XXX](https://button.atlassian.net/browse/DLC-XXX)
 
-_Please include a high-level description of you change including context, 
+_Please include a high-level description of you change including context,
 explicit goals, and any nuances to the implementation._
+
+_If you are a member of PE, please tap Sam Propis as the initial reviewer.  When
+he approves, or if he is unavailable, tap a CODEOWNER for final sign-off_
 
 #### Builder Updates
 
-_If your change includes a new builder or an update to an existing builder, 
+_If your change includes a new builder or an update to an existing builder,
 please include this section.  If not, feel free to delete._
 
 _Please describe (and link to) any testing or verification that has been done to
-ensure things are working properly and we're not introducing a regression.  
+ensure things are working properly and we're not introducing a regression.
 Common cases to test include:_
 
 - [ ] iOS and Android app affiliation works with an App Link
