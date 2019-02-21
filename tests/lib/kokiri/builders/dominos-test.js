@@ -26,7 +26,7 @@ describe('lib/kokiri/builders/dominos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'dominos://?btn_ref=srctok-XXX',
+          app_link: 'dominos://open?btn_ref=srctok-XXX',
           browser_link: 'https://www.dominos.com/en?btn_ref=srctok-XXX',
         }
       );
@@ -40,7 +40,7 @@ describe('lib/kokiri/builders/dominos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'dominos://?btn_ref=srctok-XXX',
+          app_link: 'dominos://open?btn_ref=srctok-XXX',
           browser_link: 'https://www.dominos.com/en?btn_ref=srctok-XXX',
         }
       );
@@ -55,7 +55,7 @@ describe('lib/kokiri/builders/dominos', function() {
         ),
         {
           app_link: null,
-          browser_link: 'https://www.dominos.com/en/bloop?btn_ref=srctok-XXX',
+          browser_link: 'https://www.dominos.com/en?btn_ref=srctok-XXX',
         }
       );
     });
@@ -70,7 +70,7 @@ describe('lib/kokiri/builders/dominos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://dominos.bttn.io?btn_ref=srctok-XXX',
+          app_link: null,
           browser_link: 'https://www.dominos.com/en?btn_ref=srctok-XXX',
         }
       );
@@ -84,9 +84,8 @@ describe('lib/kokiri/builders/dominos', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://dominos.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
-          browser_link:
-            'https://www.dominos.com/en/bloop?a=2&btn_ref=srctok-XXX',
+          app_link: null,
+          browser_link: 'https://www.dominos.com/en?a=2&btn_ref=srctok-XXX',
         }
       );
     });
