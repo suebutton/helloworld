@@ -60,14 +60,14 @@ describe('lib/kokiri/builders/expedia', function() {
   describe('#appAction', function() {
     it('returns an app action for .com link', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com'),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://www.expedia.com/mobile/deeplink?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.com/mobile/deeplink/?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.expedia.com?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -76,14 +76,14 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action for .co.uk link', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.co.uk'),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.co.uk',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://www.expedia.co.uk/mobile/deeplink?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk/mobile/deeplink/?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.expedia.co.uk?AFFCID=UK.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -92,14 +92,14 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action for .fr link', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.fr'),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.fr',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://www.expedia.fr/mobile/deeplink?AFFCID=FR.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.fr/mobile/deeplink/?AFFCID=FR.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.expedia.fr?AFFCID=FR.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -108,14 +108,14 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action for www. link', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com'),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://www.expedia.com/mobile/deeplink?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.com/mobile/deeplink/?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.expedia.com?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -124,16 +124,14 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action for link that contains params to be omitted', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl(
-            'https://www.expedia.com?affcid=987654321&afflid=123456789'
-          ),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com?affcid=987654321&afflid=123456789',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://www.expedia.com/mobile/deeplink?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.com/mobile/deeplink/?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.expedia.com?AFFCID=US.NETWORK.BUTTON.300843&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -142,8 +140,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action with flight destination', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com/Flights'),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com/Flights',
           'ios',
           'srctok-XXX'
         ),
@@ -158,8 +156,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action with hotel destination', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com/Hotels'),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com/Hotels',
           'ios',
           'srctok-XXX'
         ),
@@ -174,8 +172,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action with US car destination', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com/Cars'),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com/Cars',
           'ios',
           'srctok-XXX'
         ),
@@ -190,10 +188,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action with UK car destination', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl(
-            'https://www.expedia.co.uk/car-hire'
-          ),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.co.uk/car-hire',
           'ios',
           'srctok-XXX'
         ),
@@ -208,10 +204,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action with activites destination', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl(
-            'https://www.expedia.com/Activities'
-          ),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com/Activities',
           'ios',
           'srctok-XXX'
         ),
@@ -226,10 +220,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action with non-supported destination', function() {
       assert.deepEqual(
-        this.builder.appAction(
-          this.builder.getDestinationFromUrl(
-            'https://www.expedia.com/Snowmobiles'
-          ),
+        this.builder.appActionFromUrl(
+          'https://www.expedia.com/Snowmobiles',
           'ios',
           'srctok-XXX'
         ),
@@ -243,16 +235,15 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns an app action for Samsung', function() {
       const builder = this.config.createBuilder(SAMSUNG_ORG_ID, EXPEDIA_ORG_ID);
-
       assert.deepEqual(
-        builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com'),
+        builder.appActionFromUrl(
+          'https://www.expedia.com',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://www.expedia.com/mobile/deeplink?AFFCID=US.NETWORK.BUTTON.123456&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.com/mobile/deeplink/?AFFCID=US.NETWORK.BUTTON.123456&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.expedia.com?AFFCID=US.NETWORK.BUTTON.123456&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -264,16 +255,15 @@ describe('lib/kokiri/builders/expedia', function() {
         TOPCASHBACKUK_ORG_ID,
         EXPEDIA_ORG_ID
       );
-
       assert.deepEqual(
-        builder.appAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.co.uk'),
+        builder.appActionFromUrl(
+          'https://www.expedia.co.uk',
           'ios',
           'srctok-XXX'
         ),
         {
           app_link:
-            'https://www.expedia.co.uk/mobile/deeplink?AFFCID=UK.NETWORK.BUTTON.123456&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
+            'https://www.expedia.co.uk/mobile/deeplink/?AFFCID=UK.NETWORK.BUTTON.123456&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://www.expedia.co.uk?AFFCID=UK.NETWORK.BUTTON.123456&AFFLID=srctok-XXX&btn_ref=srctok-XXX',
         }
@@ -316,8 +306,8 @@ describe('lib/kokiri/builders/expedia', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com'),
+        this.builder.webActionFromUrl(
+          'https://www.expedia.com',
           'ios',
           'srctok-XXX'
         ),
@@ -331,8 +321,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns a web action with flights destination', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          this.builder.getDestinationFromUrl('https://www.expedia.com/Flights'),
+        this.builder.webActionFromUrl(
+          'https://www.expedia.com/Flights',
           'ios',
           'srctok-XXX'
         ),
@@ -346,10 +336,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns a web action with random destination', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          this.builder.getDestinationFromUrl(
-            'https://www.expedia.com/bloop?a=2'
-          ),
+        this.builder.webActionFromUrl(
+          'https://www.expedia.com/bloop?a=2',
           'ios',
           'srctok-XXX'
         ),
@@ -363,10 +351,8 @@ describe('lib/kokiri/builders/expedia', function() {
 
     it('returns a web action with protected affiliation parameters', function() {
       assert.deepEqual(
-        this.builder.webAction(
-          this.builder.getDestinationFromUrl(
-            'https://www.expedia.com/?AFFCID=pavel&AFFLID=pavel'
-          ),
+        this.builder.webActionFromUrl(
+          'https://www.expedia.com/?AFFCID=pavel&AFFLID=pavel',
           'ios',
           'srctok-XXX'
         ),
