@@ -531,4 +531,79 @@ describe('lib/kokiri/builders/hotels-dot-com', function() {
       }
     );
   });
+  it('returns an app action for id links', function() {
+    assert.deepEqual(
+      this.builder.appActionFromUrl(
+        'https://id.hotels.com',
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link:
+          'hotelsapp://www.hotels.com?rffrid=aff.hcom.ID.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://id.hotels.com?rffrid=aff.hcom.ID.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
+  it('returns an app action for ms links', function() {
+    assert.deepEqual(
+      this.builder.appActionFromUrl(
+        'https://ms.hotels.com',
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link:
+          'hotelsapp://www.hotels.com?rffrid=aff.hcom.MS.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://ms.hotels.com?rffrid=aff.hcom.MS.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
+  it('returns an app action for ph links', function() {
+    assert.deepEqual(
+      this.builder.appActionFromUrl(
+        'https://ph.hotels.com',
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link:
+          'hotelsapp://www.hotels.com?rffrid=aff.hcom.PH.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://ph.hotels.com?rffrid=aff.hcom.PH.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
+  it('returns an app action for th links', function() {
+    assert.deepEqual(
+      this.builder.appActionFromUrl(
+        'https://th.hotels.com',
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link:
+          'hotelsapp://www.hotels.com?rffrid=aff.hcom.TH.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://th.hotels.com?rffrid=aff.hcom.TH.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
+  it('returns an app action for tw links', function() {
+    assert.deepEqual(
+      this.builder.appActionFromUrl(
+        'https://tw.hotels.com',
+        'ios',
+        'srctok-XXX'
+      ),
+      {
+        app_link:
+          'hotelsapp://www.hotels.com?rffrid=aff.hcom.TW.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://tw.hotels.com?rffrid=aff.hcom.TW.049.000.00699.019.srctok-XXX&btn_ref=srctok-XXX',
+      }
+    );
+  });
 });
