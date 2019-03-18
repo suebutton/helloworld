@@ -4,6 +4,7 @@ const KokiriConfig = require('../../../../lib/kokiri/kokiri-config');
 
 const ETSY_ORG_ID = 'org-3ee55c6f49b96819';
 const ACORNS_ORG_ID = 'org-0ae7f03a3ad7f664';
+const AWIN_ORG_ID = 'org-11f5e62b4ebe0005';
 
 describe('lib/kokiri/builders/etsy', function() {
   beforeEach(function() {
@@ -16,6 +17,11 @@ describe('lib/kokiri/builders/etsy', function() {
       {
         status: 'approved',
         audience: ACORNS_ORG_ID,
+        organization: ETSY_ORG_ID,
+      },
+      {
+        status: 'approved',
+        audience: AWIN_ORG_ID,
         organization: ETSY_ORG_ID,
       },
     ];
@@ -290,6 +296,34 @@ describe('lib/kokiri/builders/etsy', function() {
         }
       );
     });
+
+    it('passes through utm_content for select publishers', function() {
+      const builder = this.config.createBuilder(AWIN_ORG_ID, ETSY_ORG_ID);
+
+      assert.deepEqual(
+        builder.appActionFromUrl(
+          'https://www.etsy.com?utm_content=subPub123',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'etsy://?utm_content=subPub123&utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com?utm_content=subPub123&utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&btn_ref=srctok-XXX',
+        }
+      );
+
+      assert.deepEqual(
+        builder.appActionFromUrl('https://www.etsy.com', 'ios', 'srctok-XXX'),
+        {
+          app_link:
+            'etsy://?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
   });
 
   describe('#webAction', function() {
@@ -463,6 +497,24 @@ describe('lib/kokiri/builders/etsy', function() {
             'https://etsy.bttn.io?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
           browser_link:
             'https://www.etsy.com?utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&utm_content=button&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action and passes through utm_content for AWIN', function() {
+      const builder = this.config.createBuilder(AWIN_ORG_ID, ETSY_ORG_ID);
+
+      assert.deepEqual(
+        builder.webActionFromUrl(
+          'https://www.etsy.com?utm_content=subPub123',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'https://etsy.bttn.io?utm_content=subPub123&utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.etsy.com?utm_content=subPub123&utm_medium=affiliate&utm_source=button&utm_campaign=us_location_buyer&btn_ref=srctok-XXX',
         }
       );
     });
