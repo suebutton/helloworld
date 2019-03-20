@@ -20,8 +20,10 @@ describe('lib/kokiri/builders/modcloth', function() {
   describe('#appAction', function() {
     it('returns an app action', function() {
       assert.deepEqual(this.builder.appAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'modcloth://modcloth.com?btn_ref=srctok-XXX',
-        browser_link: 'https://www.modcloth.com?btn_ref=srctok-XXX',
+        app_link:
+          'modcloth://modcloth.com?utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.modcloth.com?utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
       });
     });
 
@@ -39,9 +41,9 @@ describe('lib/kokiri/builders/modcloth', function() {
         ),
         {
           app_link:
-            'modcloth://modcloth.com/shop/tops/that-s-my-final-antler-graphic-tee-in-grey/156885.html?btn_ref=srctok-XXX',
+            'modcloth://modcloth.com/shop/tops/that-s-my-final-antler-graphic-tee-in-grey/156885.html?utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.modcloth.com/shop/tops/that-s-my-final-antler-graphic-tee-in-grey/156885.html?btn_ref=srctok-XXX',
+            'https://www.modcloth.com/shop/tops/that-s-my-final-antler-graphic-tee-in-grey/156885.html?utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
@@ -61,9 +63,9 @@ describe('lib/kokiri/builders/modcloth', function() {
         ),
         {
           app_link:
-            'modcloth://modcloth.com/shop/pants?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+            'modcloth://modcloth.com/shop/pants?utm_campaign=org-XXX&utm_source=Button&utm_medium=Affiliate&btn_ref=srctok-XXX',
           browser_link:
-            'https://www.modcloth.com/shop/pants?utm_campaign=BEST%20OIL&btn_ref=srctok-XXX',
+            'https://www.modcloth.com/shop/pants?utm_campaign=org-XXX&utm_source=Button&utm_medium=Affiliate&btn_ref=srctok-XXX',
         }
       );
     });
@@ -72,8 +74,10 @@ describe('lib/kokiri/builders/modcloth', function() {
   describe('#webAction', function() {
     it('returns a web action', function() {
       assert.deepEqual(this.builder.webAction({}, 'ios', 'srctok-XXX'), {
-        app_link: 'https://modcloth.bttn.io?btn_ref=srctok-XXX',
-        browser_link: 'https://www.modcloth.com?btn_ref=srctok-XXX',
+        app_link:
+          'https://modcloth.bttn.io?utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
+        browser_link:
+          'https://www.modcloth.com?utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
       });
     });
 
@@ -85,8 +89,10 @@ describe('lib/kokiri/builders/modcloth', function() {
           'srctok-XXX'
         ),
         {
-          app_link: 'https://modcloth.bttn.io/bloop?a=2&btn_ref=srctok-XXX',
-          browser_link: 'https://www.modcloth.com/bloop?a=2&btn_ref=srctok-XXX',
+          app_link:
+            'https://modcloth.bttn.io/bloop?a=2&utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://www.modcloth.com/bloop?a=2&utm_source=Button&utm_medium=Affiliate&utm_campaign=org-XXX&btn_ref=srctok-XXX',
         }
       );
     });
