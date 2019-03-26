@@ -423,10 +423,10 @@ describe('lib/kokiri/builders/jet', function() {
       );
     });
 
-    it('returns a web action with adjusted path app link for android homepage', function() {
+    it('returns a web action for android homepage', function() {
       assert.deepEqual(this.builder.webAction({}, 'android', 'srctok-XXX'), {
         app_link:
-          'https://jet.bttn.io/landing?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
+          'https://jet.bttn.io?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&btn_ref=srctok-XXX',
         browser_link:
           'https://www.jet.com?pid=button_int&c=JET_BUTTON&is_retargeting=true&af_siteid=org-XXX&jcmp=afl%3Abtn%3Aorg-XXX%3Ana%3Ana%3Ana&btn_ref=srctok-XXX',
       });
