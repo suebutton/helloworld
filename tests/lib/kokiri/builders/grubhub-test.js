@@ -94,6 +94,100 @@ describe('lib/kokiri/builders/grubhub', function() {
       );
     });
 
+    it('returns an app action for restaurant page', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://grubhub.com/restaurant/avengers-get-shawarma/759732',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'grubhubapp://restaurant/759732?utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://grubhub.com/restaurant/avengers-get-shawarma/759732?utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for restaurant page without slug', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://grubhub.com/restaurant/2222',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'grubhubapp://restaurant/2222?utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://grubhub.com/restaurant/2222?utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for cuisine page with delivery order type', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://grubhub.com/search?orderMethod=delivery&facet=cuisine%3Asandwiches',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'grubhubapp://delivery/cuisine/sandwiches?utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://grubhub.com/search?orderMethod=delivery&facet=cuisine%3Asandwiches&utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for unsupported cuisine', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://grubhub.com/search?orderMethod=delivery&facet=cuisine%3AWaffles',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://grubhub.com/search?orderMethod=delivery&facet=cuisine%3AWaffles&utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for supported order method', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://grubhub.com/search?orderMethod=pickup&facet=cuisine%3Abbq',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link:
+            'grubhubapp://pickup/cuisine/bbq?utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+          browser_link:
+            'https://grubhub.com/search?orderMethod=pickup&facet=cuisine%3Abbq&utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
+    it('returns an app action for unsupported order method', function() {
+      assert.deepEqual(
+        this.builder.appActionFromUrl(
+          'https://grubhub.com/search?orderMethod=drone&facet=cuisine%3Aindian',
+          'ios',
+          'srctok-XXX'
+        ),
+        {
+          app_link: null,
+          browser_link:
+            'https://grubhub.com/search?orderMethod=drone&facet=cuisine%3Aindian&utm_medium=affiliate&utm_source=button-affiliate-network&utm_campaign=1166&affiliate=1166&affiliate_data=srctok-XXX&btn_ref=srctok-XXX',
+        }
+      );
+    });
+
     it('returns an app action with per-publisher tokens', function() {
       const builder = this.config.createBuilder(
         SHOPKICK_ORG_ID,
