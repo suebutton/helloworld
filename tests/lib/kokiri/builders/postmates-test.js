@@ -27,7 +27,7 @@ describe('lib/kokiri/builders/postmates', function() {
         ),
         {
           app_link:
-            'postmates://?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'postmates://v1/home?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://postmates.com?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
         }
@@ -43,7 +43,7 @@ describe('lib/kokiri/builders/postmates', function() {
         ),
         {
           app_link:
-            'postmates://v1?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'postmates://v1/home?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://postmates.com?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
         }
@@ -59,7 +59,7 @@ describe('lib/kokiri/builders/postmates', function() {
         ),
         {
           app_link:
-            'postmates://v1?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'postmates://v1/home?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://postmates.com?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
         }
@@ -75,7 +75,7 @@ describe('lib/kokiri/builders/postmates', function() {
         ),
         {
           app_link:
-            'postmates://?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
+            'postmates://v1/home?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
           browser_link:
             'https://postmates.com?pid=button_int&c=button_aff_aff_button_all_all_cpa_all_all&is_retargeting=TRUE&af_siteid=org-XXX&btn_ref=srctok-XXX',
         }
