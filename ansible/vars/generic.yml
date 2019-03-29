@@ -1,4 +1,2 @@
 ---
 service_name: "kokiri"
-elb_port: 9054
-container_port: 3000
