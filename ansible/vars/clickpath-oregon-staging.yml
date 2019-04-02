@@ -1,0 +1,4 @@
+---
+num_tasks: 1
+redis_hostname: kokiri.ovdu7i.0001.usw2.cache.amazonaws.com
+redis_port: 6379
