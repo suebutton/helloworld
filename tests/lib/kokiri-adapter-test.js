@@ -1020,6 +1020,18 @@ describe('/lib/kokiri/kokiri-adapter', function() {
             query_ids: [],
             query_url_keys: [],
           },
+          {
+            hostname: 'funjet.evyy.net',
+            pathname_ids: [
+              {
+                guaranteed_action: false,
+                matches: [{ values: [] }],
+                regex: String.raw`^\/?c\/[0-9]+\/[0-9]+\/[0-9]+(?:$|\/)`,
+              },
+            ],
+            query_ids: [],
+            query_url_keys: [],
+          },
         ],
       });
     });
